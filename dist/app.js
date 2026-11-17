@@ -16,7 +16,13 @@
     .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
     .from('.hero-title .line span', { yPercent: 110, duration: 1.1, stagger: .14 }, '-=.3')
     .from('.hero-lower', { y: 28, opacity: 0, duration: .75 }, '-=.55')
-    .from('.signal-stage', { scale: .72, opacity: 0, rotate: -18, duration: 1.2 }, '-=1');
+    .from('.signal-stage', { scale: .72, opacity: 0, rotate: -18, duration: 1.2 }, '-=1')
+    .from('.hero-proof span', { x: 16, opacity: 0, stagger: .08, duration: .55 }, '-=.8');
+
+  gsap.to('.hero-media img', { scale: 1.12, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
+  gsap.from('.reel-frame', { clipPath: 'inset(12% 8% 12% 8%)', scale: .94, duration: 1.25, ease: 'power3.out', scrollTrigger: { trigger: '.studio-reel', start: 'top 78%' } });
+  gsap.from('.reel-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: '.reel-copy', start: 'top 83%' } });
+  gsap.to('.reel-play', { rotate: 8, y: -14, ease: 'none', scrollTrigger: { trigger: '.reel-frame', start: 'top bottom', end: 'bottom top', scrub: .7 } });
 
   gsap.utils.toArray('.manifesto-main, .section-head, .project-copy, .method-grid, .contact h2').forEach(el => {
     gsap.from(el, { y: 70, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } });
