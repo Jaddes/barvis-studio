@@ -1,5 +1,21 @@
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector('.site-header');
+  const setHeader = () => header?.classList.toggle('is-scrolled', scrollY > 24);
+  addEventListener('scroll', setHeader, { passive: true });
+  setHeader();
+
+  const reelButton = document.querySelector('[data-reel-button]');
+  reelButton?.addEventListener('click', () => {
+    reelButton.setAttribute('aria-pressed', reelButton.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+  });
+
+  const observed = document.querySelectorAll('.ticker, .studio-reel, .project');
+  const visibility = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('is-offscreen', !entry.isIntersecting));
+  }, { threshold: .01 }) : null;
+  observed.forEach(el => visibility?.observe(el));
+
   if (reduced || !window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
 
@@ -39,5 +55,13 @@
     gsap.to(stage, { x: (e.clientX / innerWidth - .5) * 28, y: (e.clientY / innerHeight - .5) * 28, duration: .8, overwrite: true });
   };
   addEventListener('pointermove', move, { passive: true });
-  addEventListener('beforeunload', () => { lenis?.destroy(); removeEventListener('pointermove', move); });
+  const cleanup = () => {
+    lenis?.destroy();
+    visibility?.disconnect();
+    removeEventListener('pointermove', move);
+    removeEventListener('scroll', setHeader);
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    gsap.killTweensOf('*');
+  };
+  addEventListener('pagehide', cleanup, { once: true });
 })();
