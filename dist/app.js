@@ -43,6 +43,43 @@
   gsap.utils.toArray('.manifesto-main, .section-head, .project-copy, .method-grid, .contact h2').forEach(el => {
     gsap.from(el, { y: 70, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } });
   });
+
+  const staggerGroups = [
+    ['.capability-row', '.capability-row article'],
+    ['.method ol', '.method li'],
+    ['.project-copy', '.project-copy li'],
+    ['.contact-bottom', '.contact-bottom > *'],
+    ['footer', 'footer > *'],
+  ];
+  staggerGroups.forEach(([trigger, targets]) => {
+    const root = document.querySelector(trigger);
+    if (!root) return;
+    gsap.from(targets, {
+      y: 24,
+      opacity: 0,
+      duration: .72,
+      stagger: .09,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: root, start: 'top 86%', once: true },
+    });
+  });
+
+  gsap.utils.toArray('.project-meta').forEach(meta => {
+    gsap.from(meta.children, {
+      y: 16,
+      opacity: 0,
+      stagger: .12,
+      duration: .65,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: meta, start: 'top 90%', once: true },
+    });
+  });
+
+  gsap.to('.hero-media-scan', {
+    xPercent: 9.8,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
+  });
   gsap.utils.toArray('.project-visual').forEach((el, i) => {
     const win = el.querySelector('.product-window');
     gsap.from(win, { yPercent: 20, rotate: i ? 3 : -5, scale: .88, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 78%' } });
