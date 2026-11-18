@@ -1,95 +1,132 @@
 <!doctype html>
-<html lang="sr">
+<html lang="sr-Latn">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="BARVIS Studio projektuje i razvija jasne digitalne sisteme, interne alate i web proizvode.">
-  <meta name="theme-color" content="#0b0d0c">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BARVIS Studio — Digital systems, made human.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="BARVIS Studio iz Novog Sada projektuje i razvija interne alate, web aplikacije i digitalne sisteme koji komplikovan posao pretvaraju u jasan i brz tok rada.">
+  <meta name="theme-color" content="#0a0d0b">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://jaddes.github.io/barvis-studio/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:site_name" content="BARVIS Studio">
+  <meta property="og:title" content="BARVIS Studio — Digital systems, made human.">
+  <meta property="og:description" content="Interni alati, web aplikacije i digitalni sistemi — od prve ideje do stabilnog proizvoda. Novi Sad, Srbija.">
+  <meta property="og:url" content="https://jaddes.github.io/barvis-studio/">
+  <meta property="og:image" content="https://jaddes.github.io/barvis-studio/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BARVIS Studio — radno okruženje sa digitalnim sistemima">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="./assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="./assets/barvis-studio-1672.webp" imagesrcset="./assets/barvis-studio-800.webp 800w, ./assets/barvis-studio-1200.webp 1200w, ./assets/barvis-studio-1672.webp 1672w" imagesizes="100vw" type="image/webp">
   <link rel="stylesheet" href="./styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "BARVIS Studio",
+    "description": "Nezavisni studio za digitalne proizvode: interni alati, web aplikacije i digitalni sistemi.",
+    "url": "https://jaddes.github.io/barvis-studio/",
+    "email": "borkolahos@gmail.com",
+    "founder": { "@type": "Person", "name": "Boris Lahos" },
+    "areaServed": "RS",
+    "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad", "addressCountry": "RS" },
+    "sameAs": ["https://github.com/Jaddes"]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Preskoči na sadržaj</a>
   <div class="noise" aria-hidden="true"></div>
+
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="BARVIS Studio, početak">
+    <a class="brand" href="#top" aria-label="BARVIS Studio, na vrh stranice">
       <span class="brand-mark" aria-hidden="true">B</span>
       <span>BARVIS<small>studio</small></span>
     </a>
     <nav aria-label="Glavna navigacija">
-      <a href="#work">Radovi</a><a href="#method">Proces</a><a href="#contact">Kontakt</a>
+      <a href="#studio">Studio</a><a href="#work">Radovi</a><a href="#method">Proces</a><a href="#contact">Kontakt</a>
     </nav>
-    <a class="header-cta" href="#contact">Pokrenimo projekat <span>↗</span></a>
+    <a class="header-cta" href="#contact">Pokrenimo projekat <span aria-hidden="true">↗</span></a>
   </header>
 
-  <main id="main">
-    <section class="hero" id="top">
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-media" aria-hidden="true">
-        <img src="./assets/barvis-studio-montage.png" alt="" width="1792" height="1024">
+        <picture>
+          <source type="image/webp" srcset="./assets/barvis-studio-800.webp 800w, ./assets/barvis-studio-1200.webp 1200w, ./assets/barvis-studio-1672.webp 1672w" sizes="100vw">
+          <img src="./assets/barvis-studio-1200.jpg" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero-media-scan"></div>
       </div>
-      <div class="hero-kicker reveal">Strategy · systems · interface</div>
-      <h1 class="hero-title" aria-label="Digital systems, made human.">
-        <span class="line"><span>Digital systems,</span></span>
-        <span class="line serif"><span>made human.</span></span>
+      <p class="hero-kicker">Strategy · systems · interface</p>
+      <h1 class="hero-title" id="hero-title" aria-label="Digital systems, made human.">
+        <span class="line" aria-hidden="true"><span>Digital systems,</span></span>
+        <span class="line serif" aria-hidden="true"><span>made human.</span></span>
       </h1>
-      <div class="hero-lower reveal">
+      <div class="hero-lower">
         <p>Projektujem i razvijam digitalne alate koji komplikovan posao pretvaraju u jasan, brz i upotrebljiv sistem.</p>
-        <a class="circle-link" href="#work" aria-label="Pogledaj odabrane radove"><span>Radovi</span><b>↓</b></a>
+        <a class="circle-link" href="#work"><span>Radovi</span><b aria-hidden="true">↓</b></a>
       </div>
       <div class="signal-stage" aria-hidden="true">
         <div class="signal signal-red"><span>DESIGN</span></div>
         <div class="signal signal-green"><span>BUILD</span></div>
         <div class="signal-core"><b>01</b><small>SYSTEM</small></div>
       </div>
-      <p class="hero-index">Independent digital product studio<br>Novi Sad · Serbia</p>
+      <p class="hero-index">Nezavisni studio za digitalne proizvode<br>Novi Sad · Srbija</p>
       <div class="hero-proof" aria-hidden="true"><span>Product</span><span>Interface</span><span>Engineering</span></div>
-      <div class="hero-status" aria-label="Status studija">
-        <span><i></i>Dostupan za odabrane projekte</span>
-        <b>2026 / Novi Sad</b>
-      </div>
+      <p class="hero-status"><span><i aria-hidden="true"></i>Dostupan za odabrane projekte</span><b>2026 / Novi Sad</b></p>
     </section>
 
     <section class="ticker" aria-label="Usluge studija">
       <div class="ticker-track">
-        <span>Product strategy</span><i>✦</i><span>UX systems</span><i>✦</i><span>Full-stack development</span><i>✦</i><span>Responsive interfaces</span><i>✦</i>
+        <span>Product strategy</span><i aria-hidden="true">✦</i><span>UX systems</span><i aria-hidden="true">✦</i><span>Full-stack development</span><i aria-hidden="true">✦</i><span>Responsive interfaces</span><i aria-hidden="true">✦</i>
         <span aria-hidden="true">Product strategy</span><i aria-hidden="true">✦</i><span aria-hidden="true">UX systems</span><i aria-hidden="true">✦</i><span aria-hidden="true">Full-stack development</span><i aria-hidden="true">✦</i><span aria-hidden="true">Responsive interfaces</span><i aria-hidden="true">✦</i>
       </div>
     </section>
 
-    <section class="studio-reel section-pad" aria-labelledby="reel-title">
-      <div class="section-head"><p class="eyebrow">Studio reel / 00:30</p><p>Ideja, tok rada i proizvod — u jednom kratkom kadru.</p></div>
-      <div class="reel-frame">
-        <img src="./assets/barvis-studio-montage.png" alt="BARVIS Studio radno okruženje sa digitalnim sistemima" width="1792" height="1024">
-        <div class="reel-shade"></div>
-        <div class="reel-copy"><span>Video prezentacija</span><h2 id="reel-title">Vaša priča.<br><em>Trideset sekundi.</em></h2><p>Jasan uvod u problem, proces i rezultat. Finalni snimak se kasnije ubacuje bez promene dizajna stranice.</p></div>
-        <button class="reel-play" type="button" aria-label="Video prezentacija je u pripremi" data-reel-button><span>▶</span><small>U pripremi</small></button>
-        <div class="reel-time">00:00 — 00:30</div>
+    <section class="studio section-pad" id="studio" aria-labelledby="studio-title">
+      <div class="studio-frame">
+        <picture>
+          <source type="image/webp" srcset="./assets/barvis-studio-800.webp 800w, ./assets/barvis-studio-1200.webp 1200w, ./assets/barvis-studio-1672.webp 1672w" sizes="(max-width: 760px) 100vw, 94vw">
+          <img src="./assets/barvis-studio-1200.jpg" alt="Radni sto BARVIS Studija: ekrani sa šemama sistema i interfejsom u izradi" width="1672" height="941" loading="lazy" decoding="async">
+        </picture>
+        <div class="studio-shade" aria-hidden="true"></div>
+        <div class="studio-copy">
+          <p class="eyebrow">Studio</p>
+          <h2 id="studio-title">Jedan studio.<br><em>Ceo put proizvoda.</em></h2>
+          <p>BARVIS je nezavisni studio iz Novog Sada. Ista osoba vodi razgovor, projektuje tok rada i piše kod — pa se ništa ne izgubi između ideje, dizajna i razvoja.</p>
+        </div>
       </div>
     </section>
 
-    <section class="manifesto section-pad">
-      <p class="eyebrow">01 / Šta radim</p>
+    <section class="manifesto section-pad" aria-labelledby="manifesto-title">
+      <h2 class="eyebrow" id="manifesto-title">01 / Šta radim</h2>
       <div class="manifesto-copy">
-        <p class="manifesto-main split-copy">Ne prodajem samo ekran. Gradim logiku iza njega — tok rada, podatke, automatizaciju i interfejs koji ljudi zaista mogu da koriste.</p>
+        <p class="manifesto-main">Ne prodajem samo ekran. Gradim logiku iza njega — tok rada, podatke, automatizaciju i interfejs koji ljudi zaista mogu da koriste.</p>
         <p class="manifesto-side">Od prve ideje do stabilnog proizvoda: analiza problema, UX arhitektura, razvoj, testiranje i puštanje u rad.</p>
       </div>
       <div class="capability-row">
-        <article><span>01</span><h3>Product strategy</h3><p>Problem, prioriteti i jasan plan proizvoda.</p></article>
-        <article><span>02</span><h3>UX & interface</h3><p>Brzi tokovi i interfejs bez vizuelne buke.</p></article>
-        <article><span>03</span><h3>Full-stack build</h3><p>Od baze podataka do responsive aplikacije.</p></article>
+        <article><span aria-hidden="true">01</span><h3>Product strategy</h3><p>Problem, prioriteti i jasan plan proizvoda.</p></article>
+        <article><span aria-hidden="true">02</span><h3>UX &amp; interface</h3><p>Brzi tokovi i interfejs bez vizuelne buke.</p></article>
+        <article><span aria-hidden="true">03</span><h3>Full-stack build</h3><p>Od baze podataka do responzivne aplikacije.</p></article>
       </div>
     </section>
 
-    <section class="work section-pad" id="work">
-      <div class="section-head"><p class="eyebrow">02 / Odabrani sistemi</p><p>Pravi proizvodi, napravljeni oko stvarnog rada.</p></div>
+    <section class="work section-pad" id="work" aria-labelledby="work-title">
+      <div class="section-head"><h2 class="eyebrow" id="work-title">02 / Odabrani sistemi</h2><p>Pravi proizvodi, napravljeni oko stvarnog rada.</p></div>
 
-      <article class="project project-fizio">
+      <article class="project project-fizio" aria-labelledby="fizio-title">
         <div class="project-meta"><span>Fizio Alfa</span><span>Clinic operations · 2026</span></div>
-        <div class="project-visual">
+        <div class="project-visual" aria-hidden="true">
           <div class="product-window light-ui">
             <div class="ui-sidebar"><b>F</b><i></i><i></i><i></i><i></i></div>
             <div class="ui-main">
@@ -100,50 +137,73 @@
           </div>
           <span class="project-number">01</span>
         </div>
-        <div class="project-copy"><h2>Manje administracije.<br><em>Više vremena za pacijente.</em></h2><div><p>Centralizovan sistem za termine, klijente, naplate, neradne periode, analitiku i audit trag — prilagođen radu fizioterapeutske ordinacije na računaru i telefonu.</p><ul><li>Operativni tok ordinacije</li><li>Desktop + mobilni interfejs</li><li>Privatna infrastruktura</li></ul></div></div>
+        <div class="project-copy">
+          <h3 id="fizio-title">Manje administracije.<br><em>Više vremena za pacijente.</em></h3>
+          <div>
+            <p>Centralizovan sistem za termine, klijente, naplatu, neradne periode, analitiku i istoriju promena — napravljen za rad fizioterapeutske ordinacije, na računaru i na telefonu.</p>
+            <ul><li>Kalendar i brzo zakazivanje</li><li>Dugovanja i brza naplata</li><li>Privatna infrastruktura</li></ul>
+          </div>
+        </div>
       </article>
 
-      <article class="project project-focus">
+      <article class="project project-focus" aria-labelledby="focus-title">
         <div class="project-meta"><span>BARVIS Focus</span><span>Personal productivity · 2026</span></div>
-        <div class="project-visual">
+        <div class="project-visual" aria-hidden="true">
           <div class="product-window dark-ui">
             <div class="timer-ring"><span>24:52</span><small>FOCUS</small></div>
             <div class="timer-copy"><small>TRENUTNI FOKUS</small><b>Writing Arbiter</b><i></i><i></i></div>
           </div>
           <span class="project-number">02</span>
         </div>
-        <div class="project-copy"><h2>Fokus koji ostaje<br><em>povezan sa ciljem.</em></h2><div><p>Privatni productivity sistem sa Pomodoro tajmerom, projektima, istorijom, analitikom i trajnim stanjem kroz uređaje.</p><ul><li>Pomodoro i projekti</li><li>Analitika rada</li><li>Sinhronizovano stanje</li></ul></div></div>
+        <div class="project-copy">
+          <h3 id="focus-title">Fokus koji ostaje<br><em>povezan sa ciljem.</em></h3>
+          <div>
+            <p>Privatni sistem za produktivnost: Pomodoro tajmer, projekti, istorija i analitika rada, sa stanjem koje se čuva na svim uređajima.</p>
+            <ul><li>Pomodoro i projekti</li><li>Analitika rada</li><li>Sinhronizovano stanje</li></ul>
+          </div>
+        </div>
       </article>
+      <p class="work-note">Oba sistema rade u privatnoj infrastrukturi. Demonstraciju uživo pokazujem na kratkom pozivu.</p>
     </section>
 
-    <section class="method section-pad" id="method">
+    <section class="method section-pad" id="method" aria-labelledby="method-title">
       <div class="section-head"><p class="eyebrow">03 / Način rada</p><p>Jedan partner od problema do proizvoda.</p></div>
       <div class="method-grid">
-        <div class="method-intro"><h2>Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao. Tek onda biramo tehnologiju i oblikujemo interfejs.</p></div>
+        <div class="method-intro"><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao. Tek onda biramo tehnologiju i oblikujemo interfejs.</p></div>
         <ol>
-          <li><span>01</span><div><b>Mapiranje</b><p>Razgovor, postojeći proces i uska grla.</p></div></li>
-          <li><span>02</span><div><b>Prototip</b><p>Tokovi, vizuelni pravac i radni model.</p></div></li>
-          <li><span>03</span><div><b>Izgradnja</b><p>Razvoj u kratkim, proverljivim iteracijama.</p></div></li>
-          <li><span>04</span><div><b>Puštanje</b><p>Testiranje, deployment i stabilizacija.</p></div></li>
+          <li><span aria-hidden="true">01</span><div><b>Mapiranje</b><p>Razgovor, postojeći proces i uska grla.</p></div></li>
+          <li><span aria-hidden="true">02</span><div><b>Prototip</b><p>Tokovi, vizuelni pravac i radni model.</p></div></li>
+          <li><span aria-hidden="true">03</span><div><b>Izgradnja</b><p>Razvoj u kratkim, proverljivim iteracijama.</p></div></li>
+          <li><span aria-hidden="true">04</span><div><b>Puštanje</b><p>Testiranje, puštanje u rad i stabilizacija.</p></div></li>
         </ol>
       </div>
     </section>
 
-    <section class="contact section-pad" id="contact">
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
       <p class="eyebrow">04 / Sledeći projekat</p>
-      <h2>Imate proces koji<br><em>zaslužuje bolji sistem?</em></h2>
+      <h2 id="contact-title">Imate proces koji<br><em>zaslužuje bolji sistem?</em></h2>
       <div class="contact-bottom">
-        <p>Pošaljite ukratko kako danas radite i gde gubite najviše vremena. Odgovoriću konkretnim sledećim korakom.</p>
-        <a href="mailto:hello@barvis.studio?subject=Novi%20projekat" aria-label="Pošalji email BARVIS Studiju">Pišite mi direktno <span>↗</span><small>hello@barvis.studio</small></a>
+        <p>Pošaljite ukratko kako danas radite i gde gubite najviše vremena. Odgovaram konkretnim sledećim korakom, obično u roku od dva radna dana.</p>
+        <div class="contact-actions">
+          <a class="contact-mail" href="mailto:borkolahos@gmail.com?subject=Novi%20projekat%20%E2%80%94%20BARVIS%20Studio">Pišite mi direktno <span aria-hidden="true">↗</span><small>borkolahos@gmail.com</small></a>
+          <button class="copy-mail" type="button" data-copy="borkolahos@gmail.com" hidden>Kopiraj adresu</button>
+          <p class="copy-status" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer><a class="brand" href="#top"><span class="brand-mark">B</span><span>BARVIS<small>studio</small></span></a><p>Digital systems, made human.</p><p>© 2026 Boris Lahos</p></footer>
+  <footer>
+    <a class="brand" href="#top" aria-label="BARVIS Studio, na vrh stranice"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+    <nav class="footer-nav" aria-label="Podnožje">
+      <a href="#studio">Studio</a><a href="#work">Radovi</a><a href="#method">Proces</a><a href="#contact">Kontakt</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a>
+    </nav>
+    <p>© 2026 Boris Lahos · BARVIS Studio</p>
+  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-  <script src="./app.js"></script>
+  <script src="./assets/vendor/lenis.min.js" defer></script>
+  <script src="./assets/vendor/gsap.min.js" defer></script>
+  <script src="./assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="./app.js" defer></script>
 </body>
 </html>
