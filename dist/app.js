@@ -51,22 +51,33 @@
     }));
   }
 
-  // Jedan orkestriran ulaz na vrhu stranice.
-  gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('.site-header', { y: -40, opacity: 0, duration: .8 })
-    .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
-    .from('.hero-title .line span', { yPercent: 110, duration: 1.1, stagger: .14 }, '-=.3')
-    .from('.hero-lower', { y: 28, opacity: 0, duration: .75 }, '-=.55')
-    .from('.signal-stage', { scale: .72, opacity: 0, rotate: -18, duration: 1.2 }, '-=1')
-    .from('.hero-proof span', { x: 16, opacity: 0, stagger: .08, duration: .55 }, '-=.8');
+  const has = selector => document.querySelector(selector) !== null;
 
-  gsap.to('.hero-media img', { scale: 1.12, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
-  gsap.to('.hero-media-scan', { xPercent: 9.8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+  // Jedan orkestriran ulaz na vrhu stranice (glavna stranica ima „hero“, stranice po delatnosti imaju „landing-hero“).
+  if (has('.hero')) {
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .from('.site-header', { y: -40, opacity: 0, duration: .8 })
+      .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
+      .from('.hero-title .line span', { yPercent: 110, duration: 1.1, stagger: .14 }, '-=.3')
+      .from('.hero-lower, .hero-actions', { y: 28, opacity: 0, duration: .75, stagger: .1 }, '-=.55')
+      .from('.signal-stage', { scale: .72, opacity: 0, rotate: -18, duration: 1.2 }, '-=1')
+      .from('.hero-proof span', { x: 16, opacity: 0, stagger: .08, duration: .55 }, '-=.8');
+    gsap.to('.hero-media img', { scale: 1.12, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
+    gsap.to('.hero-media-scan', { xPercent: 9.8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+  } else if (has('.landing-hero')) {
+    gsap.from('.landing-hero > *', { y: 36, opacity: 0, stagger: .1, duration: .8, ease: 'power3.out' });
+  }
+
   // Studio: uređaji ulaze iz dubine, telefon prati skrol sporije od laptopa (paralaksa).
-  gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: '.studio-copy', start: 'top 85%', once: true } });
-  gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
-  gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
-  gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+  if (has('.device-stage')) {
+    gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: '.studio-copy', start: 'top 85%', once: true } });
+    gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
+    gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
+    gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+  }
+  if (has('.about-photo')) {
+    gsap.from('.about-photo', { y: 60, opacity: 0, rotate: -2, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.about', start: 'top 78%', once: true } });
+  }
 
   // Snimci ekrana se otkrivaju „zavesom“.
   gsap.utils.toArray('.shot').forEach(shot => {
@@ -80,6 +91,8 @@
     ['.audience-grid', '.audience-grid article'],
     ['.capability-row', '.capability-row article'],
     ['.deliver-grid', '.deliver-grid article'],
+    ['.pricing-grid', '.pricing-grid article'],
+    ['.about-facts', '.about-facts li'],
     ['.faq-list', '.faq-list details'],
     ['.case-tags', '.case-tags li'],
     ['.method ol', '.method li'],

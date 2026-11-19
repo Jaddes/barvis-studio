@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BARVIS Studio — Softver po meri za ordinacije i male biznise | Novi Sad</title>
   <meta name="description" content="BARVIS Studio iz Novog Sada pravi web aplikacije i interne alate po meri: zakazivanje, evidencija klijenata, naplata i izveštaji — za ordinacije, salone i male biznise. Od ideje do puštanja u rad.">
@@ -36,11 +36,20 @@
     "description": "Nezavisni studio za softver po meri: web aplikacije i interni alati za ordinacije, salone i male biznise.",
     "url": "https://jaddes.github.io/barvis-studio/",
     "email": "borkolahos@gmail.com",
-    "founder": { "@type": "Person", "name": "Boris Lahos" },
+    "telephone": "+381 69 625 066",
+    "priceRange": "€€",
+    "founder": {
+      "@type": "Person",
+      "name": "Boris Lahos",
+      "jobTitle": "Osnivač i developer",
+      "image": "https://jaddes.github.io/barvis-studio/assets/team/boris-lahos-800.jpg",
+      "affiliation": { "@type": "CollegeOrUniversity", "name": "Fakultet tehničkih nauka, Univerzitet u Novom Sadu" },
+      "sameAs": ["https://www.linkedin.com/in/boris-lahos/", "https://github.com/Jaddes"]
+    },
     "areaServed": ["RS", "Europe"],
     "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad", "addressCountry": "RS" },
     "knowsAbout": ["Web aplikacije", "Softver za zakazivanje", "Interni alati", "UX dizajn", "Django", "JavaScript"],
-    "sameAs": ["https://github.com/Jaddes"]
+    "sameAs": ["https://www.linkedin.com/in/boris-lahos/", "https://github.com/Jaddes"]
   }
   </script>
 </head>
@@ -54,7 +63,7 @@
       <span>BARVIS<small>studio</small></span>
     </a>
     <nav aria-label="Glavna navigacija">
-      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#method">Proces</a><a href="#faq">Pitanja</a>
+      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a>
     </nav>
     <a class="header-cta" href="#contact">Besplatan razgovor <span aria-hidden="true">↗</span></a>
   </header>
@@ -182,6 +191,14 @@
           </dl>
         </div>
 
+        <figure class="case-video">
+          <video controls muted playsinline preload="none" poster="./assets/work/fizio-walkthrough-poster.webp" width="1280" height="800" aria-describedby="video-desc">
+            <source src="./assets/work/fizio-walkthrough.webm" type="video/webm">
+            <source src="./assets/work/fizio-walkthrough.mp4" type="video/mp4">
+          </video>
+          <figcaption id="video-desc"><b>36 sekundi kroz sistem:</b> današnji raspored → kalendar → novi termin sa brzim unosom cene → karton klijenta sa dugovanjem. Bez zvuka; izmišljeni podaci.</figcaption>
+        </figure>
+
         <div class="case-gallery">
           <figure class="shot shot-wide">
             <picture>
@@ -245,8 +262,35 @@
       </div>
     </section>
 
+    <section class="pricing section-pad" id="cene" aria-labelledby="pricing-title">
+      <div class="section-head"><h2 class="eyebrow" id="pricing-title">04 / Okvirne cene</h2><p>Jasna polazna tačka — tačan iznos zavisi od obima i stoji u pisanoj ponudi.</p></div>
+      <div class="pricing-grid">
+        <article>
+          <h3>Sajt</h3>
+          <p class="price"><small>od</small> 500 €</p>
+          <p>Moderan, brz sajt za firmu ili uslugu — prilagođen telefonu i spreman za Google.</p>
+          <ul><li>Do 6 sekcija ili 3 stranice</li><li>Telefon, tablet, računar</li><li>Osnovna SEO podešavanja</li></ul>
+        </article>
+        <article class="is-featured">
+          <span class="pricing-badge">Najčešće</span>
+          <h3>Sistem po meri</h3>
+          <p class="price"><small>od</small> 2.000 €</p>
+          <p>Aplikacija kao Fizio Alfa: zakazivanje, klijenti, naplata, izveštaji — napravljena za vaš proces.</p>
+          <ul><li>Analiza i plan pre početka</li><li>Puštanje u rad i prenos podataka</li><li>Obuka tima</li></ul>
+          <a class="btn-primary" href="#contact">Zatražite ponudu <span aria-hidden="true">↗</span></a>
+        </article>
+        <article>
+          <h3>Održavanje</h3>
+          <p class="price"><small>od</small> 50 € <small>/ mesečno</small></p>
+          <p>Da sistem radi bez brige dok se vi bavite poslom.</p>
+          <ul><li>Rezervne kopije i nadzor</li><li>Ispravke i sitne dorade</li><li>Podrška za vaš tim</li></ul>
+        </article>
+      </div>
+      <p class="pricing-note">Sve cene su okvirne i dogovaraju se prema onome što vam zaista treba. Veći projekti mogu da se plaćaju po fazama.</p>
+    </section>
+
     <section class="method section-pad" id="method" aria-labelledby="method-title">
-      <div class="section-head"><p class="eyebrow">04 / Način rada</p><p>Jedan partner od problema do proizvoda.</p></div>
+      <div class="section-head"><p class="eyebrow">05 / Način rada</p><p>Jedan partner od problema do proizvoda.</p></div>
       <div class="method-grid">
         <div class="method-intro"><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao. Tek onda biramo tehnologiju i oblikujemo interfejs.</p></div>
         <ol>
@@ -258,12 +302,38 @@
       </div>
     </section>
 
+    <section class="about section-pad" id="o-meni" aria-labelledby="about-title">
+      <div class="about-grid">
+        <figure class="about-photo">
+          <picture>
+            <source type="image/webp" srcset="./assets/team/boris-lahos-480.webp 480w, ./assets/team/boris-lahos-800.webp 800w" sizes="(max-width: 760px) 80vw, 30vw">
+            <img src="./assets/team/boris-lahos-800.jpg" alt="Boris Lahos, osnivač BARVIS Studija" width="800" height="1000" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="about-copy">
+          <p class="eyebrow">06 / O meni</p>
+          <h2 id="about-title">Boris Lahos.<br><em>Osnivač i developer.</em></h2>
+          <p>Student sam završne godine Računarstva i automatike na Fakultetu tehničkih nauka u Novom Sadu i osnivač BARVIS Studija. Pravim softver koji bih i sam voleo da koristim: jasan, brz i napravljen oko stvarnog posla.</p>
+          <p>Sa svakim klijentom radim direktno — od prvog razgovora do puštanja u rad i podrške posle. Nema posrednika, nema izgubljenih informacija.</p>
+          <ul class="about-facts">
+            <li><b>FTN Novi Sad</b><span>Računarstvo i automatika</span></li>
+            <li><b>Full-stack</b><span>Django, JavaScript, PostgreSQL, Docker</span></li>
+            <li><b>U upotrebi</b><span>Fizio Alfa svakodnevno koristi tim ordinacije</span></li>
+          </ul>
+          <div class="about-links">
+            <a class="btn-ghost" href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn profil <span aria-hidden="true">↗</span></a>
+            <a class="btn-ghost" href="https://github.com/Jaddes" rel="me noopener">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
-      <div class="section-head"><h2 class="eyebrow" id="faq-title">05 / Česta pitanja</h2><p>Ako ne nađete odgovor, pišite — odgovaram lično.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="faq-title">07 / Česta pitanja</h2><p>Ako ne nađete odgovor, pišite — odgovaram lično.</p></div>
       <div class="faq-list">
         <details>
           <summary>Koliko košta sistem po meri?</summary>
-          <p>Zavisi od obima: koliko ekrana, korisnika i povezivanja sa drugim alatima treba. Posle besplatnog razgovora dobijate pisanu ponudu sa cenom i rokom, pre bilo kakve obaveze.</p>
+          <p>Sistem po meri kreće od oko 2.000 €, a sajt od 500 €. Tačan iznos zavisi od obima — koliko ekrana, korisnika i povezivanja sa drugim alatima treba. Posle besplatnog razgovora dobijate pisanu ponudu sa cenom i rokom, pre bilo kakve obaveze.</p>
         </details>
         <details>
           <summary>Koliko dugo traje izrada?</summary>
@@ -275,7 +345,7 @@
         </details>
         <details>
           <summary>Gde se čuvaju podaci i ko ima pristup?</summary>
-          <p>Sistem može da radi na vašem serveru ili u privatnoj mreži, dostupan samo vašem timu, uz redovne rezervne kopije.</p>
+          <p>Sistem može da radi na vašem serveru ili u privatnoj mreži, dostupan samo vašem timu, uz redovne rezervne kopije. Pravi se u skladu sa Zakonom o zaštiti podataka o ličnosti, a na zahtev potpisujem ugovor o poverljivosti — posebno važno za zdravstvene podatke.</p>
         </details>
         <details>
           <summary>Radi li na telefonu?</summary>
@@ -289,7 +359,7 @@
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow">06 / Sledeći projekat</p>
+      <p class="eyebrow">08 / Sledeći projekat</p>
       <h2 id="contact-title">Imate proces koji<br><em>zaslužuje bolji sistem?</em></h2>
       <div class="contact-bottom">
         <div class="contact-steps">
@@ -303,7 +373,12 @@
         </div>
         <div class="contact-actions">
           <a class="contact-mail" href="mailto:borkolahos@gmail.com?subject=Upit%20%E2%80%94%20softver%20po%20meri&amp;body=Zdravo%20Borise%2C%0A%0A1.%20Bavim%20se%3A%20%0A2.%20Broj%20zaposlenih%3A%20%0A3.%20Danas%20vodimo%20(termine%2Fklijente%2Fzadatke)%20u%3A%20%0A4.%20Najvi%C5%A1e%20vremena%20gubimo%20na%3A%20%0A%0AHvala%21">Pišite mi direktno <span aria-hidden="true">↗</span><small>borkolahos@gmail.com</small></a>
-          <button class="copy-mail" type="button" data-copy="borkolahos@gmail.com" hidden>Kopiraj adresu</button>
+          <div class="contact-quick" aria-label="Brzi kontakt">
+            <a href="viber://chat?number=%2B38169625066">Viber</a>
+            <a href="https://wa.me/38169625066?text=Zdravo%20Borise%2C%20zanima%20me%20softver%20po%20meri." rel="noopener">WhatsApp</a>
+            <a href="tel:+38169625066">+381 69 625 066</a>
+          </div>
+          <button class="copy-mail" type="button" data-copy="borkolahos@gmail.com" hidden>Kopiraj mejl adresu</button>
           <p class="copy-status" role="status" aria-live="polite"></p>
         </div>
       </div>
@@ -313,7 +388,7 @@
   <footer>
     <a class="brand" href="#top" aria-label="BARVIS Studio, na vrh stranice"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
     <nav class="footer-nav" aria-label="Podnožje">
-      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#method">Proces</a><a href="#faq">Pitanja</a><a href="#contact">Kontakt</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a>
+      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a><a href="#contact">Kontakt</a><a href="./softver-za-fizioterapeute/">Za fizioterapeute</a><a href="./aplikacija-za-zakazivanje/">Za salone i servise</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a>
     </nav>
     <p>© 2026 Boris Lahos · BARVIS Studio · Novi Sad</p>
   </footer>

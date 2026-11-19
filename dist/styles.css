@@ -330,6 +330,55 @@ footer > p { margin: 0; text-align: right; }
 .footer-nav a { color: var(--paper); text-decoration: none; }
 .footer-nav a:hover { text-decoration: underline; text-underline-offset: .25em; }
 
+/* Cene */
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: stretch; }
+.pricing-grid article { position: relative; display: flex; flex-direction: column; gap: .9rem; padding: 2rem; border: 1px solid var(--line); border-radius: .5rem; }
+.pricing-grid article.is-featured { border-color: var(--green); background: linear-gradient(170deg, rgba(184, 245, 44, .12), rgba(184, 245, 44, 0) 60%); }
+.pricing-grid h3 { margin: 0; font-size: 1.3rem; letter-spacing: -.02em; }
+.price { margin: 0; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.price small { color: var(--muted); font-size: .95rem; font-weight: 600; letter-spacing: 0; }
+.pricing-grid p:not(.price) { margin: 0; color: var(--muted); line-height: 1.6; }
+.pricing-grid ul { display: grid; gap: .45rem; margin: .4rem 0 0; padding: 0; list-style: none; }
+.pricing-grid li { padding-left: 1.4rem; color: var(--soft); position: relative; }
+.pricing-grid li::before { content: "✓"; position: absolute; left: 0; color: var(--green); }
+.pricing-grid .btn-primary { align-self: start; margin-top: auto; }
+.pricing-badge { position: absolute; top: -.8rem; right: 1.5rem; padding: .3rem .7rem; border-radius: 99px; color: var(--ink); background: var(--green); font-size: var(--label); font-weight: 800; }
+.pricing-note { max-width: 46rem; margin: 1.5rem 0 0; color: var(--muted); }
+
+/* O meni */
+.about-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 6vw; }
+.about-photo { position: relative; margin: 0; }
+.about-photo::before { content: ""; position: absolute; inset: 6% -6% -6% 6%; z-index: -1; border: 1px solid var(--green); border-radius: .5rem; }
+.about-photo img { width: 100%; height: auto; border-radius: .5rem; filter: saturate(.92) contrast(1.04); }
+.about-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(2.8rem, 5.6vw, 6.4rem); line-height: .9; letter-spacing: -.065em; }
+.about-copy h2 em { color: var(--red); }
+.about-copy > p:not(.eyebrow) { max-width: 38rem; color: var(--soft); font-size: clamp(1rem, 1.2vw, 1.15rem); line-height: 1.7; }
+.about-facts { display: grid; gap: 0; margin: 1.8rem 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.about-facts li { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.about-facts span { color: var(--muted); }
+.about-links { display: flex; flex-wrap: wrap; gap: .7rem; }
+
+/* Brzi kontakt */
+.contact-quick { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+.contact-quick a { display: inline-flex; align-items: center; min-height: 2.9rem; padding: .7rem 1.2rem; border-radius: 99px; color: var(--green); background: var(--ink); font-weight: 700; text-decoration: none; transition: transform .3s var(--ease); }
+.contact-quick a:hover { transform: translateY(-2px); }
+.contact-quick a:focus-visible { outline-color: var(--ink); }
+
+/* Video prolaz kroz proizvod */
+.case-video { margin: 0 0 1rem; overflow: hidden; border: 1px solid var(--line); border-radius: .5rem; background: #000; }
+.case-video video { display: block; width: 100%; height: auto; }
+.case-video figcaption { padding: .9rem 1.1rem; color: var(--muted); background: var(--ink); font-size: .92rem; }
+
+/* Stranice po delatnosti */
+.landing-hero { padding-top: 11rem; border-top: 0; }
+.landing-hero h1 { max-width: 16ch; margin: 1.2rem 0 1.5rem; font-size: clamp(3rem, 7.5vw, 8rem); line-height: .9; letter-spacing: -.065em; }
+.landing-hero h1 em { color: var(--red); }
+.landing-lead { max-width: 44rem; color: var(--soft); font-size: clamp(1.05rem, 1.4vw, 1.3rem); line-height: 1.65; }
+.landing-actions { margin-left: 0; }
+.landing-price { max-width: 60rem; }
+.landing-price .price { margin: 1rem 0; }
+.landing-price p:last-child { max-width: 46rem; color: var(--soft); line-height: 1.7; }
+
 /* 404 */
 .not-found { display: grid; align-content: center; min-height: 100svh; padding: 8rem 2rem 4rem; }
 .not-found h1 { margin: 1.5rem 0; font-size: clamp(3.5rem, 10vw, 9rem); line-height: .86; letter-spacing: -.07em; }
@@ -393,6 +442,16 @@ footer > p { margin: 0; text-align: right; }
   .shot-phone picture { padding: 8% 22% 0; }
 
   .faq-list summary { padding: 1.1rem 0; }
+  .pricing-grid, .about-grid { grid-template-columns: 1fr; }
+  .pricing-grid { gap: 1.6rem; }
+  .pricing-grid article { padding: 1.5rem; }
+  .about-photo { max-width: 22rem; }
+  .about-copy h2 { font-size: 13vw; }
+  .about-facts li { grid-template-columns: 1fr; gap: .2rem; }
+  .contact-quick a { flex: 1 1 auto; justify-content: center; }
+  .landing-hero { padding-top: 8rem; }
+  .landing-hero h1 { font-size: 14vw; }
+  .landing-actions { flex-direction: column; }
 
   .manifesto-copy, .project-copy, .method-grid, .contact-bottom { grid-template-columns: 1fr; gap: 2rem; }
   .manifesto-copy { margin: 3rem 0 5rem; }
