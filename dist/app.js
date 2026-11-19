@@ -62,14 +62,26 @@
 
   gsap.to('.hero-media img', { scale: 1.12, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
   gsap.to('.hero-media-scan', { xPercent: 9.8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-  gsap.from('.studio-frame', { clipPath: 'inset(12% 8% 12% 8%)', scale: .94, duration: 1.25, ease: 'power3.out', scrollTrigger: { trigger: '.studio', start: 'top 78%', once: true } });
+  // Studio: uređaji ulaze iz dubine, telefon prati skrol sporije od laptopa (paralaksa).
   gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: '.studio-copy', start: 'top 85%', once: true } });
+  gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
+  gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: { trigger: '.device-stage', start: 'top 82%', once: true } });
+  gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
 
-  gsap.utils.toArray('.manifesto-main, .section-head, .project-copy, .method-grid, .contact h2').forEach(el => {
+  // Snimci ekrana se otkrivaju „zavesom“.
+  gsap.utils.toArray('.shot').forEach(shot => {
+    gsap.from(shot, { clipPath: 'inset(14% 6% 14% 6% round .5rem)', y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: shot, start: 'top 86%', once: true } });
+  });
+
+  gsap.utils.toArray('.manifesto-main, .section-head, .case-intro, .project-copy, .method-grid, .contact h2').forEach(el => {
     gsap.from(el, { y: 70, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%', once: true } });
   });
   [
+    ['.audience-grid', '.audience-grid article'],
     ['.capability-row', '.capability-row article'],
+    ['.deliver-grid', '.deliver-grid article'],
+    ['.faq-list', '.faq-list details'],
+    ['.case-tags', '.case-tags li'],
     ['.method ol', '.method li'],
     ['.contact-bottom', '.contact-bottom > *'],
   ].forEach(([trigger, targets]) => {

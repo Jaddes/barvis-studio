@@ -28,6 +28,6 @@ Zatim otvoriti `http://127.0.0.1:8790/`.
 - **Bez spoljnih servera:** fontovi (Inter Tight, Cormorant Garamond — OFL), GSAP 3.12.7 i Lenis 1.1.20 su u `dist/assets/`.
 - **Bezbednost:** Content-Security-Policy dozvoljava samo sopstvene fajlove.
 - **Pristupačnost:** WCAG 2.2 AA (axe bez prekršaja), link za preskakanje, puna navigacija tastaturom, poštuje „smanjeno kretanje“; sadržaj je vidljiv i bez JavaScript-a.
-- **Brzina:** prvo učitavanje ≈ 150 KB (ranije ≈ 1,9 MB + spoljni CDN).
+- **Brzina:** prvo učitavanje ≈ 250 KB, uz prave snimke ekrana (ranije ≈ 1,9 MB + spoljni CDN).
 
 Licence biblioteka i fontova su u `dist/assets/vendor/` i `dist/assets/fonts/`.
