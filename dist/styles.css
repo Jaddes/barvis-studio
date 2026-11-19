@@ -639,19 +639,8 @@ footer > p { margin: 0; font-size: .9rem; }
    v4: dugmad slajdera, oznake, cene po dogovoru, pozadine sekcija, animacije teksta
    ========================================================================= */
 
-/* Slajder: velike strelice preko slike + dugme „Sledeća“ ispod */
-.slider-arrows { position: absolute; z-index: 5; top: 0; left: 0; right: 0; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: space-between; padding: 0 1.2rem; pointer-events: none; }
-.slider-arrow {
-  display: grid; place-items: center; width: 4.4rem; height: 4.4rem; pointer-events: auto;
-  border: 1px solid rgba(243, 244, 237, .25); border-radius: 50%;
-  color: var(--paper); background: rgba(10, 13, 11, .6); backdrop-filter: blur(12px);
-  cursor: pointer; opacity: 0; transition: opacity .35s, transform .35s var(--ease), background .3s, color .3s;
-}
-.slider-arrow svg, .slider-nav svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.slider-arrow.is-prev { transform: translateX(-10px); }
-.slider-arrow.is-next { transform: translateX(10px); }
-.slider-stage:hover .slider-arrow, .slider-arrow:focus-visible { opacity: 1; transform: none; }
-.slider-arrow:hover { color: var(--ink); background: var(--green); border-color: var(--green); }
+/* Slajder: dugme „Sledeća“ ispod slike */
+.slider-nav svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .slider-nav { align-items: center; }
 .slider-nav button { transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease); }
 .slider-nav .slider-prev { width: 3.6rem; height: 3.6rem; }
@@ -666,7 +655,6 @@ footer > p { margin: 0; font-size: .9rem; }
 .slider-nav .slider-prev svg { transition: transform .3s var(--ease); }
 .slider-count { display: flex; align-items: baseline; gap: .35rem; }
 .slider-count b { min-width: 2.2ch; color: var(--green); font-size: 2rem; letter-spacing: -.02em; }
-@media (hover: none) { .slider-arrow { display: none; } }
 
 /* Oznake ispod studije slučaja: kvačica + blagi sjaj */
 .case-tags { gap: .6rem; margin-top: 2.2rem; }
@@ -739,3 +727,21 @@ footer > p { margin: 0; font-size: .9rem; }
   .case-tags li { font-size: .88rem; }
   .method ol::before, .method ol::after { left: 1.5rem; }
 }
+
+/* Ključne reči (O meni, Studio): pri ulasku se podvuku jedna za drugom, na prelaz mišem se „markiraju“ */
+.kw {
+  padding: 0 .08em; border-radius: .2em; color: var(--paper); font-weight: 600;
+  background: linear-gradient(var(--green), var(--green)) left bottom / 100% 2px no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: background-size .7s var(--ease), color .3s;
+}
+.kw.kw-wait { background-size: 0 2px; }
+.kw:hover { color: var(--ink); background-size: 100% 100%; transition: background-size .35s var(--ease), color .2s; }
+.kw.kw-pulse { animation: kw-pulse .9s var(--ease); }
+@keyframes kw-pulse { 40% { color: var(--green); } }
+
+/* Reči velikih naslova: blago skoče i promene boju na prelaz mišem */
+.split-word > span { transition: transform .35s var(--ease), color .3s; }
+.split-word { padding-top: .1em; margin-top: -.1em; }
+.split-word:hover > span { transform: translateY(-.08em) rotate(-2deg); color: var(--green); }
+em .split-word:hover > span, .split-word:hover > span:is(em *) { color: var(--paper); }

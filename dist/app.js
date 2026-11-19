@@ -87,11 +87,6 @@
     ui.innerHTML = `<p class="slider-count" aria-live="polite"><b>01</b> / ${pad(slides.length)}</p>
       <div class="slider-dots"></div>
       <div class="slider-nav"><button type="button" class="slider-prev" aria-label="${L.prev}">${arrow(-1)}</button><button type="button" class="slider-next" aria-label="${L.next}"><span aria-hidden="true">${L.nextShort}</span>${arrow(1)}</button></div>`;
-    // Velike strelice preko same slike (vidljive na prelaz mišem).
-    const overlay = document.createElement('div');
-    overlay.className = 'slider-arrows';
-    overlay.innerHTML = `<button type="button" class="slider-arrow is-prev" aria-label="${L.prev}" tabindex="-1">${arrow(-1)}</button><button type="button" class="slider-arrow is-next" aria-label="${L.next}" tabindex="-1">${arrow(1)}</button>`;
-    stage.append(overlay);
     gallery.append(stage, ui);
     gallery.classList.add('is-slider');
     gallery.setAttribute('role', 'region');
@@ -142,8 +137,8 @@
         [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
         { duration: 600, delay: 320, easing: 'ease-out', fill: 'backwards' });
     };
-    gallery.querySelectorAll('.slider-prev, .slider-arrow.is-prev').forEach(b => b.addEventListener('click', () => go(current - 1, -1)));
-    gallery.querySelectorAll('.slider-next, .slider-arrow.is-next').forEach(b => b.addEventListener('click', () => go(current + 1, 1)));
+    ui.querySelector('.slider-prev').addEventListener('click', () => go(current - 1, -1));
+    ui.querySelector('.slider-next').addEventListener('click', () => go(current + 1, 1));
     gallery.addEventListener('keydown', event => {
       if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1, 1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1, -1); }
@@ -160,6 +155,23 @@
     });
     sync();
   });
+
+  // Ključne reči: kad pasus uđe u ekran, podvlače se jedna za drugom (na prelaz mišem ih „markira“ CSS).
+  if (!reduced && 'IntersectionObserver' in window) {
+    const kwObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      kwObserver.unobserve(entry.target);
+      entry.target.querySelectorAll('.kw').forEach((kw, i) => setTimeout(() => {
+        kw.classList.remove('kw-wait');
+        kw.classList.add('kw-pulse');
+        kw.addEventListener('animationend', () => kw.classList.remove('kw-pulse'), { once: true });
+      }, 500 + i * 220));
+    }), { threshold: .35 });
+    document.querySelectorAll('.studio-copy, .about-copy').forEach(box => {
+      box.querySelectorAll('.kw').forEach(kw => kw.classList.add('kw-wait'));
+      kwObserver.observe(box);
+    });
+  }
 
   // Uvod: slojevi ekrana blago prate miš (CSS promenljive, bez prepisivanja 3D nagiba).
   const heroVisual = document.querySelector('.hero-visual');
@@ -248,7 +260,7 @@
   const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2, .faq-head h2';
   if (canSplit) {
     gsap.utils.toArray(headings).forEach(el => {
-      gsap.from(splitWords(el), { yPercent: 115, rotate: 4, duration: 1.05, stagger: .07, ease: 'expo.out', scrollTrigger: reveal(el, 'top 85%') });
+      gsap.from(splitWords(el), { yPercent: 115, rotate: 4, duration: 1.05, stagger: .07, ease: 'expo.out', clearProps: 'transform', scrollTrigger: reveal(el, 'top 85%') });
     });
   }
 
