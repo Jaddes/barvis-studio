@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BARVIS Studio | Custom software for clinics and small businesses, Novi Sad</title>
   <meta name="description" content="BARVIS Studio in Novi Sad, Serbia builds custom web apps and internal tools: scheduling, client records, payments and reports for clinics, salons and small businesses. From first idea to launch.">
@@ -29,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preload" href="../assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="../assets/barvis-studio-1672.webp" imagesrcset="../assets/barvis-studio-800.webp 800w, ../assets/barvis-studio-1200.webp 1200w, ../assets/barvis-studio-1672.webp 1672w" imagesizes="100vw" type="image/webp">
+  <link rel="preload" as="image" href="../assets/work/fizio-calendar-1440.webp" type="image/webp">
   <link rel="stylesheet" href="../styles.css">
 
   <script type="application/ld+json">
@@ -70,54 +69,55 @@
       <a href="#who">Who it's for</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#faq">FAQ</a>
     </nav>
     <div class="header-end">
-      <a class="lang-switch" href="../" hreflang="sr-Latn" lang="sr-Latn" aria-label="Srpski">SR</a>
+      <details class="lang-menu">
+        <summary aria-label="Language / Jezik"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg><span>EN</span></summary>
+        <div class="lang-list" translate="no">
+          <a href="../" hreflang="sr-Latn" lang="sr-Latn">Srpski</a>
+          <a href="./" lang="en" aria-current="page">English</a>
+          <p>Machine translation</p>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=de&amp;_x_tr_hl=de" lang="de" rel="noopener">Deutsch</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=fr&amp;_x_tr_hl=fr" lang="fr" rel="noopener">Français</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=it&amp;_x_tr_hl=it" lang="it" rel="noopener">Italiano</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es" lang="es" rel="noopener">Español</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=hu&amp;_x_tr_hl=hu" lang="hu" rel="noopener">Magyar</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=sl&amp;_x_tr_hl=sl" lang="sl" rel="noopener">Slovenščina</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=ru&amp;_x_tr_hl=ru" lang="ru" rel="noopener">Русский</a>
+        </div>
+      </details>
       <a class="header-cta" href="#contact">Free call <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="../assets/barvis-studio-800.webp 800w, ../assets/barvis-studio-1200.webp 1200w, ../assets/barvis-studio-1672.webp 1672w" sizes="100vw">
-          <img src="../assets/barvis-studio-1200.jpg" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
-        </picture>
-        <div class="hero-media-scan"></div>
-      </div>
-      <div class="signal-stage" aria-hidden="true">
-        <div class="signal signal-red"><span>DESIGN</span></div>
-        <div class="signal signal-green"><span>BUILD</span></div>
-        <div class="signal-core"><b>01</b><small>SYSTEM</small></div>
-      </div>
-      <div class="hero-proof" aria-hidden="true"><span>Product</span><span>Interface</span><span>Engineering</span></div>
+      <div class="hero-bg" aria-hidden="true"><i class="glow glow-a"></i><i class="glow glow-b"></i><i class="hero-grid"></i></div>
 
       <div class="hero-body">
-        <p class="hero-kicker">Custom software · Novi Sad</p>
+        <p class="hero-kicker"><i aria-hidden="true"></i>Taking on new projects · Novi Sad</p>
         <h1 class="hero-title" id="hero-title" aria-label="Digital systems, made human.">
           <span class="line" aria-hidden="true"><span>Digital systems,</span></span>
           <span class="line serif" aria-hidden="true"><span>made human.</span></span>
         </h1>
-        <div class="hero-lower">
-          <p>I build web apps and internal tools that replace paper, spreadsheets and message chaos with <strong>one system for scheduling, clients and payments</strong>, made for the way you actually work.</p>
-          <a class="circle-link" href="#work"><span>Work</span><b aria-hidden="true">↓</b></a>
-        </div>
+        <p class="hero-lead">Web apps for <strong>scheduling, clients and payments</strong>, built for the way you actually work.</p>
         <div class="hero-actions">
           <a class="btn-primary" href="#contact">Book a free call <span aria-hidden="true">↗</span></a>
-          <a class="btn-ghost" href="#case-fizio">See a real project</a>
+          <a class="btn-ghost" href="#work">See the work</a>
         </div>
       </div>
 
-      <div class="hero-foot">
-        <span class="hero-status"><i aria-hidden="true"></i>Taking on new projects</span>
-        <span class="hero-index">Independent digital product studio</span>
-        <b>2026 / Novi Sad</b>
+      <div class="hero-visual" aria-hidden="true">
+        <figure class="hv hv-back"><img src="../assets/work/fizio-calendar-1440.webp" alt="" width="1440" height="900" fetchpriority="high" decoding="async"></figure>
+        <figure class="hv hv-front"><img src="../assets/work/focus-timer-1440.webp" alt="" width="1440" height="900" decoding="async"></figure>
+        <figure class="hv hv-phone"><img src="../assets/work/fizio-mobile-agenda-520.webp" alt="" width="780" height="1688" decoding="async"></figure>
       </div>
     </section>
 
     <section class="ticker" aria-label="Studio services">
       <div class="ticker-track">
-        <span>Web apps</span><i aria-hidden="true">✦</i><span>Scheduling and calendars</span><i aria-hidden="true">✦</i><span>Internal tools</span><i aria-hidden="true">✦</i><span>UX design</span><i aria-hidden="true">✦</i><span>Maintenance</span><i aria-hidden="true">✦</i>
-        <span aria-hidden="true">Web apps</span><i aria-hidden="true">✦</i><span aria-hidden="true">Scheduling and calendars</span><i aria-hidden="true">✦</i><span aria-hidden="true">Internal tools</span><i aria-hidden="true">✦</i><span aria-hidden="true">UX design</span><i aria-hidden="true">✦</i><span aria-hidden="true">Maintenance</span><i aria-hidden="true">✦</i>
+        <div class="ticker-group"><span>Web apps</span><i aria-hidden="true">✦</i><span>Scheduling</span><i aria-hidden="true">✦</i><span>Internal tools</span><i aria-hidden="true">✦</i><span>UX design</span><i aria-hidden="true">✦</i><span>Maintenance</span><i aria-hidden="true">✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web apps</span><i>✦</i><span>Scheduling</span><i>✦</i><span>Internal tools</span><i>✦</i><span>UX design</span><i>✦</i><span>Maintenance</span><i>✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web apps</span><i>✦</i><span>Scheduling</span><i>✦</i><span>Internal tools</span><i>✦</i><span>UX design</span><i>✦</i><span>Maintenance</span><i>✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web apps</span><i>✦</i><span>Scheduling</span><i>✦</i><span>Internal tools</span><i>✦</i><span>UX design</span><i>✦</i><span>Maintenance</span><i>✦</i></div>
       </div>
     </section>
 
@@ -151,44 +151,46 @@
     </section>
 
     <section class="audience section-pad" id="who" aria-labelledby="audience-title">
-      <div class="section-head"><h2 class="eyebrow" id="audience-title">Who it's for</h2><p>If any of this sounds familiar, let's talk.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="audience-title">Who it's for</h2></div>
       <div class="audience-grid">
-        <article>
+        <a class="aud-card" href="#case-fizio">
           <span class="audience-tag">Clinics and practices</span>
           <h3>Appointments live in a notebook, unpaid bills live in someone's head.</h3>
-          <p>A shared calendar for the whole team, a record for every client, payment right after the session and a clear view of who owes what, all in one place.</p>
-        </article>
-        <article>
+          <p>A shared calendar, client records and a clear view of who owes what, in one place.</p>
+          <span class="aud-more">See the clinic system <b aria-hidden="true">→</b></span>
+        </a>
+        <a class="aud-card" href="#contact">
           <span class="audience-tag">Salons, studios, repair shops</span>
           <h3>Clients call, text and walk in, and it's all tracked by hand.</h3>
-          <p>Booking without double appointments, a history for every client and a clear daily schedule for your staff.</p>
-        </article>
-        <article>
+          <p>Booking without double appointments, client history and a clear daily schedule.</p>
+          <span class="aud-more">Talk about your booking <b aria-hidden="true">→</b></span>
+        </a>
+        <a class="aud-card" href="#contact">
           <span class="audience-tag">Small teams and companies</span>
           <h3>The business runs on a spreadsheet only one person understands.</h3>
-          <p>An internal tool that follows your real process: data entry, approvals, reports and a full change history.</p>
-        </article>
+          <p>An internal tool that follows your real process: data entry, approvals and reports.</p>
+          <span class="aud-more">Describe your process <b aria-hidden="true">→</b></span>
+        </a>
       </div>
     </section>
 
     <section class="manifesto section-pad" aria-labelledby="manifesto-title">
       <h2 class="eyebrow" id="manifesto-title">01 / What I do</h2>
       <div class="manifesto-copy">
-        <p class="manifesto-main">I don't just sell a screen. I build the logic behind it: the workflow, the data, the automation and an interface people can actually use.</p>
-        <p class="manifesto-side">From first idea to a stable product: problem analysis, UX architecture, development, testing and launch.</p>
-      </div>
-      <div class="capability-row">
-        <article><span aria-hidden="true">01</span><h3>Product strategy</h3><p>The problem, the priorities and a clear product plan.</p></article>
-        <article><span aria-hidden="true">02</span><h3>UX &amp; interface</h3><p>Fast flows and an interface without visual noise.</p></article>
-        <article><span aria-hidden="true">03</span><h3>Full-stack build</h3><p>From the database to a responsive app.</p></article>
+        <p class="manifesto-main">I don't just sell a screen. <em>I build the logic behind it.</em></p>
+        <div class="capability-row">
+          <article><span aria-hidden="true">01</span><div><h3>Product strategy</h3><p>The problem, the priorities, a clear plan.</p></div></article>
+          <article><span aria-hidden="true">02</span><div><h3>UX &amp; interface</h3><p>Fast flows, no visual noise.</p></div></article>
+          <article><span aria-hidden="true">03</span><div><h3>Full-stack build</h3><p>From the database to the app.</p></div></article>
+        </div>
       </div>
     </section>
 
     <section class="work section-pad" id="work" aria-labelledby="work-title">
-      <div class="section-head"><h2 class="eyebrow" id="work-title">02 / Selected systems</h2><p>Real products, built around real work.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="work-title">02 / Selected systems</h2></div>
 
       <article class="case" id="case-fizio" aria-labelledby="fizio-title">
-        <div class="project-meta"><span>Fizio Alfa · case study</span><span>Physiotherapy practice · 2026</span></div>
+        <div class="project-meta"><span>Fizio Alfa · case study</span></div>
         <div class="case-intro">
           <h3 id="fizio-title">Less admin.<br><em>More time for patients.</em></h3>
           <dl class="case-facts">
@@ -244,22 +246,21 @@
           </figure>
         </div>
         <ul class="case-tags"><li>No double bookings</li><li>Phone reminders</li><li>Balances and quick payments</li><li>Full change history</li><li>Desktop + mobile</li><li>WCAG accessibility</li></ul>
-        <p class="case-note">Screens show fictional data; the practice's real data stays private.</p>
       </article>
 
       <article class="case case-focus" id="case-focus" aria-labelledby="focus-title">
-        <div class="project-meta"><span>BARVIS Focus · case study</span><span>Personal productivity system · 2026</span></div>
+        <div class="project-meta"><span>BARVIS Focus · case study</span></div>
         <div class="case-intro">
           <h3 id="focus-title">Focus that stays<br><em>connected to the goal.</em></h3>
           <dl class="case-facts">
-            <div><dt>Problem</dt><dd>A timer in one app, tasks in another, notes in a third. There was no clear view of how much time really went into each project.</dd></div>
-            <div><dt>Solution</dt><dd>One private system: a Pomodoro timer tied to a project and task, a Focus Inbox for stray thoughts mid-session, analytics by day, week, month and year, and skill levels that grow with time invested.</dd></div>
-            <div><dt>Result</dt><dd>A new “Ember” design: the timer is an ember that burns down as time runs out, and breaks cool to blue. The main screen went from 6 MB to about 110 KB, everything works from the keyboard (Space, R, N, 1–6) and it passes a WCAG 2.2 AA audit.</dd></div>
-            <div><dt>Stack</dt><dd>Django, PostgreSQL, Docker. The server keeps the timer state, so the same timer runs on desktop and phone. Reachable only over a private network.</dd></div>
+            <div><dt>Problem</dt><dd>A timer in one app, tasks in another, notes in a third. No clear view of where the time went.</dd></div>
+            <div><dt>Solution</dt><dd>A Pomodoro timer tied to a project and task, analytics by day, week and month, and skill levels that grow with time invested.</dd></div>
+            <div><dt>Result</dt><dd>The “Ember” design: the timer burns down as time runs out. Main screen from 6 MB to 110 KB, fully keyboard-friendly.</dd></div>
+            <div><dt>Stack</dt><dd>Django, PostgreSQL, Docker. The same timer runs on desktop and phone.</dd></div>
           </dl>
         </div>
 
-                <figure class="case-video">
+        <figure class="case-video">
           <video controls playsinline preload="none" poster="../assets/work/focus-walkthrough-poster.webp" width="1280" height="800" aria-describedby="focus-video-desc">
             <source src="../assets/work/focus-walkthrough.webm" type="video/webm">
             <source src="../assets/work/focus-walkthrough.mp4" type="video/mp4">
@@ -297,22 +298,24 @@
           </figure>
         </div>
         <ul class="case-tags"><li>Timer on every device</li><li>Keyboard shortcuts</li><li>Analytics and CSV export</li><li>WCAG accessibility</li><li>Private server</li></ul>
-        <p class="case-note">Screens show fictional data; interface in Serbian.</p>
       </article>
     </section>
 
     <section class="deliver section-pad" aria-labelledby="deliver-title">
-      <div class="section-head"><h2 class="eyebrow" id="deliver-title">03 / What you get</h2><p>A finished system, not just a design or just code.</p></div>
+      <div class="deliver-head">
+        <h2 class="eyebrow" id="deliver-title">03 / What you get</h2>
+        <p class="deliver-title">A finished system.<br><em>Not just design or code.</em></p>
+      </div>
       <div class="deliver-grid">
-        <article><h3>A custom system</h3><p>An app built around your process, not the other way round. Works on desktop and mobile.</p></article>
-        <article><h3>Launch</h3><p>Server setup, migration of your existing data and database backups.</p></article>
-        <article><h3>Team training</h3><p>A short session and simple guides, so your staff can work on their own from day one.</p></article>
-        <article><h3>Ongoing support</h3><p>Fixes, improvements and new features as your business grows.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">01</span><h3>A custom system</h3><p>Built around your process. Works on desktop and mobile.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">02</span><h3>Launch</h3><p>Server setup, data migration and backups.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">03</span><h3>Team training</h3><p>A short session and simple guides for your staff.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">04</span><h3>Ongoing support</h3><p>Fixes, improvements and new features as you grow.</p></article>
       </div>
     </section>
 
     <section class="pricing section-pad" id="pricing" aria-labelledby="pricing-title">
-      <div class="section-head"><h2 class="eyebrow" id="pricing-title">04 / Indicative pricing</h2><p>A clear starting point. The exact amount depends on scope and is set out in a written quote.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="pricing-title">04 / Indicative pricing</h2></div>
       <div class="pricing-grid">
         <article>
           <h3>Website</h3>
@@ -335,13 +338,12 @@
           <ul><li>Backups and monitoring</li><li>Fixes and small improvements</li><li>Support for your team</li></ul>
         </article>
       </div>
-      <p class="pricing-note">All prices are indicative and agreed based on what you actually need. Larger projects can be paid in stages.</p>
+      <p class="pricing-note">The exact amount is in a written quote. Larger projects can be paid in stages.</p>
     </section>
 
     <section class="method section-pad" id="method" aria-labelledby="method-title">
-      <div class="section-head"><p class="eyebrow">05 / How I work</p><p>One partner from problem to product.</p></div>
       <div class="method-grid">
-        <div class="method-intro"><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>First we understand the business. Only then do we pick the technology and shape the interface.</p></div>
+        <div class="method-intro"><p class="eyebrow">05 / How I work</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>First we understand the business, then we write code.</p></div>
         <ol>
           <li><span aria-hidden="true">01</span><div><b>Conversation</b><p>Free, 30 minutes: how you work today and where you lose time.</p></div></li>
           <li><span aria-hidden="true">02</span><div><b>Quote and plan</b><p>What gets built, in what order and by when, before we start.</p></div></li>
@@ -378,7 +380,12 @@
     </section>
 
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
-      <div class="section-head"><h2 class="eyebrow" id="faq-title">07 / FAQ</h2><p>Can't find an answer? Write to me. I reply personally.</p></div>
+      <div class="faq-grid">
+      <div class="faq-head">
+        <p class="eyebrow">07 / FAQ</p>
+        <h2 id="faq-title">Common<br><em>questions.</em></h2>
+        <a class="btn-ghost" href="#contact">Ask me directly <span aria-hidden="true">↗</span></a>
+      </div>
       <div class="faq-list">
         <details>
           <summary>How much does a custom system cost?</summary>
@@ -408,6 +415,7 @@
           <summary>Do you work with clients outside Serbia?</summary>
           <p>Yes. Calls and communication in English work just as well, and the system's interface can be in your language.</p>
         </details>
+      </div>
       </div>
     </section>
 
@@ -439,11 +447,22 @@
   </main>
 
   <footer>
-    <a class="brand" href="#top" aria-label="BARVIS Studio, back to top"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#who">Who it's for</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="../" hreflang="sr-Latn" lang="sr-Latn">Srpski</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a>
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="BARVIS Studio, back to top"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+      <p>© 2026 Boris Lahos · Novi Sad, Serbia</p>
+    </div>
+    <nav class="footer-col" aria-label="Solutions">
+      <p>Solutions</p>
+      <a href="#case-fizio">Clinics</a><a href="#who">Salons and services</a><a href="#contact">Internal tools</a>
     </nav>
-    <p>© 2026 Boris Lahos · BARVIS Studio · Novi Sad, Serbia</p>
+    <nav class="footer-col" aria-label="Footer">
+      <p>Studio</p>
+      <a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#faq">FAQ</a>
+    </nav>
+    <nav class="footer-col" aria-label="Contact and profiles">
+      <p>Contact</p>
+      <a href="#contact">Email me</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a><a href="../" hreflang="sr-Latn" lang="sr-Latn">Srpski</a>
+    </nav>
   </footer>
 
   <script src="../assets/vendor/lenis.min.js" defer></script>

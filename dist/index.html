@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BARVIS Studio | Softver po meri za ordinacije i male biznise, Novi Sad</title>
   <meta name="description" content="BARVIS Studio iz Novog Sada pravi web aplikacije i interne alate po meri: zakazivanje, evidencija klijenata, naplata i izveštaji, za ordinacije, salone i male biznise. Od ideje do puštanja u rad.">
@@ -29,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preload" href="./assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="./assets/barvis-studio-1672.webp" imagesrcset="./assets/barvis-studio-800.webp 800w, ./assets/barvis-studio-1200.webp 1200w, ./assets/barvis-studio-1672.webp 1672w" imagesizes="100vw" type="image/webp">
+  <link rel="preload" as="image" href="./assets/work/fizio-calendar-1440.webp" type="image/webp">
   <link rel="stylesheet" href="./styles.css">
 
   <script type="application/ld+json">
@@ -70,54 +69,55 @@
       <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a>
     </nav>
     <div class="header-end">
-      <a class="lang-switch" href="./en/" hreflang="en" lang="en" aria-label="English">EN</a>
+      <details class="lang-menu">
+        <summary aria-label="Jezik / Language"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg><span>SR</span></summary>
+        <div class="lang-list" translate="no">
+          <a href="./" lang="sr-Latn" aria-current="page">Srpski</a>
+          <a href="./en/" hreflang="en" lang="en">English</a>
+          <p>Automatski prevod</p>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=de&amp;_x_tr_hl=de" lang="de" rel="noopener">Deutsch</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=fr&amp;_x_tr_hl=fr" lang="fr" rel="noopener">Français</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=it&amp;_x_tr_hl=it" lang="it" rel="noopener">Italiano</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es" lang="es" rel="noopener">Español</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=hu&amp;_x_tr_hl=hu" lang="hu" rel="noopener">Magyar</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=sl&amp;_x_tr_hl=sl" lang="sl" rel="noopener">Slovenščina</a>
+          <a href="https://jaddes-github-io.translate.goog/barvis-studio/en/?_x_tr_sl=en&amp;_x_tr_tl=ru&amp;_x_tr_hl=ru" lang="ru" rel="noopener">Русский</a>
+        </div>
+      </details>
       <a class="header-cta" href="#contact">Besplatan razgovor <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-media" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="./assets/barvis-studio-800.webp 800w, ./assets/barvis-studio-1200.webp 1200w, ./assets/barvis-studio-1672.webp 1672w" sizes="100vw">
-          <img src="./assets/barvis-studio-1200.jpg" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
-        </picture>
-        <div class="hero-media-scan"></div>
-      </div>
-      <div class="signal-stage" aria-hidden="true">
-        <div class="signal signal-red"><span>DESIGN</span></div>
-        <div class="signal signal-green"><span>BUILD</span></div>
-        <div class="signal-core"><b>01</b><small>SYSTEM</small></div>
-      </div>
-      <div class="hero-proof" aria-hidden="true"><span>Product</span><span>Interface</span><span>Engineering</span></div>
+      <div class="hero-bg" aria-hidden="true"><i class="glow glow-a"></i><i class="glow glow-b"></i><i class="hero-grid"></i></div>
 
       <div class="hero-body">
-        <p class="hero-kicker">Softver po meri · Novi Sad</p>
+        <p class="hero-kicker"><i aria-hidden="true"></i>Dostupan za nove projekte · Novi Sad</p>
         <h1 class="hero-title" id="hero-title" aria-label="Digital systems, made human.">
           <span class="line" aria-hidden="true"><span>Digital systems,</span></span>
           <span class="line serif" aria-hidden="true"><span>made human.</span></span>
         </h1>
-        <div class="hero-lower">
-          <p>Pravim web aplikacije i interne alate koji zamenjuju papir, Excel i haos u porukama: <strong>jedan sistem za zakazivanje, klijente i naplatu</strong>, napravljen tačno za vaš način rada.</p>
-          <a class="circle-link" href="#work"><span>Radovi</span><b aria-hidden="true">↓</b></a>
-        </div>
+        <p class="hero-lead">Web aplikacije za <strong>zakazivanje, klijente i naplatu</strong>, napravljene tačno za vaš način rada.</p>
         <div class="hero-actions">
           <a class="btn-primary" href="#contact">Zakažite besplatan razgovor <span aria-hidden="true">↗</span></a>
-          <a class="btn-ghost" href="#case-fizio">Pogledajte pravi projekat</a>
+          <a class="btn-ghost" href="#work">Pogledajte radove</a>
         </div>
       </div>
 
-      <div class="hero-foot">
-        <span class="hero-status"><i aria-hidden="true"></i>Dostupan za nove projekte</span>
-        <span class="hero-index">Nezavisni studio za digitalne proizvode</span>
-        <b>2026 / Novi Sad</b>
+      <div class="hero-visual" aria-hidden="true">
+        <figure class="hv hv-back"><img src="./assets/work/fizio-calendar-1440.webp" alt="" width="1440" height="900" fetchpriority="high" decoding="async"></figure>
+        <figure class="hv hv-front"><img src="./assets/work/focus-timer-1440.webp" alt="" width="1440" height="900" decoding="async"></figure>
+        <figure class="hv hv-phone"><img src="./assets/work/fizio-mobile-agenda-520.webp" alt="" width="780" height="1688" decoding="async"></figure>
       </div>
     </section>
 
     <section class="ticker" aria-label="Usluge studija">
       <div class="ticker-track">
-        <span>Web aplikacije</span><i aria-hidden="true">✦</i><span>Zakazivanje i kalendari</span><i aria-hidden="true">✦</i><span>Interni alati</span><i aria-hidden="true">✦</i><span>UX dizajn</span><i aria-hidden="true">✦</i><span>Održavanje</span><i aria-hidden="true">✦</i>
-        <span aria-hidden="true">Web aplikacije</span><i aria-hidden="true">✦</i><span aria-hidden="true">Zakazivanje i kalendari</span><i aria-hidden="true">✦</i><span aria-hidden="true">Interni alati</span><i aria-hidden="true">✦</i><span aria-hidden="true">UX dizajn</span><i aria-hidden="true">✦</i><span aria-hidden="true">Održavanje</span><i aria-hidden="true">✦</i>
+        <div class="ticker-group"><span>Web aplikacije</span><i aria-hidden="true">✦</i><span>Zakazivanje</span><i aria-hidden="true">✦</i><span>Interni alati</span><i aria-hidden="true">✦</i><span>UX dizajn</span><i aria-hidden="true">✦</i><span>Održavanje</span><i aria-hidden="true">✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web aplikacije</span><i>✦</i><span>Zakazivanje</span><i>✦</i><span>Interni alati</span><i>✦</i><span>UX dizajn</span><i>✦</i><span>Održavanje</span><i>✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web aplikacije</span><i>✦</i><span>Zakazivanje</span><i>✦</i><span>Interni alati</span><i>✦</i><span>UX dizajn</span><i>✦</i><span>Održavanje</span><i>✦</i></div>
+        <div class="ticker-group" aria-hidden="true"><span>Web aplikacije</span><i>✦</i><span>Zakazivanje</span><i>✦</i><span>Interni alati</span><i>✦</i><span>UX dizajn</span><i>✦</i><span>Održavanje</span><i>✦</i></div>
       </div>
     </section>
 
@@ -151,44 +151,46 @@
     </section>
 
     <section class="audience section-pad" id="za-koga" aria-labelledby="audience-title">
-      <div class="section-head"><h2 class="eyebrow" id="audience-title">Za koga</h2><p>Ako se nešto od ovoga čini poznatim, vredi da razgovaramo.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="audience-title">Za koga</h2></div>
       <div class="audience-grid">
-        <article>
+        <a class="aud-card" href="./softver-za-fizioterapeute/">
           <span class="audience-tag">Ordinacije i klinike</span>
           <h3>Termini su u svesci, a dugovanja „u glavi“.</h3>
-          <p>Zajednički kalendar za ceo tim, karton klijenta, naplata posle terapije i pregled ko koliko duguje, sve na jednom mestu.</p>
-        </article>
-        <article>
+          <p>Zajednički kalendar, karton klijenta i pregled ko koliko duguje, na jednom mestu.</p>
+          <span class="aud-more">Rešenje za fizioterapeute <b aria-hidden="true">→</b></span>
+        </a>
+        <a class="aud-card" href="./aplikacija-za-zakazivanje/">
           <span class="audience-tag">Saloni, studiji, servisi</span>
           <h3>Klijenti zovu, pišu i dolaze, a sve se vodi ručno.</h3>
-          <p>Zakazivanje bez preklapanja, istorija svakog klijenta i jasan dnevni raspored za zaposlene.</p>
-        </article>
-        <article>
+          <p>Zakazivanje bez preklapanja, istorija klijenta i jasan dnevni raspored.</p>
+          <span class="aud-more">Rešenje za salone i servise <b aria-hidden="true">→</b></span>
+        </a>
+        <a class="aud-card" href="#contact">
           <span class="audience-tag">Mali timovi i firme</span>
           <h3>Posao zavisi od Excel tabele koju razume samo jedna osoba.</h3>
-          <p>Interni alat koji prati vaš stvarni proces: unos, odobrenja, izveštaji i istorija promena.</p>
-        </article>
+          <p>Interni alat koji prati vaš stvarni proces: unos, odobrenja i izveštaji.</p>
+          <span class="aud-more">Opišite svoj proces <b aria-hidden="true">→</b></span>
+        </a>
       </div>
     </section>
 
     <section class="manifesto section-pad" aria-labelledby="manifesto-title">
       <h2 class="eyebrow" id="manifesto-title">01 / Šta radim</h2>
       <div class="manifesto-copy">
-        <p class="manifesto-main">Ne prodajem samo ekran. Gradim logiku iza njega: tok rada, podatke, automatizaciju i interfejs koji ljudi zaista mogu da koriste.</p>
-        <p class="manifesto-side">Od prve ideje do stabilnog proizvoda: analiza problema, UX arhitektura, razvoj, testiranje i puštanje u rad.</p>
-      </div>
-      <div class="capability-row">
-        <article><span aria-hidden="true">01</span><h3>Product strategy</h3><p>Problem, prioriteti i jasan plan proizvoda.</p></article>
-        <article><span aria-hidden="true">02</span><h3>UX &amp; interface</h3><p>Brzi tokovi i interfejs bez vizuelne buke.</p></article>
-        <article><span aria-hidden="true">03</span><h3>Full-stack build</h3><p>Od baze podataka do responzivne aplikacije.</p></article>
+        <p class="manifesto-main">Ne prodajem samo ekran. <em>Gradim logiku iza njega.</em></p>
+        <div class="capability-row">
+          <article><span aria-hidden="true">01</span><div><h3>Product strategy</h3><p>Problem, prioriteti i jasan plan.</p></div></article>
+          <article><span aria-hidden="true">02</span><div><h3>UX &amp; interface</h3><p>Brzi tokovi, bez vizuelne buke.</p></div></article>
+          <article><span aria-hidden="true">03</span><div><h3>Full-stack build</h3><p>Od baze podataka do aplikacije.</p></div></article>
+        </div>
       </div>
     </section>
 
     <section class="work section-pad" id="work" aria-labelledby="work-title">
-      <div class="section-head"><h2 class="eyebrow" id="work-title">02 / Odabrani sistemi</h2><p>Pravi proizvodi, napravljeni oko stvarnog rada.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="work-title">02 / Odabrani sistemi</h2></div>
 
       <article class="case" id="case-fizio" aria-labelledby="fizio-title">
-        <div class="project-meta"><span>Fizio Alfa · studija slučaja</span><span>Fizioterapeutska ordinacija · 2026</span></div>
+        <div class="project-meta"><span>Fizio Alfa · studija slučaja</span></div>
         <div class="case-intro">
           <h3 id="fizio-title">Manje administracije.<br><em>Više vremena za pacijente.</em></h3>
           <dl class="case-facts">
@@ -244,22 +246,21 @@
           </figure>
         </div>
         <ul class="case-tags"><li>Kalendar bez preklapanja</li><li>Podsetnici na telefonu</li><li>Dugovanja i brza naplata</li><li>Istorija svih promena</li><li>Desktop + telefon</li><li>WCAG pristupačnost</li></ul>
-        <p class="case-note">Ekrani prikazuju izmišljene podatke; pravi podaci ordinacije ostaju privatni.</p>
       </article>
 
       <article class="case case-focus" id="case-focus" aria-labelledby="focus-title">
-        <div class="project-meta"><span>BARVIS Focus · studija slučaja</span><span>Lični sistem za produktivnost · 2026</span></div>
+        <div class="project-meta"><span>BARVIS Focus · studija slučaja</span></div>
         <div class="case-intro">
           <h3 id="focus-title">Fokus koji ostaje<br><em>povezan sa ciljem.</em></h3>
           <dl class="case-facts">
-            <div><dt>Problem</dt><dd>Tajmer u jednoj aplikaciji, zadaci u drugoj, beleške u trećoj. Nije se videlo koliko vremena stvarno odlazi na koji projekat.</dd></div>
-            <div><dt>Rešenje</dt><dd>Jedan privatni sistem: Pomodoro tajmer vezan za projekat i zadatak, Focus Inbox za misli usred rada, analitika po danu, nedelji, mesecu i godini, i nivoi veština koji rastu sa uloženim vremenom.</dd></div>
-            <div><dt>Rezultat</dt><dd>Novi dizajn „Žar“: tajmer je žar koji dogoreva kako vreme ističe, a pauze se hlade u plavo. Početni ekran je pao sa 6 MB na oko 110 KB, sve radi tastaturom (razmak, R, N, 1–6) i prolazi WCAG 2.2 AA proveru.</dd></div>
-            <div><dt>Tehnologija</dt><dd>Django, PostgreSQL, Docker. Stanje tajmera čuva server, pa isti tajmer teče na računaru i telefonu. Dostupno samo preko privatne mreže.</dd></div>
+            <div><dt>Problem</dt><dd>Tajmer u jednoj aplikaciji, zadaci u drugoj, beleške u trećoj. Nije se videlo gde odlazi vreme.</dd></div>
+            <div><dt>Rešenje</dt><dd>Pomodoro tajmer vezan za projekat i zadatak, analitika po danu, nedelji i mesecu, i nivoi veština koji rastu sa uloženim vremenom.</dd></div>
+            <div><dt>Rezultat</dt><dd>Dizajn „Žar“: tajmer dogoreva kako vreme ističe. Početni ekran sa 6 MB na 110 KB, sve radi i tastaturom.</dd></div>
+            <div><dt>Tehnologija</dt><dd>Django, PostgreSQL, Docker. Isti tajmer teče na računaru i telefonu.</dd></div>
           </dl>
         </div>
 
-                <figure class="case-video">
+        <figure class="case-video">
           <video controls playsinline preload="none" poster="./assets/work/focus-walkthrough-poster.webp" width="1280" height="800" aria-describedby="focus-video-desc">
             <source src="./assets/work/focus-walkthrough.webm" type="video/webm">
             <source src="./assets/work/focus-walkthrough.mp4" type="video/mp4">
@@ -297,22 +298,24 @@
           </figure>
         </div>
         <ul class="case-tags"><li>Tajmer na svim uređajima</li><li>Prečice sa tastature</li><li>Analitika i CSV izvoz</li><li>WCAG pristupačnost</li><li>Privatni server</li></ul>
-        <p class="case-note">Snimci prikazuju izmišljene podatke.</p>
       </article>
     </section>
 
     <section class="deliver section-pad" aria-labelledby="deliver-title">
-      <div class="section-head"><h2 class="eyebrow" id="deliver-title">03 / Šta dobijate</h2><p>Gotov sistem, ne samo dizajn ili samo kod.</p></div>
+      <div class="deliver-head">
+        <h2 class="eyebrow" id="deliver-title">03 / Šta dobijate</h2>
+        <p class="deliver-title">Gotov sistem.<br><em>Ne samo dizajn ili kod.</em></p>
+      </div>
       <div class="deliver-grid">
-        <article><h3>Sistem po meri</h3><p>Aplikacija napravljena oko vašeg procesa, a ne obrnuto. Radi na računaru i telefonu.</p></article>
-        <article><h3>Puštanje u rad</h3><p>Postavljanje na server, prenos postojećih podataka i rezervne kopije baze.</p></article>
-        <article><h3>Obuka tima</h3><p>Kratka obuka i jednostavna uputstva, da osoblje odmah radi samostalno.</p></article>
-        <article><h3>Podrška posle</h3><p>Ispravke, dorade i nove funkcije kako posao raste.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">01</span><h3>Sistem po meri</h3><p>Napravljen oko vašeg procesa. Radi na računaru i telefonu.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">02</span><h3>Puštanje u rad</h3><p>Server, prenos postojećih podataka i rezervne kopije.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">03</span><h3>Obuka tima</h3><p>Kratka obuka i jednostavna uputstva za osoblje.</p></article>
+        <article><span class="deliver-num" aria-hidden="true">04</span><h3>Podrška posle</h3><p>Ispravke, dorade i nove funkcije kako posao raste.</p></article>
       </div>
     </section>
 
     <section class="pricing section-pad" id="cene" aria-labelledby="pricing-title">
-      <div class="section-head"><h2 class="eyebrow" id="pricing-title">04 / Okvirne cene</h2><p>Jasna polazna tačka. Tačan iznos zavisi od obima i stoji u pisanoj ponudi.</p></div>
+      <div class="section-head"><h2 class="eyebrow" id="pricing-title">04 / Okvirne cene</h2></div>
       <div class="pricing-grid">
         <article>
           <h3>Sajt</h3>
@@ -335,13 +338,12 @@
           <ul><li>Rezervne kopije i nadzor</li><li>Ispravke i sitne dorade</li><li>Podrška za vaš tim</li></ul>
         </article>
       </div>
-      <p class="pricing-note">Sve cene su okvirne i dogovaraju se prema onome što vam zaista treba. Veći projekti mogu da se plaćaju po fazama.</p>
+      <p class="pricing-note">Tačan iznos stoji u pisanoj ponudi. Veći projekti mogu da se plaćaju po fazama.</p>
     </section>
 
     <section class="method section-pad" id="method" aria-labelledby="method-title">
-      <div class="section-head"><p class="eyebrow">05 / Način rada</p><p>Jedan partner od problema do proizvoda.</p></div>
       <div class="method-grid">
-        <div class="method-intro"><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao. Tek onda biramo tehnologiju i oblikujemo interfejs.</p></div>
+        <div class="method-intro"><p class="eyebrow">05 / Način rada</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao, pa tek onda pišemo kod.</p></div>
         <ol>
           <li><span aria-hidden="true">01</span><div><b>Razgovor</b><p>Besplatan, 30 minuta: kako radite danas i gde gubite vreme.</p></div></li>
           <li><span aria-hidden="true">02</span><div><b>Ponuda i plan</b><p>Šta se pravi, kojim redom i u kom roku, pre nego što počnemo.</p></div></li>
@@ -378,7 +380,12 @@
     </section>
 
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
-      <div class="section-head"><h2 class="eyebrow" id="faq-title">07 / Česta pitanja</h2><p>Ako ne nađete odgovor, pišite. Odgovaram lično.</p></div>
+      <div class="faq-grid">
+      <div class="faq-head">
+        <p class="eyebrow">07 / Pitanja</p>
+        <h2 id="faq-title">Česta<br><em>pitanja.</em></h2>
+        <a class="btn-ghost" href="#contact">Pitajte me direktno <span aria-hidden="true">↗</span></a>
+      </div>
       <div class="faq-list">
         <details>
           <summary>Koliko košta sistem po meri?</summary>
@@ -404,6 +411,7 @@
           <summary>Šta posle isporuke?</summary>
           <p>Tu sam za ispravke, dorade i nove funkcije. Dogovaramo podršku koja odgovara vašem tempu.</p>
         </details>
+      </div>
       </div>
     </section>
 
@@ -435,11 +443,22 @@
   </main>
 
   <footer>
-    <a class="brand" href="#top" aria-label="BARVIS Studio, na vrh stranice"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
-    <nav class="footer-nav" aria-label="Podnožje">
-      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a><a href="#contact">Kontakt</a><a href="./en/" hreflang="en" lang="en">English</a><a href="./softver-za-fizioterapeute/">Za fizioterapeute</a><a href="./aplikacija-za-zakazivanje/">Za salone i servise</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a>
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="BARVIS Studio, na vrh stranice"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+      <p>© 2026 Boris Lahos · Novi Sad</p>
+    </div>
+    <nav class="footer-col" aria-label="Rešenja">
+      <p>Rešenja</p>
+      <a href="./softver-za-fizioterapeute/">Za fizioterapeute</a><a href="./aplikacija-za-zakazivanje/">Za salone i servise</a><a href="#contact">Interni alati</a>
     </nav>
-    <p>© 2026 Boris Lahos · BARVIS Studio · Novi Sad</p>
+    <nav class="footer-col" aria-label="Podnožje">
+      <p>Studio</p>
+      <a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a>
+    </nav>
+    <nav class="footer-col" aria-label="Kontakt i profili">
+      <p>Kontakt</p>
+      <a href="#contact">Pišite mi</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a><a href="./en/" hreflang="en" lang="en">English</a>
+    </nav>
   </footer>
 
   <script src="./assets/vendor/lenis.min.js" defer></script>
