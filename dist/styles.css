@@ -489,3 +489,17 @@ footer > p { margin: 0; text-align: right; }
   .ticker-track { transform: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Prekidač jezika (SR / EN) */
+.header-end { justify-self: end; display: flex; align-items: center; gap: 1rem; }
+.lang-switch {
+  display: grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: 0 .6rem;
+  border: 1px solid rgba(238, 240, 233, .35); border-radius: 99px;
+  color: var(--paper); font-size: .8rem; font-weight: 800; letter-spacing: .08em; text-decoration: none;
+  transition: border-color .3s, color .3s;
+}
+.lang-switch:hover { border-color: var(--green); color: var(--green); }
+@media (max-width: 760px) {
+  .header-end { gap: .5rem; }
+  .lang-switch { min-width: 2.6rem; min-height: 2.6rem; }
+}

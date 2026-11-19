@@ -1,6 +1,6 @@
 # BARVIS Studio
 
-Sajt nezavisnog studija za digitalne proizvode iz Novog Sada — **Digital systems, made human.**
+Sajt nezavisnog studija za digitalne proizvode iz Novog Sada: **Digital systems, made human.**
 
 **Uživo:** https://jaddes.github.io/barvis-studio/
 
@@ -25,7 +25,7 @@ Zatim otvoriti `http://127.0.0.1:8790/`.
 
 ## Odluke
 
-- **Bez spoljnih servera:** fontovi (Inter Tight, Cormorant Garamond — OFL), GSAP 3.12.7 i Lenis 1.1.20 su u `dist/assets/`.
+- **Bez spoljnih servera:** fontovi (Inter Tight, Cormorant Garamond | OFL), GSAP 3.12.7 i Lenis 1.1.20 su u `dist/assets/`.
 - **Bezbednost:** Content-Security-Policy dozvoljava samo sopstvene fajlove.
 - **Pristupačnost:** WCAG 2.2 AA (axe bez prekršaja), link za preskakanje, puna navigacija tastaturom, poštuje „smanjeno kretanje“; sadržaj je vidljiv i bez JavaScript-a.
 - **Brzina:** prvo učitavanje ≈ 250 KB, uz prave snimke ekrana (ranije ≈ 1,9 MB + spoljni CDN).

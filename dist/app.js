@@ -16,9 +16,9 @@
     copyButton.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(copyButton.dataset.copy);
-        copyStatus.textContent = 'Adresa je kopirana.';
+        copyStatus.textContent = copyButton.dataset.copied || 'Adresa je kopirana.';
       } catch {
-        copyStatus.textContent = `Kopiranje nije uspelo. Adresa: ${copyButton.dataset.copy}`;
+        copyStatus.textContent = `${copyButton.dataset.copyFailed || 'Kopiranje nije uspelo. Adresa:'} ${copyButton.dataset.copy}`;
       }
       setTimeout(() => { copyStatus.textContent = ''; }, 4000);
     });
