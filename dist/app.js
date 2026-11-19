@@ -15,6 +15,43 @@
   addEventListener('scroll', setHeader, { passive: true });
   setHeader();
 
+  // Automatski prevod na licu mesta (bez Google-ove trake): izbor jezika upisuje kolačić „googtrans“,
+  // a Google-ov prevodilac se učitava samo kada je neki strani jezik izabran. Original je uvek engleska stranica.
+  const gtCookie = () => (document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([a-zA-Z-]+)/) || [])[1];
+  const clearGt = () => {
+    const past = 'expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    [location.hostname, `.${location.hostname}`, location.hostname.split('.').slice(-2).join('.')].forEach(domain => {
+      document.cookie = `googtrans=; ${past}; domain=${domain}`;
+    });
+    document.cookie = `googtrans=; ${past}`;
+  };
+  const englishUrl = document.querySelector('.lang-list a[lang="en"]')?.href;
+  document.querySelectorAll('.lang-list [data-gt]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    clearGt();
+    document.cookie = `googtrans=/en/${link.dataset.gt}; path=/`;
+    if (en) location.reload(); else location.href = englishUrl;
+  }));
+  document.querySelectorAll('.lang-list a[lang="en"], .lang-list a[lang="sr-Latn"]').forEach(link => link.addEventListener('click', () => clearGt()));
+  const gtLang = gtCookie();
+  const translating = en && gtLang && gtLang !== 'en';
+  if (!en && gtLang) clearGt();
+  if (translating) {
+    document.documentElement.classList.add('is-translated');
+    const label = document.querySelector('.lang-menu summary span');
+    if (label) label.textContent = gtLang.toUpperCase();
+    document.querySelectorAll('.lang-list a').forEach(a => a.toggleAttribute('aria-current', a.dataset.gt === gtLang));
+    const holder = document.createElement('div');
+    holder.id = 'gt-holder';
+    holder.hidden = true;
+    document.body.append(holder);
+    window.gtInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'gt-holder');
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit';
+    script.async = true;
+    document.head.append(script);
+  }
+
   // Meni za jezik se zatvara klikom van njega ili tasterom Escape.
   const langMenu = document.querySelector('.lang-menu');
   if (langMenu) {
@@ -64,7 +101,7 @@
       video.controls = true;
       video.volume = .7; // muzika je podloga, ne treba da iznenadi
       button.remove();
-      video.play().catch(() => {});
+      video.play().catch(() => { video.controls = true; });
       video.focus();
     });
   });
@@ -188,6 +225,10 @@
   if (reduced || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
+  // Posle osvežavanja stranica kreće od vrha: inače bi se sve animacije iznad vraćenog položaja pokrenule odjednom i preklapale.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) scrollTo(0, 0);
+
   let lenis;
   if (window.Lenis) {
     lenis = new Lenis({ duration: 1.05, smoothWheel: true });
@@ -209,7 +250,9 @@
   const has = selector => document.querySelector(selector) !== null;
   const reveal = (trigger, start = 'top 86%') => ({ trigger, start, once: true });
   // Posle ulaza brišemo GSAP stil, da CSS efekti na prelaz mišem i dalje rade.
-  const clean = 'transform,opacity,filter';
+  const clean = 'transform,opacity,filter,transition';
+  // CSS prelazi (transition) bi „vukli“ svaki GSAP korak i animacija bi trzala, pa ih gasimo dok traje ulaz.
+  const still = els => gsap.set(els, { transition: 'none' });
 
   // Veliki naslovi se dele na reči koje izranjaju jedna za drugom.
   // (Ne na Google prevodu: tamo bi podela na reči pokvarila prevod rečenice.)
@@ -236,7 +279,8 @@
     return el.querySelectorAll('.split-word > span');
   };
   // Naslov uvoda („Digital systems, made human.“) deli se na reči: izranjaju pri učitavanju i reaguju na miš.
-  const canSplit = !location.hostname.endsWith('translate.goog');
+  // Ne delimo naslove na reči kad se stranica prevodi: prevodilac mora da vidi celu rečenicu.
+  const canSplit = !location.hostname.endsWith('translate.goog') && !translating;
   const heroTitle = document.querySelector('.hero-title');
   const heroWords = heroTitle && canSplit ? splitWords(heroTitle) : '.hero-title .line > span';
 
@@ -245,7 +289,7 @@
     gsap.timeline({ defaults: { ease: 'power3.out' } })
       .from('.site-header', { y: -40, opacity: 0, duration: .8, clearProps: clean })
       .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
-      .from(heroWords, { yPercent: 115, rotate: 4, duration: 1.1, stagger: .09, ease: 'expo.out', clearProps: 'transform' }, '-=.3')
+      .from(heroWords, { yPercent: 60, rotate: 3, opacity: 0, filter: 'blur(12px)', duration: 1.1, stagger: .09, ease: 'expo.out', clearProps: 'transform,opacity,filter' }, '-=.3')
       .from('.hero-lead, .hero-actions', { y: 28, opacity: 0, duration: .75, stagger: .1 }, '-=.6')
       .from('.hero-visual', { y: 90, opacity: 0, scale: .94, duration: 1.4, ease: 'expo.out' }, '-=1.2')
       .from('.hv', { opacity: 0, duration: .9, stagger: .18 }, '<');
@@ -268,7 +312,7 @@
   const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2';
   if (canSplit) {
     gsap.utils.toArray(headings).forEach(el => {
-      gsap.from(splitWords(el), { yPercent: 115, rotate: 4, duration: 1.05, stagger: .07, ease: 'expo.out', clearProps: 'transform', scrollTrigger: reveal(el, 'top 85%') });
+      gsap.from(splitWords(el), { yPercent: 60, rotate: 3, opacity: 0, filter: 'blur(12px)', duration: 1.05, stagger: .07, ease: 'expo.out', clearProps: 'transform,opacity,filter', scrollTrigger: reveal(el, 'top 85%') });
     });
   }
 
@@ -287,10 +331,12 @@
     const els = gsap.utils.toArray(targets);
     if (!els.length) return;
     const d = from === 'right' ? 1 : -1;
+    still(els);
     gsap.from(els, { x: 140 * d, skewX: 10 * d, opacity: 0, filter: 'blur(14px)', duration: 1.15, stagger: .14, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal(trigger, start), ...extra });
   };
   const pop = (targets, trigger, extra = {}) => {
     if (!gsap.utils.toArray(targets).length) return;
+    still(targets);
     gsap.from(targets, { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal(trigger, 'top 82%'), ...extra });
   };
 
@@ -299,14 +345,31 @@
   // Manje važni delovi (činjenice, oznake, kontakt) se samo tiho pojave, bez „fijuu“.
   gsap.utils.toArray('.studio-facts, .case-tags, .contact-bottom').forEach(el => gsap.from(el, { y: 24, opacity: 0, duration: .8, ease: 'power2.out', clearProps: clean, scrollTrigger: reveal(el, 'top 90%') }));
 
-  // 03 Šta dobijate: original „fijuu“ + brojevi iskaču.
-  swoosh('.deliver-grid article', '.deliver-grid', { start: 'top 84%' });
-  pop('.deliver-num', '.deliver-grid');
+  // Miran ulaz za kartice (03 i 04): samo blago podizanje, bez nagiba i zamućenja.
+  const rise = (targets, trigger, start = 'top 82%') => {
+    const els = gsap.utils.toArray(targets);
+    if (!els.length) return;
+    still(els);
+    gsap.from(els, { y: 36, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal(trigger, start) });
+  };
 
-  // 04 Cene: isti ulaz, oznaka „Najčešće“ iskoči, iznosi odbrojavaju do prave cene.
+  // 03 Šta dobijate: kartice se mirno pojave, a brojevi se „napune“ od 00.
+  if (has('.deliver-grid')) {
+    rise('.deliver-grid article', '.deliver-grid', 'top 84%');
+    document.querySelectorAll('.deliver-num').forEach((num, i) => {
+      const target = Number(num.textContent);
+      const counter = { value: 0 };
+      num.textContent = '00';
+      gsap.to(counter, {
+        value: target, duration: .9, delay: .25 + i * .12, ease: 'power2.out', scrollTrigger: reveal('.deliver-grid', 'top 84%'),
+        onUpdate: () => { num.textContent = pad(Math.round(counter.value)); },
+      });
+    });
+  }
+
+  // 04 Cene: kartice se mirno pojave, iznosi odbrojavaju do prave cene.
   if (has('.pricing-grid')) {
-    swoosh('.pricing-grid article', '.pricing-grid', { start: 'top 78%' });
-    pop('.pricing-badge', '.pricing-grid', { delay: .7, rotate: -20 });
+    rise('.pricing-grid article', '.pricing-grid', 'top 80%');
     const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE'); // 2.000 na srpskom, 2,000 na engleskom
     document.querySelectorAll('.pricing-grid .price').forEach((price, i) => {
       const node = [...price.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
@@ -316,7 +379,7 @@
       const target = Number(match[0].replace(/[.,]/g, ''));
       const counter = { value: 0 };
       gsap.to(counter, {
-        value: target, duration: 1.6, delay: .3 + i * .14, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 78%'),
+        value: target, duration: 1.6, delay: .3 + i * .14, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 80%'),
         onUpdate: () => { node.textContent = original.replace(match[0], fmt(Math.round(counter.value))); },
         onComplete: () => { node.textContent = original; },
       });

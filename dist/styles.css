@@ -67,7 +67,7 @@ em { font-family: var(--serif); font-weight: 600; }
   transition: background .3s, backdrop-filter .3s;
 }
 .site-header.is-scrolled { background: rgba(10, 13, 11, .82); backdrop-filter: blur(16px); }
-.brand { display: inline-flex; align-items: center; gap: .7rem; width: max-content; color: inherit; font-weight: 800; letter-spacing: -.025em; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: .7rem; width: max-content; color: inherit; font-weight: 800; letter-spacing: 0; text-decoration: none; }
 .brand small { display: block; color: var(--muted); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; }
 .brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid currentColor; border-radius: 50%; font-family: var(--serif); font-weight: 600; }
 .site-header nav { display: flex; gap: .35rem; padding: .3rem; border: 1px solid var(--line); border-radius: 99px; background: rgba(10, 13, 11, .45); backdrop-filter: blur(10px); }
@@ -92,10 +92,10 @@ em { font-family: var(--serif); font-weight: 600; }
 
 .hero-title {
   position: relative; z-index: 2; max-width: 84rem; margin: 2rem 0 0;
-  font-size: clamp(3.4rem, 7.4vw, 8.6rem); font-weight: 700; line-height: .9; letter-spacing: -.045em;
+  font-size: clamp(3.4rem, 7.4vw, 8.6rem); font-weight: 700; line-height: .92; letter-spacing: -.02em;
   text-shadow: 0 1rem 3rem rgba(0, 0, 0, .35);
 }
-.hero-title .line { display: block; overflow: hidden; padding: .12em 0 .24em; }
+.hero-title .line { display: block; overflow: hidden; padding: .16em .14em .3em; margin: 0 -.14em; }
 .hero-title .line span { display: block; }
 .hero-title .serif { padding-left: 0; color: var(--red); font-family: var(--serif); font-style: italic; font-weight: 600; }
 
@@ -119,7 +119,7 @@ em { font-family: var(--serif); font-weight: 600; }
 
 /* Studio: opis + pravi proizvod na laptopu i telefonu */
 .studio-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 6vw; }
-.studio-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(3rem, 6vw, 7rem); line-height: .9; letter-spacing: -.045em; }
+.studio-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(3rem, 6vw, 7rem); line-height: .92; letter-spacing: -.02em; }
 .studio-copy h2 em { color: var(--red); }
 .studio-copy > p:not(.eyebrow) { max-width: 32rem; color: var(--soft); font-size: clamp(.98rem, 1.2vw, 1.15rem); line-height: 1.65; }
 .studio-facts { display: grid; gap: 0; margin: 2.2rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
@@ -154,7 +154,7 @@ em { font-family: var(--serif); font-weight: 600; }
 /* Studija slučaja */
 .case { margin-bottom: 10rem; }
 .case-intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; margin: 1.5rem 0 3.5rem; }
-.case-intro h3 { margin: 0; font-size: clamp(2.4rem, 5vw, 5.6rem); line-height: 1; letter-spacing: -.04em; }
+.case-intro h3 { margin: 0; font-size: clamp(2.4rem, 5vw, 5.6rem); line-height: 1.02; letter-spacing: -.02em; }
 .case-facts { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--line); }
 .case-facts div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .case-facts dt { color: var(--green); font-size: var(--label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding-top: .2rem; }
@@ -191,7 +191,7 @@ em { font-family: var(--serif); font-weight: 600; }
 .faq-list details p { max-width: 48rem; margin: 0 0 1.5rem; color: var(--soft); font-size: 1.08rem; line-height: 1.7; }
 
 /* Šta radim */
-.manifesto-main { margin: 0; font-size: clamp(2.6rem, 5.6vw, 6.4rem); line-height: 1; letter-spacing: -.04em; }
+.manifesto-main { margin: 0; font-size: clamp(2.6rem, 5.6vw, 6.4rem); line-height: 1.02; letter-spacing: -.02em; }
 .manifesto-main em { display: block; color: var(--red); }
 
 /* Radovi */
@@ -231,7 +231,7 @@ em { font-family: var(--serif); font-weight: 600; }
 .timer-copy i { display: block; height: 3rem; margin: .8rem 0; border: 1px solid #303946; border-radius: .4rem; }
 
 .project-copy { display: grid; grid-template-columns: 2fr 1fr; gap: 10vw; margin-top: 3rem; }
-.project-copy h3 { margin: 0; font-size: clamp(2rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.06em; }
+.project-copy h3 { margin: 0; font-size: clamp(2rem, 4.4vw, 5rem); line-height: 1; letter-spacing: -.02em; }
 .project-copy h3 em { font-weight: 600; }
 .project-copy p { margin-top: 0; color: var(--muted); font-size: clamp(.94rem, 1.15vw, 1.12rem); line-height: 1.7; }
 .project-copy ul { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
@@ -239,7 +239,7 @@ em { font-family: var(--serif); font-weight: 600; }
 .work-note { max-width: 40rem; margin: -6rem 0 0; color: var(--muted); font-size: .95rem; }
 
 /* Način rada */
-.method-intro h2 { margin: 1.2rem 0 2rem; font-size: clamp(4rem, 7.4vw, 8.4rem); line-height: .9; letter-spacing: -.045em; }
+.method-intro h2 { margin: 1.2rem 0 2rem; font-size: clamp(4rem, 7.4vw, 8.4rem); line-height: .92; letter-spacing: -.02em; }
 .method-intro p:not(.eyebrow) { max-width: 26rem; color: var(--soft); font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.6; }
 .method ol { margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
 .method li { display: grid; grid-template-columns: 4rem 1fr; padding: 1.5rem 0; border-bottom: 1px solid var(--line); }
@@ -250,14 +250,14 @@ em { font-family: var(--serif); font-weight: 600; }
 /* Kontakt */
 .contact { color: var(--ink); background: var(--green); }
 .contact .eyebrow { color: var(--ink); }
-.contact h2 { margin: 4rem 0 7rem; font-size: clamp(4rem, 10vw, 12rem); line-height: .86; letter-spacing: -.08em; }
+.contact h2 { margin: 4rem 0 7rem; font-size: clamp(4rem, 9.5vw, 11.5rem); line-height: .92; letter-spacing: 0; }
 .contact-bottom { display: grid; grid-template-columns: 1fr 2fr; align-items: end; gap: 10vw; }
 .contact-steps { max-width: 27rem; font-size: 1.05rem; line-height: 1.55; }
 .contact-steps p { margin: 0; }
 .contact-steps ol { margin: .8rem 0 1rem; padding-left: 1.2rem; }
 .contact-steps li { margin: .25rem 0; }
 .contact-promise { font-weight: 700; }
-.contact-mail { display: block; padding-bottom: 1rem; border-bottom: 2px solid; color: var(--ink); font-size: clamp(1.6rem, 4vw, 5rem); font-weight: 700; letter-spacing: -.05em; text-decoration: none; }
+.contact-mail { display: block; padding-bottom: 1rem; border-bottom: 2px solid; color: var(--ink); font-size: clamp(1.6rem, 4vw, 5rem); font-weight: 700; letter-spacing: 0; text-decoration: none; }
 .contact-mail span { float: right; }
 .contact-mail small { display: block; margin-top: .8rem; font-size: .9rem; font-weight: 600; letter-spacing: .02em; }
 .contact-mail:focus-visible, .copy-mail:focus-visible { outline-color: var(--ink); }
@@ -275,7 +275,7 @@ em { font-family: var(--serif); font-weight: 600; }
 .pricing-grid article { position: relative; display: flex; flex-direction: column; gap: .9rem; padding: 2rem; border: 1px solid var(--line); border-radius: .5rem; }
 .pricing-grid article.is-featured { border-color: var(--green); background: linear-gradient(170deg, rgba(184, 245, 44, .12), rgba(184, 245, 44, 0) 60%); }
 .pricing-grid h3 { margin: 0; font-size: 1.3rem; letter-spacing: -.02em; }
-.price { margin: 0; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.price { margin: 0; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1; }
 .price small { color: var(--muted); font-size: .95rem; font-weight: 600; letter-spacing: 0; }
 .pricing-grid p:not(.price) { margin: 0; color: var(--muted); line-height: 1.6; }
 .pricing-grid ul { display: grid; gap: .45rem; margin: .4rem 0 0; padding: 0; list-style: none; }
@@ -290,7 +290,7 @@ em { font-family: var(--serif); font-weight: 600; }
 .about-photo { position: relative; margin: 0; }
 .about-photo::before { content: ""; position: absolute; inset: 6% -6% -6% 6%; z-index: -1; border: 1px solid var(--green); border-radius: .5rem; }
 .about-photo img { width: 100%; height: auto; border-radius: .5rem; filter: saturate(.92) contrast(1.04); }
-.about-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(2.8rem, 5.6vw, 6.4rem); line-height: .94; letter-spacing: -.045em; }
+.about-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(2.8rem, 5.6vw, 6.4rem); line-height: .96; letter-spacing: -.02em; }
 .about-copy h2 em { color: var(--red); }
 .about-copy > p:not(.eyebrow) { max-width: 38rem; color: var(--soft); font-size: clamp(1rem, 1.2vw, 1.15rem); line-height: 1.7; }
 .about-facts { display: grid; gap: 0; margin: 1.8rem 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
@@ -311,7 +311,7 @@ em { font-family: var(--serif); font-weight: 600; }
 
 /* Stranice po delatnosti */
 .landing-hero { padding-top: 11rem; border-top: 0; }
-.landing-hero h1 { max-width: 16ch; margin: 1.2rem 0 1.5rem; font-size: clamp(3rem, 7.5vw, 8rem); line-height: .92; letter-spacing: -.045em; }
+.landing-hero h1 { max-width: 16ch; margin: 1.2rem 0 1.5rem; font-size: clamp(3rem, 7.5vw, 8rem); line-height: .94; letter-spacing: -.02em; }
 .landing-hero h1 em { color: var(--red); }
 .landing-lead { max-width: 44rem; color: var(--soft); font-size: clamp(1.05rem, 1.4vw, 1.3rem); line-height: 1.65; }
 .landing-actions { margin-left: 0; }
@@ -321,7 +321,7 @@ em { font-family: var(--serif); font-weight: 600; }
 
 /* 404 */
 .not-found { display: grid; align-content: center; min-height: 100svh; padding: 8rem 2rem 4rem; }
-.not-found h1 { margin: 1.5rem 0; font-size: clamp(3.5rem, 10vw, 9rem); line-height: .86; letter-spacing: -.07em; }
+.not-found h1 { margin: 1.5rem 0; font-size: clamp(3.5rem, 10vw, 9rem); line-height: .9; letter-spacing: -.025em; }
 .not-found h1 em { color: var(--red); }
 .not-found p { max-width: 32rem; color: var(--muted); font-size: 1.1rem; line-height: 1.6; }
 .not-found .circle-link { margin-top: 2rem; }
@@ -338,8 +338,7 @@ em { font-family: var(--serif); font-weight: 600; }
   .header-cta { padding: .65rem .8rem; border: 1px solid rgba(238, 240, 233, .45); border-radius: 99px; font-size: .8rem; }
 
   .btn-primary, .btn-ghost { justify-content: center; }
-  .hero-title { margin-top: 1.4rem; line-height: .92; letter-spacing: -.04em; }
-  .hero-title .line { padding-bottom: .28em; }
+  .hero-title { margin-top: 1.4rem; line-height: .94; letter-spacing: -.02em; }
   .circle-link { width: 4.8rem; height: 4.8rem; }
 
 
@@ -508,7 +507,7 @@ em { font-family: var(--serif); font-weight: 600; }
 
 /* Šta dobijate */
 .deliver-head { display: grid; gap: 1.4rem; margin-bottom: 3.5rem; }
-.deliver-title { margin: 0; font-size: clamp(2.6rem, 5.4vw, 6rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; }
+.deliver-title { margin: 0; font-size: clamp(2.6rem, 5.4vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -.02em; }
 .deliver-title em { color: var(--red); }
 .deliver-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .deliver-grid article {
@@ -532,7 +531,7 @@ em { font-family: var(--serif); font-weight: 600; }
 /* Pitanja: naslov levo (prati skrol), odgovori desno */
 .faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); align-items: start; gap: 6vw; }
 .faq-head { position: sticky; top: 7rem; display: grid; justify-items: start; gap: 1.4rem; }
-.faq-head h2 { margin: 0; font-size: clamp(3rem, 6vw, 6.6rem); line-height: .92; letter-spacing: -.045em; }
+.faq-head h2 { margin: 0; font-size: clamp(3rem, 6vw, 6.6rem); line-height: .94; letter-spacing: -.02em; }
 .faq-head h2 em { color: var(--red); }
 .faq-list { max-width: none; }
 
@@ -678,7 +677,8 @@ footer > p { margin: 0; font-size: .9rem; }
 .faq { background: linear-gradient(180deg, #0e1210, var(--ink)); }
 
 /* Naslovi koji se otkrivaju reč po reč (app.js deli tekst na reči) */
-.split-word { display: inline-block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; vertical-align: top; }
+/* Reči se ne maskiraju: ulaze pomerajem, zamućenjem i providnošću, pa se nijedno slovo ne seče ni tokom animacije. */
+.split-word { display: inline-block; vertical-align: top; }
 .split-word > span { display: inline-block; }
 
 /* Način rada: linija napretka spaja korake */
@@ -720,7 +720,6 @@ footer > p { margin: 0; font-size: .9rem; }
 
 /* Reči velikih naslova: blago skoče i promene boju na prelaz mišem */
 .split-word > span { transition: transform .35s var(--ease), color .3s; }
-.split-word { padding-top: .1em; margin-top: -.1em; }
 .split-word:hover > span { transform: translateY(-.08em) rotate(-2deg); color: var(--green); }
 em .split-word:hover > span, .split-word:hover > span:is(em *) { color: var(--paper); }
 
@@ -754,3 +753,16 @@ em .split-word:hover > span, .split-word:hover > span:is(em *) { color: var(--pa
 /* Naslov uvoda: reči ostaju u istom redu kao pre podele */
 .hero-title .line .split-word { display: inline-block; }
 .hero-title .line .split-word > span { display: inline-block; }
+
+/* Kad je naslov podeljen na reči, maske nose same reči, pa red ne mora da seče ništa */
+.hero-title .line { overflow: visible; }
+
+/* Automatski prevod: sakrivamo Google-ovu traku, oblačiće i isticanje, stranica ostaje na svom mestu */
+iframe.skiptranslate, .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-yAWNEb-L7lbkb { display: none !important; }
+html.is-translated body { top: 0 !important; position: static !important; }
+.goog-text-highlight, .VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q { background: none !important; box-shadow: none !important; }
+#gt-holder { display: none; }
+
+/* Stranice po delatnosti: slajder umerene širine, kontakt bez dodatnog teksta */
+.landing .case-gallery.is-slider, main > section > .case-gallery.is-slider { max-width: 72rem; }
+.contact-bottom:not(:has(.contact-steps)) { grid-template-columns: minmax(0, 46rem); }
