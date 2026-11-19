@@ -247,11 +247,18 @@
           <dl class="case-facts">
             <div><dt>Problem</dt><dd>Tajmer u jednoj aplikaciji, zadaci u drugoj, beleške u trećoj. Nije se videlo koliko vremena stvarno odlazi na koji projekat.</dd></div>
             <div><dt>Rešenje</dt><dd>Jedan privatni sistem: Pomodoro tajmer vezan za projekat i zadatak, Focus Inbox za misli usred rada, analitika po danu, nedelji, mesecu i godini, i nivoi veština koji rastu sa uloženim vremenom.</dd></div>
-            <div><dt>Rezultat</dt><dd>Posle sređivanja početni ekran se učitava sa manje od 100 KB umesto 6 MB, radi tastaturom (razmak, R, N, 1–6) i prolazi WCAG 2.2 AA proveru.</dd></div>
+            <div><dt>Rezultat</dt><dd>Novi dizajn „Žar“: tajmer je žar koji dogoreva kako vreme ističe, a pauze se hlade u plavo. Početni ekran je pao sa 6 MB na oko 110 KB, sve radi tastaturom (razmak, R, N, 1–6) i prolazi WCAG 2.2 AA proveru.</dd></div>
             <div><dt>Tehnologija</dt><dd>Django, PostgreSQL, Docker. Stanje tajmera čuva server, pa isti tajmer teče na računaru i telefonu. Dostupno samo preko privatne mreže.</dd></div>
           </dl>
         </div>
 
+                <figure class="case-video">
+          <video controls playsinline preload="none" poster="./assets/work/focus-walkthrough-poster.webp" width="1280" height="800" aria-describedby="focus-video-desc">
+            <source src="./assets/work/focus-walkthrough.webm" type="video/webm">
+            <source src="./assets/work/focus-walkthrough.mp4" type="video/mp4">
+          </video>
+          <figcaption id="focus-video-desc"><b>38 sekundi kroz sistem:</b> žar na punom sjaju, poslednje sekunde sesije, varnice i prelazak u pauzu, zatim zadaci, analitika, razvoj i prečice sa tastature. Uz tihu muzičku podlogu; izmišljeni podaci.</figcaption>
+        </figure>
         <div class="case-gallery">
           <figure class="shot shot-phone">
             <picture>

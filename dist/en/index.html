@@ -247,11 +247,18 @@
           <dl class="case-facts">
             <div><dt>Problem</dt><dd>A timer in one app, tasks in another, notes in a third. There was no clear view of how much time really went into each project.</dd></div>
             <div><dt>Solution</dt><dd>One private system: a Pomodoro timer tied to a project and task, a Focus Inbox for stray thoughts mid-session, analytics by day, week, month and year, and skill levels that grow with time invested.</dd></div>
-            <div><dt>Result</dt><dd>After the overhaul the main screen loads under 100 KB instead of 6 MB, works from the keyboard (Space, R, N, 1–6) and passes a WCAG 2.2 AA audit.</dd></div>
+            <div><dt>Result</dt><dd>A new “Ember” design: the timer is an ember that burns down as time runs out, and breaks cool to blue. The main screen went from 6 MB to about 110 KB, everything works from the keyboard (Space, R, N, 1–6) and it passes a WCAG 2.2 AA audit.</dd></div>
             <div><dt>Stack</dt><dd>Django, PostgreSQL, Docker. The server keeps the timer state, so the same timer runs on desktop and phone. Reachable only over a private network.</dd></div>
           </dl>
         </div>
 
+                <figure class="case-video">
+          <video controls playsinline preload="none" poster="../assets/work/focus-walkthrough-poster.webp" width="1280" height="800" aria-describedby="focus-video-desc">
+            <source src="../assets/work/focus-walkthrough.webm" type="video/webm">
+            <source src="../assets/work/focus-walkthrough.mp4" type="video/mp4">
+          </video>
+          <figcaption id="focus-video-desc"><b>38 seconds through the system:</b> the ember at full glow, the last seconds of a session, sparks and the switch to a break, then tasks, analytics, growth and keyboard shortcuts. Soft background music; fictional data; interface in Serbian.</figcaption>
+        </figure>
         <div class="case-gallery">
           <figure class="shot shot-phone">
             <picture>
