@@ -586,10 +586,6 @@ footer > p { margin: 0; font-size: .9rem; }
 .slider-dots button::after { background: var(--green); transform: translateY(-50%) scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
 .slider-dots button[aria-current="true"]::after { transform: translateY(-50%) scaleX(1); }
 .slider-dots button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
-.slider-nav { display: flex; gap: .6rem; }
-.slider-nav button { display: grid; place-items: center; width: 3.6rem; height: 3.6rem; border: 1px solid rgba(243, 244, 237, .35); border-radius: 50%; color: var(--paper); background: transparent; font-size: 1.35rem; cursor: pointer; transition: .3s var(--ease); }
-.slider-nav .slider-next { border-color: var(--paper); color: var(--ink); background: var(--paper); }
-.slider-nav button:hover { border-color: var(--green); color: var(--ink); background: var(--green); transform: scale(1.06); }
 
 /* Izbor jezika */
 .lang-menu { position: relative; }
@@ -628,8 +624,6 @@ footer > p { margin: 0; font-size: .9rem; }
   .footer-brand { grid-column: 1 / -1; }
   .slider-ui { flex-wrap: wrap; gap: .8rem 1rem; }
   .slider-dots { order: 3; flex-basis: 100%; }
-  .slider-nav { margin-left: auto; }
-  .slider-nav button { width: 3.1rem; height: 3.1rem; }
   .is-slider .shot-phone img { max-width: 50%; }
   .is-slider .shot figcaption { font-size: .98rem; }
   .lang-menu summary { padding: 0 .7rem; }
@@ -639,20 +633,6 @@ footer > p { margin: 0; font-size: .9rem; }
    v4: dugmad slajdera, oznake, cene po dogovoru, pozadine sekcija, animacije teksta
    ========================================================================= */
 
-/* Slajder: dugme „Sledeća“ ispod slike */
-.slider-nav svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.slider-nav { align-items: center; }
-.slider-nav button { transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease); }
-.slider-nav .slider-prev { width: 3.6rem; height: 3.6rem; }
-.slider-nav .slider-next {
-  display: inline-flex; gap: .7rem; width: auto; height: 3.6rem; padding: 0 1.1rem 0 1.5rem; border-radius: 99px;
-  border-color: var(--green); color: var(--ink); background: var(--green); font: 700 1rem var(--sans);
-}
-.slider-nav .slider-next:hover { border-color: var(--paper); background: var(--paper); transform: translateX(3px); }
-.slider-nav .slider-next svg { transition: transform .3s var(--ease); }
-.slider-nav .slider-next:hover svg { transform: translateX(4px); }
-.slider-nav .slider-prev:hover svg { transform: translateX(-3px); }
-.slider-nav .slider-prev svg { transition: transform .3s var(--ease); }
 .slider-count { display: flex; align-items: baseline; gap: .35rem; }
 .slider-count b { min-width: 2.2ch; color: var(--green); font-size: 2rem; letter-spacing: -.02em; }
 
@@ -721,8 +701,6 @@ footer > p { margin: 0; font-size: .9rem; }
 @keyframes answer { from { opacity: 0; transform: translateY(-10px); } }
 
 @media (max-width: 760px) {
-  .slider-nav .slider-next { height: 3.1rem; padding: 0 .9rem 0 1.2rem; }
-  .slider-nav .slider-prev { width: 3.1rem; height: 3.1rem; }
   .slider-count b { font-size: 1.6rem; }
   .case-tags li { font-size: .88rem; }
   .method ol::before, .method ol::after { left: 1.5rem; }
@@ -745,3 +723,22 @@ footer > p { margin: 0; font-size: .9rem; }
 .split-word { padding-top: .1em; margin-top: -.1em; }
 .split-word:hover > span { transform: translateY(-.08em) rotate(-2deg); color: var(--green); }
 em .split-word:hover > span, .split-word:hover > span:is(em *) { color: var(--paper); }
+
+/* Slajder: nazad/napred preko slike, vidljivi tek na prelaz mišem ili fokus tastaturom */
+.slider-arrows { position: absolute; z-index: 5; top: 0; left: 0; right: 0; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: space-between; padding: 0 1.4rem; pointer-events: none; }
+.slider-arrow {
+  display: grid; place-items: center; width: 4.6rem; height: 4.6rem; padding: 0; pointer-events: auto; cursor: pointer;
+  border: 1px solid rgba(243, 244, 237, .3); border-radius: 50%; color: var(--paper); background: rgba(10, 13, 11, .62); backdrop-filter: blur(12px);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .4); opacity: 0;
+  transition: opacity .35s, transform .45s var(--ease), background .25s, color .25s, border-color .25s;
+}
+.slider-arrow svg { width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.slider-arrow.slider-prev { transform: translateX(-14px) scale(.9); }
+.slider-arrow.slider-next { transform: translateX(14px) scale(.9); }
+.slider-stage:hover .slider-arrow, .slider-arrow:focus-visible { opacity: 1; transform: none; }
+.slider-arrow:hover { border-color: var(--green); color: var(--ink); background: var(--green); transform: scale(1.08) !important; }
+.slider-ui { margin-top: 1rem; }
+@media (hover: none) {
+  .slider-arrow { width: 3.2rem; height: 3.2rem; opacity: 1; transform: none; }
+  .slider-arrows { padding: 0 .7rem; }
+}

@@ -4,8 +4,8 @@
   const finePointer = matchMedia('(pointer: fine)').matches;
   const en = document.documentElement.lang.startsWith('en');
   const L = en
-    ? { prev: 'Previous image', next: 'Next image', nextShort: 'Next', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
-    : { prev: 'Prethodna slika', next: 'Sledeća slika', nextShort: 'Sledeća', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
+    ? { prev: 'Previous image', next: 'Next image', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
+    : { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
   const pad = n => String(n).padStart(2, '0');
   const arrow = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d > 0 ? 'M5 12h14M13 6l6 6-6 6' : 'M19 12H5M11 6l-6 6 6 6'}"/></svg>`;
 
@@ -85,8 +85,12 @@
     const ui = document.createElement('div');
     ui.className = 'slider-ui';
     ui.innerHTML = `<p class="slider-count" aria-live="polite"><b>01</b> / ${pad(slides.length)}</p>
-      <div class="slider-dots"></div>
-      <div class="slider-nav"><button type="button" class="slider-prev" aria-label="${L.prev}">${arrow(-1)}</button><button type="button" class="slider-next" aria-label="${L.next}"><span aria-hidden="true">${L.nextShort}</span>${arrow(1)}</button></div>`;
+      <div class="slider-dots"></div>`;
+    // Nazad/napred su preko same slike i pojavljuju se tek na prelaz mišem (na telefonu su uvek vidljivi).
+    const nav = document.createElement('div');
+    nav.className = 'slider-arrows';
+    nav.innerHTML = `<button type="button" class="slider-arrow slider-prev" aria-label="${L.prev}">${arrow(-1)}</button><button type="button" class="slider-arrow slider-next" aria-label="${L.next}">${arrow(1)}</button>`;
+    stage.append(nav);
     gallery.append(stage, ui);
     gallery.classList.add('is-slider');
     gallery.setAttribute('role', 'region');
@@ -137,8 +141,8 @@
         [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
         { duration: 600, delay: 320, easing: 'ease-out', fill: 'backwards' });
     };
-    ui.querySelector('.slider-prev').addEventListener('click', () => go(current - 1, -1));
-    ui.querySelector('.slider-next').addEventListener('click', () => go(current + 1, 1));
+    nav.querySelector('.slider-prev').addEventListener('click', () => go(current - 1, -1));
+    nav.querySelector('.slider-next').addEventListener('click', () => go(current + 1, 1));
     gallery.addEventListener('keydown', event => {
       if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1, 1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1, -1); }
@@ -274,27 +278,33 @@
     gsap.from(el, { clipPath: 'inset(12% 5% 12% 5% round .9rem)', y: 50, opacity: 0, duration: 1.2, ease: 'power3.out', clearProps: 'clipPath,transform,opacity', scrollTrigger: reveal(el) });
   });
 
-  [
-    ['.audience-grid', '.audience-grid > *', { y: 40 }],
-    ['.capability-row', '.capability-row article', { x: 60 }],
-    ['.case-tags', '.case-tags li', { y: 16 }],
-    ['.contact-bottom', '.contact-bottom > *', { y: 24 }],
-  ].forEach(([trigger, targets, from]) => {
-    if (!has(trigger)) return;
-    gsap.utils.toArray(trigger).forEach(box => {
-      gsap.from(box.querySelectorAll(`:scope ${targets.replace(trigger, '').trim()}`), { ...from, opacity: 0, duration: .8, stagger: .1, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal(box) });
-    });
-  });
+  // „Fijuu“ ulaz, isti stil kao u sekciji 03: pomeraj + nagib + zamućenje, element za elementom.
+  const swoosh = (targets, trigger, { from = 'left', start = 'top 82%', ...extra } = {}) => {
+    const els = gsap.utils.toArray(targets);
+    if (!els.length) return;
+    const d = from === 'right' ? 1 : -1;
+    gsap.from(els, { x: 140 * d, skewX: 10 * d, opacity: 0, filter: 'blur(14px)', duration: 1.15, stagger: .14, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal(trigger, start), ...extra });
+  };
+  const pop = (targets, trigger, extra = {}) => {
+    if (!gsap.utils.toArray(targets).length) return;
+    gsap.from(targets, { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal(trigger, 'top 82%'), ...extra });
+  };
 
-  // Šta dobijate: kartice uleću „fijuu“ (pomeraj + nagib + zamućenje), brojevi iskaču.
-  if (has('.deliver-grid')) {
-    gsap.from('.deliver-grid article', { x: -140, skewX: -10, opacity: 0, filter: 'blur(14px)', duration: 1.15, stagger: .14, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.deliver-grid', 'top 84%') });
-    gsap.from('.deliver-num', { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal('.deliver-grid', 'top 84%') });
-  }
+  swoosh('.studio-facts li', '.studio-facts', { stagger: .12 });
+  swoosh('.audience-grid > *', '.audience-grid');
+  swoosh('.capability-row article', '.capability-row', { from: 'right' });
+  gsap.utils.toArray('.case-facts').forEach(box => swoosh(box.children, box, { from: 'right', stagger: .1 }));
+  gsap.utils.toArray('.case-tags').forEach(box => swoosh(box.children, box, { stagger: .07, duration: .95, start: 'top 90%' }));
+  swoosh('.contact-bottom > *', '.contact-bottom', { stagger: .16 });
 
-  // Cene: kartice se okreću ka posetiocu jedna za drugom, iznosi „odbrojavaju“ do prave cene.
+  // 03 Šta dobijate: original „fijuu“ + brojevi iskaču.
+  swoosh('.deliver-grid article', '.deliver-grid', { start: 'top 84%' });
+  pop('.deliver-num', '.deliver-grid');
+
+  // 04 Cene: isti ulaz, oznaka „Najčešće“ iskoči, iznosi odbrojavaju do prave cene.
   if (has('.pricing-grid')) {
-    gsap.from('.pricing-grid article', { rotateX: -55, y: 90, opacity: 0, transformOrigin: '50% 100%', duration: 1.1, stagger: .13, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.pricing-grid', 'top 84%') });
+    swoosh('.pricing-grid article', '.pricing-grid', { start: 'top 78%' });
+    pop('.pricing-badge', '.pricing-grid', { delay: .7, rotate: -20 });
     const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE'); // 2.000 na srpskom, 2,000 na engleskom
     document.querySelectorAll('.pricing-grid .price').forEach((price, i) => {
       const node = [...price.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
@@ -304,34 +314,34 @@
       const target = Number(match[0].replace(/[.,]/g, ''));
       const counter = { value: 0 };
       gsap.to(counter, {
-        value: target, duration: 1.6, delay: .25 + i * .13, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 84%'),
+        value: target, duration: 1.6, delay: .3 + i * .14, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 78%'),
         onUpdate: () => { node.textContent = original.replace(match[0], fmt(Math.round(counter.value))); },
         onComplete: () => { node.textContent = original; },
       });
     });
-    gsap.from('.pricing-grid li', { x: -16, opacity: 0, duration: .5, stagger: .04, delay: .5, ease: 'power2.out', clearProps: clean, scrollTrigger: reveal('.pricing-grid', 'top 84%') });
   }
 
-  // Način rada: koraci uleću i iskaču, brojevi se zarotiraju na mesto, linija se puni dok se skroluje.
+  // 05 Način rada: koraci uleću sa desne strane, brojevi iskaču, a linija se puni do kraja zajedno sa njima
+  // (ne zavisi od skrolovanja, pa nikad ne ostane zaglavljena između koraka).
   if (has('.method ol')) {
-    gsap.from('.method li', { x: 120, opacity: 0, scale: .88, filter: 'blur(10px)', duration: 1.05, stagger: .18, ease: 'back.out(1.7)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
-    gsap.from('.method li > span', { scale: 0, rotate: -180, duration: .9, stagger: .18, delay: .3, ease: 'back.out(3)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
-    gsap.from('.method li b', { y: 24, opacity: 0, duration: .7, stagger: .18, delay: .4, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
-    gsap.fromTo('.method ol', { '--progress': 0 }, { '--progress': 1, ease: 'none', scrollTrigger: { trigger: '.method ol', start: 'top 75%', end: 'bottom 55%', scrub: .6 } });
+    const steps = document.querySelectorAll('.method li').length;
+    swoosh('.method li', '.method ol', { from: 'right', stagger: .2 });
+    pop('.method li > span', '.method ol', { rotate: -180, stagger: .2, delay: .25, ease: 'back.out(3)' });
+    gsap.fromTo('.method ol', { '--progress': 0 }, { '--progress': 1, duration: .2 * (steps - 1) + .9, delay: .25, ease: 'power2.inOut', scrollTrigger: reveal('.method ol', 'top 82%') });
   }
 
-  // O meni: slika se otvara zavesom, okvir „klizne“ na mesto, činjenice uleću sa desne strane.
+  // 06 O meni: slika se otvara zavesom, tekst i činjenice uleću, dugmad iskaču.
   if (has('.about-copy')) {
     gsap.from('.about-photo img', { clipPath: 'inset(100% 0 0 0 round .5rem)', scale: 1.25, duration: 1.5, ease: 'expo.out', clearProps: 'clipPath,transform', scrollTrigger: reveal('.about', 'top 75%') });
-    gsap.from('.about-copy > p:not(.eyebrow)', { y: 30, opacity: 0, filter: 'blur(6px)', duration: .9, stagger: .14, delay: .35, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal('.about-copy', 'top 80%') });
-    gsap.from('.about-facts li', { x: 80, opacity: 0, duration: .8, stagger: .12, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.about-facts', 'top 88%') });
-    gsap.from('.about-links a', { scale: .6, opacity: 0, duration: .7, stagger: .1, ease: 'back.out(2.2)', clearProps: clean, scrollTrigger: reveal('.about-links', 'top 92%') });
+    swoosh('.about-copy > p:not(.eyebrow)', '.about-copy', { from: 'right', delay: .2, start: 'top 80%' });
+    swoosh('.about-facts li', '.about-facts', { from: 'right', stagger: .12, start: 'top 88%' });
+    pop('.about-links a', '.about-links', { delay: .1 });
   }
 
-  // Pitanja: svako pitanje se „preklopi“ na mesto, jedno za drugim.
+  // 07 Pitanja: pitanja uleću jedno za drugim, dugme iskoči.
   if (has('.faq-list')) {
-    gsap.from('.faq-list details', { rotateX: -80, y: 40, opacity: 0, transformOrigin: '50% 0%', transformPerspective: 900, duration: .9, stagger: .09, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.faq-list', 'top 84%') });
-    gsap.from('.faq-head .btn-ghost', { scale: .6, opacity: 0, duration: .7, delay: .5, ease: 'back.out(2.2)', clearProps: clean, scrollTrigger: reveal('.faq-head', 'top 85%') });
+    swoosh('.faq-list details', '.faq-list', { from: 'right', stagger: .09 });
+    pop('.faq-head .btn-ghost', '.faq-head', { delay: .5 });
   }
 
   addEventListener('pagehide', () => {
