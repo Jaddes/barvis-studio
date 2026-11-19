@@ -74,9 +74,9 @@
     const slides = [...gallery.querySelectorAll(':scope > .shot')];
     if (slides.length < 2) return;
 
-    // Veći snimci: pregledač bira 1440 px verziju umesto 960 px.
+    // Snimci postoje do 3840 px; pregledač bira veličinu prema stvarnoj širini slajdera i gustini ekrana.
     slides.forEach(slide => slide.querySelectorAll('source').forEach(source => {
-      source.sizes = slide.classList.contains('shot-phone') ? '(max-width: 760px) 50vw, 420px' : '(max-width: 760px) 100vw, 1440px';
+      source.sizes = slide.classList.contains('shot-phone') ? '(max-width: 1000px) 45vw, 22vw' : '(max-width: 1000px) 100vw, 48vw';
     }));
 
     const stage = document.createElement('div');
@@ -211,31 +211,6 @@
   // Posle ulaza brišemo GSAP stil, da CSS efekti na prelaz mišem i dalje rade.
   const clean = 'transform,opacity,filter';
 
-  // Jedan orkestriran ulaz na vrhu stranice (glavna stranica ima „hero“, stranice po delatnosti imaju „landing-hero“).
-  if (has('.hero')) {
-    gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .from('.site-header', { y: -40, opacity: 0, duration: .8, clearProps: clean })
-      .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
-      .from('.hero-title .line span', { yPercent: 110, duration: 1.1, stagger: .14 }, '-=.3')
-      .from('.hero-lead, .hero-actions', { y: 28, opacity: 0, duration: .75, stagger: .1 }, '-=.6')
-      .from('.hero-visual', { y: 90, opacity: 0, scale: .94, duration: 1.4, ease: 'expo.out' }, '-=1.2')
-      .from('.hv', { opacity: 0, duration: .9, stagger: .18 }, '<');
-    gsap.to('.hero-visual', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
-  } else if (has('.landing-hero')) {
-    gsap.from('.landing-hero > *', { y: 36, opacity: 0, stagger: .1, duration: .8, ease: 'power3.out' });
-  }
-
-  // Studio: uređaji ulaze iz dubine, telefon prati skrol sporije od laptopa (paralaksa).
-  if (has('.device-stage')) {
-    gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: reveal('.studio-copy', 'top 85%') });
-    gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
-    gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
-    gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
-  }
-  if (has('.about-photo')) {
-    gsap.from('.about-photo', { y: 60, opacity: 0, rotate: -2, duration: 1.2, ease: 'power3.out', scrollTrigger: reveal('.about', 'top 78%') });
-  }
-
   // Veliki naslovi se dele na reči koje izranjaju jedna za drugom.
   // (Ne na Google prevodu: tamo bi podela na reči pokvarila prevod rečenice.)
   const splitWords = el => {
@@ -260,8 +235,37 @@
     walk(el);
     return el.querySelectorAll('.split-word > span');
   };
+  // Naslov uvoda („Digital systems, made human.“) deli se na reči: izranjaju pri učitavanju i reaguju na miš.
   const canSplit = !location.hostname.endsWith('translate.goog');
-  const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2, .faq-head h2';
+  const heroTitle = document.querySelector('.hero-title');
+  const heroWords = heroTitle && canSplit ? splitWords(heroTitle) : '.hero-title .line > span';
+
+  // Jedan orkestriran ulaz na vrhu stranice (glavna stranica ima „hero“, stranice po delatnosti imaju „landing-hero“).
+  if (has('.hero')) {
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .from('.site-header', { y: -40, opacity: 0, duration: .8, clearProps: clean })
+      .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
+      .from(heroWords, { yPercent: 115, rotate: 4, duration: 1.1, stagger: .09, ease: 'expo.out', clearProps: 'transform' }, '-=.3')
+      .from('.hero-lead, .hero-actions', { y: 28, opacity: 0, duration: .75, stagger: .1 }, '-=.6')
+      .from('.hero-visual', { y: 90, opacity: 0, scale: .94, duration: 1.4, ease: 'expo.out' }, '-=1.2')
+      .from('.hv', { opacity: 0, duration: .9, stagger: .18 }, '<');
+    gsap.to('.hero-visual', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
+  } else if (has('.landing-hero')) {
+    gsap.from('.landing-hero > *', { y: 36, opacity: 0, stagger: .1, duration: .8, ease: 'power3.out' });
+  }
+
+  // Studio: uređaji ulaze iz dubine, telefon prati skrol sporije od laptopa (paralaksa).
+  if (has('.device-stage')) {
+    gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: reveal('.studio-copy', 'top 85%') });
+    gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
+    gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
+    gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+  }
+  if (has('.about-photo')) {
+    gsap.from('.about-photo', { y: 60, opacity: 0, rotate: -2, duration: 1.2, ease: 'power3.out', scrollTrigger: reveal('.about', 'top 78%') });
+  }
+
+  const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2';
   if (canSplit) {
     gsap.utils.toArray(headings).forEach(el => {
       gsap.from(splitWords(el), { yPercent: 115, rotate: 4, duration: 1.05, stagger: .07, ease: 'expo.out', clearProps: 'transform', scrollTrigger: reveal(el, 'top 85%') });
@@ -269,7 +273,7 @@
   }
 
   // Ostali naslovi i uvodi sekcija.
-  gsap.utils.toArray(`.manifesto-main, .section-head, .case-intro, .deliver-head .eyebrow, .method-intro > :not(h2), .faq-head > :not(h2), .contact h2${canSplit ? '' : `, ${headings}`}`).forEach(el => {
+  gsap.utils.toArray(`.manifesto-main, .section-head, .case-intro, .deliver-head .eyebrow, .method-intro > :not(h2), .faq-head > *, .contact h2${canSplit ? '' : `, ${headings}`}`).forEach(el => {
     gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: reveal(el, 'top 86%') });
   });
 
@@ -290,12 +294,10 @@
     gsap.from(targets, { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal(trigger, 'top 82%'), ...extra });
   };
 
-  swoosh('.studio-facts li', '.studio-facts', { stagger: .12 });
   swoosh('.audience-grid > *', '.audience-grid');
   swoosh('.capability-row article', '.capability-row', { from: 'right' });
-  gsap.utils.toArray('.case-facts').forEach(box => swoosh(box.children, box, { from: 'right', stagger: .1 }));
-  gsap.utils.toArray('.case-tags').forEach(box => swoosh(box.children, box, { stagger: .07, duration: .95, start: 'top 90%' }));
-  swoosh('.contact-bottom > *', '.contact-bottom', { stagger: .16 });
+  // Manje važni delovi (činjenice, oznake, kontakt) se samo tiho pojave, bez „fijuu“.
+  gsap.utils.toArray('.studio-facts, .case-tags, .contact-bottom').forEach(el => gsap.from(el, { y: 24, opacity: 0, duration: .8, ease: 'power2.out', clearProps: clean, scrollTrigger: reveal(el, 'top 90%') }));
 
   // 03 Šta dobijate: original „fijuu“ + brojevi iskaču.
   swoosh('.deliver-grid article', '.deliver-grid', { start: 'top 84%' });

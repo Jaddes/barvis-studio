@@ -742,3 +742,15 @@ em .split-word:hover > span, .split-word:hover > span:is(em *) { color: var(--pa
   .slider-arrow { width: 3.2rem; height: 3.2rem; opacity: 1; transform: none; }
   .slider-arrows { padding: 0 .7rem; }
 }
+
+/* Studija slučaja: video levo, snimci desno (manje i uravnoteženo) */
+.case-media { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 1.5rem; }
+.case-media .case-video { margin: 0; border-radius: .9rem; }
+.case-media .case-video video { aspect-ratio: 16 / 10; object-fit: cover; }
+.case-media .case-video figcaption, .case-media .is-slider .shot figcaption { min-height: 5.6rem; font-size: .98rem; }
+.case-media .play-icon { width: clamp(4.5rem, 7vw, 6.5rem); }
+.case-media .slider-arrow { width: 3.6rem; height: 3.6rem; }
+@media (max-width: 1000px) { .case-media { grid-template-columns: 1fr; } }
+/* Naslov uvoda: reči ostaju u istom redu kao pre podele */
+.hero-title .line .split-word { display: inline-block; }
+.hero-title .line .split-word > span { display: inline-block; }
