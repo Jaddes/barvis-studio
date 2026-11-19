@@ -240,22 +240,50 @@
         <p class="case-note">Ekrani prikazuju izmišljene podatke; pravi podaci ordinacije ostaju privatni.</p>
       </article>
 
-      <article class="project project-focus" aria-labelledby="focus-title">
-        <div class="project-meta"><span>BARVIS Focus</span><span>Lični sistem za produktivnost · 2026</span></div>
-        <div class="project-visual" aria-hidden="true">
-          <div class="product-window dark-ui">
-            <div class="timer-ring"><span>24:52</span><small>FOCUS</small></div>
-            <div class="timer-copy"><small>TRENUTNI FOKUS</small><b>Studija slučaja</b><i></i><i></i></div>
-          </div>
-          <span class="project-number">02</span>
-        </div>
-        <div class="project-copy">
+      <article class="case case-focus" id="case-focus" aria-labelledby="focus-title">
+        <div class="project-meta"><span>BARVIS Focus · studija slučaja</span><span>Lični sistem za produktivnost · 2026</span></div>
+        <div class="case-intro">
           <h3 id="focus-title">Fokus koji ostaje<br><em>povezan sa ciljem.</em></h3>
-          <div>
-            <p>Sistem za produktivnost koji koristim svaki dan: Pomodoro tajmer, projekti, istorija i analitika rada, sa stanjem koje se čuva na svim uređajima.</p>
-            <ul><li>Pomodoro i projekti</li><li>Analitika rada</li><li>Sinhronizovano stanje</li></ul>
-          </div>
+          <dl class="case-facts">
+            <div><dt>Problem</dt><dd>Tajmer u jednoj aplikaciji, zadaci u drugoj, beleške u trećoj. Nije se videlo koliko vremena stvarno odlazi na koji projekat.</dd></div>
+            <div><dt>Rešenje</dt><dd>Jedan privatni sistem: Pomodoro tajmer vezan za projekat i zadatak, Focus Inbox za misli usred rada, analitika po danu, nedelji, mesecu i godini, i nivoi veština koji rastu sa uloženim vremenom.</dd></div>
+            <div><dt>Rezultat</dt><dd>Posle sređivanja početni ekran se učitava sa manje od 100 KB umesto 6 MB, radi tastaturom (razmak, R, N, 1–6) i prolazi WCAG 2.2 AA proveru.</dd></div>
+            <div><dt>Tehnologija</dt><dd>Django, PostgreSQL, Docker. Stanje tajmera čuva server, pa isti tajmer teče na računaru i telefonu. Dostupno samo preko privatne mreže.</dd></div>
+          </dl>
         </div>
+
+        <div class="case-gallery">
+          <figure class="shot shot-phone">
+            <picture>
+              <source type="image/webp" srcset="./assets/work/focus-mobile-520.webp 520w, ./assets/work/focus-mobile-780.webp 780w" sizes="(max-width: 760px) 60vw, 22vw">
+              <img src="./assets/work/focus-mobile-520.webp" alt="BARVIS Focus na telefonu: Pomodoro tajmer sa izabranim projektom i zadatkom" width="780" height="1688" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Na telefonu.</b> Isti tajmer nastavlja tamo gde je stao na računaru.</figcaption>
+          </figure>
+          <figure class="shot shot-wide">
+            <picture>
+              <source type="image/webp" srcset="./assets/work/focus-analytics-960.webp 960w, ./assets/work/focus-analytics-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 64vw">
+              <img src="./assets/work/focus-analytics-960.webp" alt="Analitika: fokus vreme po danima u mesecu i raspodela po projektima" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Analitika.</b> Fokus vreme po danima, raspodela po projektima i poređenje sa prethodnim mesecom.</figcaption>
+          </figure>
+          <figure class="shot">
+            <picture>
+              <source type="image/webp" srcset="./assets/work/focus-tasks-960.webp 960w, ./assets/work/focus-tasks-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 44vw">
+              <img src="./assets/work/focus-tasks-960.webp" alt="Zadaci sa napretkom u pomodoro intervalima" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Zadaci sa napretkom.</b> Svaki završen pomodoro se upisuje izabranom zadatku.</figcaption>
+          </figure>
+          <figure class="shot">
+            <picture>
+              <source type="image/webp" srcset="./assets/work/focus-development-960.webp 960w, ./assets/work/focus-development-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 44vw">
+              <img src="./assets/work/focus-development-960.webp" alt="Razvoj: nivoi i veštine koje rastu sa uloženim vremenom" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Razvoj.</b> Uloženo vreme pretvara se u nivoe veština, uz iskrenu napomenu da vreme meri trud, ne stručnost.</figcaption>
+          </figure>
+        </div>
+        <ul class="case-tags"><li>Tajmer na svim uređajima</li><li>Prečice sa tastature</li><li>Analitika i CSV izvoz</li><li>WCAG pristupačnost</li><li>Privatni server</li></ul>
+        <p class="case-note">Snimci prikazuju izmišljene podatke.</p>
       </article>
     </section>
 

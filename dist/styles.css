@@ -503,3 +503,10 @@ footer > p { margin: 0; text-align: right; }
   .header-end { gap: .5rem; }
   .lang-switch { min-width: 2.6rem; min-height: 2.6rem; }
 }
+
+/* BARVIS Focus studija slučaja: telefon levo, toplija (crveno-narandžasta) pozadina, kao boje same aplikacije */
+.case-focus .shot { display: flex; flex-direction: column; background: #0d1015; }
+.case-focus .shot figcaption { flex: 1; }
+.case-focus .shot-phone picture { padding: 7% 24% 0; }
+@media (max-width: 760px) { .case-focus .shot-phone picture { padding: 8% 22% 0; } }
+.case-focus .shot-phone { background: radial-gradient(circle at 50% 30%, rgba(255, 69, 86, .28), transparent 62%), #161214; }

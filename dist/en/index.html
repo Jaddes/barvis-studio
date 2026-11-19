@@ -240,22 +240,50 @@
         <p class="case-note">Screens show fictional data; the practice's real data stays private.</p>
       </article>
 
-      <article class="project project-focus" aria-labelledby="focus-title">
-        <div class="project-meta"><span>BARVIS Focus</span><span>Personal productivity system · 2026</span></div>
-        <div class="project-visual" aria-hidden="true">
-          <div class="product-window dark-ui">
-            <div class="timer-ring"><span>24:52</span><small>FOCUS</small></div>
-            <div class="timer-copy"><small>CURRENT FOCUS</small><b>Case study</b><i></i><i></i></div>
-          </div>
-          <span class="project-number">02</span>
-        </div>
-        <div class="project-copy">
+      <article class="case case-focus" id="case-focus" aria-labelledby="focus-title">
+        <div class="project-meta"><span>BARVIS Focus · case study</span><span>Personal productivity system · 2026</span></div>
+        <div class="case-intro">
           <h3 id="focus-title">Focus that stays<br><em>connected to the goal.</em></h3>
-          <div>
-            <p>The productivity system I use every day: a Pomodoro timer, projects, history and work analytics, with state that follows you across devices.</p>
-            <ul><li>Pomodoro and projects</li><li>Work analytics</li><li>Synced state</li></ul>
-          </div>
+          <dl class="case-facts">
+            <div><dt>Problem</dt><dd>A timer in one app, tasks in another, notes in a third. There was no clear view of how much time really went into each project.</dd></div>
+            <div><dt>Solution</dt><dd>One private system: a Pomodoro timer tied to a project and task, a Focus Inbox for stray thoughts mid-session, analytics by day, week, month and year, and skill levels that grow with time invested.</dd></div>
+            <div><dt>Result</dt><dd>After the overhaul the main screen loads under 100 KB instead of 6 MB, works from the keyboard (Space, R, N, 1–6) and passes a WCAG 2.2 AA audit.</dd></div>
+            <div><dt>Stack</dt><dd>Django, PostgreSQL, Docker. The server keeps the timer state, so the same timer runs on desktop and phone. Reachable only over a private network.</dd></div>
+          </dl>
         </div>
+
+        <div class="case-gallery">
+          <figure class="shot shot-phone">
+            <picture>
+              <source type="image/webp" srcset="../assets/work/focus-mobile-520.webp 520w, ../assets/work/focus-mobile-780.webp 780w" sizes="(max-width: 760px) 60vw, 22vw">
+              <img src="../assets/work/focus-mobile-520.webp" alt="BARVIS Focus on a phone: Pomodoro timer with a selected project and task" width="780" height="1688" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>On the phone.</b> The same timer picks up where the desktop left off.</figcaption>
+          </figure>
+          <figure class="shot shot-wide">
+            <picture>
+              <source type="image/webp" srcset="../assets/work/focus-analytics-960.webp 960w, ../assets/work/focus-analytics-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 64vw">
+              <img src="../assets/work/focus-analytics-960.webp" alt="Analytics: focus time per day of the month and split by project" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Analytics.</b> Focus time per day, split by project, compared with the previous month.</figcaption>
+          </figure>
+          <figure class="shot">
+            <picture>
+              <source type="image/webp" srcset="../assets/work/focus-tasks-960.webp 960w, ../assets/work/focus-tasks-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 44vw">
+              <img src="../assets/work/focus-tasks-960.webp" alt="Tasks with progress counted in pomodoros" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Tasks with progress.</b> Every finished pomodoro is logged against the selected task.</figcaption>
+          </figure>
+          <figure class="shot">
+            <picture>
+              <source type="image/webp" srcset="../assets/work/focus-development-960.webp 960w, ../assets/work/focus-development-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 44vw">
+              <img src="../assets/work/focus-development-960.webp" alt="Growth view: levels and skills that grow with time invested" width="1440" height="900" loading="lazy" decoding="async">
+            </picture>
+            <figcaption><b>Growth.</b> Time invested turns into skill levels, with an honest note that time measures effort, not expertise.</figcaption>
+          </figure>
+        </div>
+        <ul class="case-tags"><li>Timer on every device</li><li>Keyboard shortcuts</li><li>Analytics and CSV export</li><li>WCAG accessibility</li><li>Private server</li></ul>
+        <p class="case-note">Screens show fictional data; interface in Serbian.</p>
       </article>
     </section>
 
