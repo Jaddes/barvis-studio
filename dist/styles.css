@@ -634,3 +634,108 @@ footer > p { margin: 0; font-size: .9rem; }
   .is-slider .shot figcaption { font-size: .98rem; }
   .lang-menu summary { padding: 0 .7rem; }
 }
+
+/* =========================================================================
+   v4: dugmad slajdera, oznake, cene po dogovoru, pozadine sekcija, animacije teksta
+   ========================================================================= */
+
+/* Slajder: velike strelice preko slike + dugme „Sledeća“ ispod */
+.slider-arrows { position: absolute; z-index: 5; top: 0; left: 0; right: 0; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: space-between; padding: 0 1.2rem; pointer-events: none; }
+.slider-arrow {
+  display: grid; place-items: center; width: 4.4rem; height: 4.4rem; pointer-events: auto;
+  border: 1px solid rgba(243, 244, 237, .25); border-radius: 50%;
+  color: var(--paper); background: rgba(10, 13, 11, .6); backdrop-filter: blur(12px);
+  cursor: pointer; opacity: 0; transition: opacity .35s, transform .35s var(--ease), background .3s, color .3s;
+}
+.slider-arrow svg, .slider-nav svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.slider-arrow.is-prev { transform: translateX(-10px); }
+.slider-arrow.is-next { transform: translateX(10px); }
+.slider-stage:hover .slider-arrow, .slider-arrow:focus-visible { opacity: 1; transform: none; }
+.slider-arrow:hover { color: var(--ink); background: var(--green); border-color: var(--green); }
+.slider-nav { align-items: center; }
+.slider-nav button { transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease); }
+.slider-nav .slider-prev { width: 3.6rem; height: 3.6rem; }
+.slider-nav .slider-next {
+  display: inline-flex; gap: .7rem; width: auto; height: 3.6rem; padding: 0 1.1rem 0 1.5rem; border-radius: 99px;
+  border-color: var(--green); color: var(--ink); background: var(--green); font: 700 1rem var(--sans);
+}
+.slider-nav .slider-next:hover { border-color: var(--paper); background: var(--paper); transform: translateX(3px); }
+.slider-nav .slider-next svg { transition: transform .3s var(--ease); }
+.slider-nav .slider-next:hover svg { transform: translateX(4px); }
+.slider-nav .slider-prev:hover svg { transform: translateX(-3px); }
+.slider-nav .slider-prev svg { transition: transform .3s var(--ease); }
+.slider-count { display: flex; align-items: baseline; gap: .35rem; }
+.slider-count b { min-width: 2.2ch; color: var(--green); font-size: 2rem; letter-spacing: -.02em; }
+@media (hover: none) { .slider-arrow { display: none; } }
+
+/* Oznake ispod studije slučaja: kvačica + blagi sjaj */
+.case-tags { gap: .6rem; margin-top: 2.2rem; }
+.case-tags li {
+  display: inline-flex; align-items: center; gap: .55rem; padding: .7rem 1.1rem .7rem .8rem;
+  border: 1px solid rgba(184, 245, 44, .25); color: var(--paper); background: rgba(184, 245, 44, .06);
+  font-size: .95rem; font-weight: 600; transition: border-color .3s, background .3s, transform .3s var(--ease);
+}
+.case-tags li::before {
+  content: ""; flex: none; width: 1.25rem; height: 1.25rem; border-radius: 50%;
+  background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0d0b' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 70% no-repeat;
+}
+.case-tags li:hover { border-color: var(--green); background: rgba(184, 245, 44, .12); transform: translateY(-2px); }
+.case-focus .case-tags li { border-color: rgba(255, 106, 61, .3); background: rgba(255, 106, 61, .07); }
+.case-focus .case-tags li::before { background-color: #ff7a45; }
+.case-focus .case-tags li:hover { border-color: #ff7a45; background: rgba(255, 106, 61, .14); }
+
+/* Cene: četiri opcije, poslednja „po dogovoru“ */
+.pricing-grid { grid-template-columns: repeat(4, 1fr); perspective: 1400px; }
+.pricing-grid article { border-radius: .9rem; transition: border-color .35s, transform .45s var(--ease), box-shadow .45s; }
+.pricing-grid article:hover { transform: translateY(-6px); box-shadow: 0 2rem 4rem rgba(0, 0, 0, .45); }
+.pricing-grid article.is-custom { border-style: dashed; border-color: rgba(255, 64, 56, .55); background: linear-gradient(170deg, rgba(255, 64, 56, .1), rgba(255, 64, 56, 0) 60%); }
+.pricing-grid .btn-ghost { align-self: start; margin-top: auto; }
+.price-text { color: var(--red); font-family: var(--serif); font-style: italic; font-weight: 600; letter-spacing: -.01em; }
+@media (max-width: 1100px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+/* Pozadine: svaka sekcija ima svoj ton, a ukupno ostaje ista tamna paleta */
+.studio { background: radial-gradient(60rem 36rem at 88% 20%, rgba(184, 245, 44, .07), transparent 70%), var(--ink); }
+.audience { background: linear-gradient(180deg, #0e1210, #0b0e0c); }
+.manifesto { background: radial-gradient(56rem 34rem at 6% 90%, rgba(255, 64, 56, .09), transparent 70%), var(--ink); }
+.work { background: linear-gradient(180deg, #0b0e0c 0%, #0d1110 50%, #0b0e0c 100%); }
+.deliver {
+  background:
+    linear-gradient(rgba(243, 244, 237, .03) 1px, transparent 1px) 0 0 / 100% 76px,
+    radial-gradient(60rem 30rem at 50% 0%, rgba(184, 245, 44, .06), transparent 70%), #0c0f0d;
+}
+.pricing { background: radial-gradient(70rem 34rem at 50% 100%, rgba(184, 245, 44, .08), transparent 70%), #0d100e; }
+.method { background: radial-gradient(50rem 40rem at 0% 30%, rgba(184, 245, 44, .05), transparent 70%), #101411; }
+.about { background: radial-gradient(56rem 40rem at 20% 50%, rgba(255, 64, 56, .08), transparent 70%), var(--ink); }
+.faq { background: linear-gradient(180deg, #0e1210, var(--ink)); }
+
+/* Naslovi koji se otkrivaju reč po reč (app.js deli tekst na reči) */
+.split-word { display: inline-block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; vertical-align: top; }
+.split-word > span { display: inline-block; }
+
+/* Način rada: linija napretka spaja korake */
+.method ol { position: relative; border-top: 0; }
+.method ol::before, .method ol::after { content: ""; position: absolute; top: 2rem; bottom: 2rem; left: 1.5rem; width: 2px; transform: translateX(-50%); }
+.method ol::before { background: rgba(243, 244, 237, .1); }
+.method ol::after { background: linear-gradient(var(--green), var(--red)); transform: translateX(-50%) scaleY(var(--progress, 1)); transform-origin: top; }
+.method li { position: relative; z-index: 1; border-bottom-color: transparent; }
+.method li > span { background: var(--ink); }
+.method li:hover > span { background: var(--red); }
+
+/* O meni: okvir oko slike se iscrtava */
+.about-photo::before { transition: inset .9s var(--ease); }
+
+/* Pitanja: odgovor se otvara glatko */
+.faq-list details p { transform-origin: top; }
+.faq-list details[open] p { animation: answer .5s var(--ease); }
+.faq-list summary { transition: color .25s, padding .35s var(--ease); }
+.faq-list summary:hover { color: var(--green); padding-left: .4rem; }
+@keyframes answer { from { opacity: 0; transform: translateY(-10px); } }
+
+@media (max-width: 760px) {
+  .slider-nav .slider-next { height: 3.1rem; padding: 0 .9rem 0 1.2rem; }
+  .slider-nav .slider-prev { width: 3.1rem; height: 3.1rem; }
+  .slider-count b { font-size: 1.6rem; }
+  .case-tags li { font-size: .88rem; }
+  .method ol::before, .method ol::after { left: 1.5rem; }
+}

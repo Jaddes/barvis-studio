@@ -4,9 +4,10 @@
   const finePointer = matchMedia('(pointer: fine)').matches;
   const en = document.documentElement.lang.startsWith('en');
   const L = en
-    ? { prev: 'Previous image', next: 'Next image', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
-    : { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
+    ? { prev: 'Previous image', next: 'Next image', nextShort: 'Next', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
+    : { prev: 'Prethodna slika', next: 'Sledeća slika', nextShort: 'Sledeća', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
   const pad = n => String(n).padStart(2, '0');
+  const arrow = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d > 0 ? 'M5 12h14M13 6l6 6-6 6' : 'M19 12H5M11 6l-6 6 6 6'}"/></svg>`;
 
   // Zaglavlje dobija pozadinu posle prvog skrolovanja.
   const header = document.querySelector('.site-header');
@@ -61,6 +62,7 @@
     frame.append(button);
     button.addEventListener('click', () => {
       video.controls = true;
+      video.volume = .7; // muzika je podloga, ne treba da iznenadi
       button.remove();
       video.play().catch(() => {});
       video.focus();
@@ -84,7 +86,12 @@
     ui.className = 'slider-ui';
     ui.innerHTML = `<p class="slider-count" aria-live="polite"><b>01</b> / ${pad(slides.length)}</p>
       <div class="slider-dots"></div>
-      <div class="slider-nav"><button type="button" class="slider-prev" aria-label="${L.prev}">←</button><button type="button" class="slider-next" aria-label="${L.next}">→</button></div>`;
+      <div class="slider-nav"><button type="button" class="slider-prev" aria-label="${L.prev}">${arrow(-1)}</button><button type="button" class="slider-next" aria-label="${L.next}"><span aria-hidden="true">${L.nextShort}</span>${arrow(1)}</button></div>`;
+    // Velike strelice preko same slike (vidljive na prelaz mišem).
+    const overlay = document.createElement('div');
+    overlay.className = 'slider-arrows';
+    overlay.innerHTML = `<button type="button" class="slider-arrow is-prev" aria-label="${L.prev}" tabindex="-1">${arrow(-1)}</button><button type="button" class="slider-arrow is-next" aria-label="${L.next}" tabindex="-1">${arrow(1)}</button>`;
+    stage.append(overlay);
     gallery.append(stage, ui);
     gallery.classList.add('is-slider');
     gallery.setAttribute('role', 'region');
@@ -135,15 +142,15 @@
         [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
         { duration: 600, delay: 320, easing: 'ease-out', fill: 'backwards' });
     };
-    ui.querySelector('.slider-prev').addEventListener('click', () => go(current - 1, -1));
-    ui.querySelector('.slider-next').addEventListener('click', () => go(current + 1, 1));
+    gallery.querySelectorAll('.slider-prev, .slider-arrow.is-prev').forEach(b => b.addEventListener('click', () => go(current - 1, -1)));
+    gallery.querySelectorAll('.slider-next, .slider-arrow.is-next').forEach(b => b.addEventListener('click', () => go(current + 1, 1)));
     gallery.addEventListener('keydown', event => {
       if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1, 1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1, -1); }
     });
     // Prevlačenje prstom levo/desno; običan klik na sliku vodi na sledeću.
     let startX = null;
-    stage.addEventListener('pointerdown', event => { startX = event.clientX; });
+    stage.addEventListener('pointerdown', event => { startX = event.target.closest('button') ? null : event.clientX; });
     stage.addEventListener('pointerup', event => {
       if (startX === null) return;
       const dx = event.clientX - startX;
@@ -213,9 +220,41 @@
     gsap.from('.about-photo', { y: 60, opacity: 0, rotate: -2, duration: 1.2, ease: 'power3.out', scrollTrigger: reveal('.about', 'top 78%') });
   }
 
-  // Naslovi i uvodi sekcija.
-  gsap.utils.toArray('.manifesto-main, .section-head, .case-intro, .deliver-head, .method-intro, .faq-head, .contact h2').forEach(el => {
-    gsap.from(el, { y: 70, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: reveal(el, 'top 84%') });
+  // Veliki naslovi se dele na reči koje izranjaju jedna za drugom.
+  // (Ne na Google prevodu: tamo bi podela na reči pokvarila prevod rečenice.)
+  const splitWords = el => {
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    const walk = node => [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.append(part); return; }
+          const outer = document.createElement('span');
+          outer.className = 'split-word';
+          outer.setAttribute('aria-hidden', 'true');
+          const inner = document.createElement('span');
+          inner.textContent = part;
+          outer.append(inner);
+          frag.append(outer);
+        });
+        child.replaceWith(frag);
+      } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== 'BR') walk(child);
+    });
+    walk(el);
+    return el.querySelectorAll('.split-word > span');
+  };
+  const canSplit = !location.hostname.endsWith('translate.goog');
+  const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2, .faq-head h2';
+  if (canSplit) {
+    gsap.utils.toArray(headings).forEach(el => {
+      gsap.from(splitWords(el), { yPercent: 115, rotate: 4, duration: 1.05, stagger: .07, ease: 'expo.out', scrollTrigger: reveal(el, 'top 85%') });
+    });
+  }
+
+  // Ostali naslovi i uvodi sekcija.
+  gsap.utils.toArray(`.manifesto-main, .section-head, .case-intro, .deliver-head .eyebrow, .method-intro > :not(h2), .faq-head > :not(h2), .contact h2${canSplit ? '' : `, ${headings}`}`).forEach(el => {
+    gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: reveal(el, 'top 86%') });
   });
 
   // Video i slajder se otvaraju „zavesom“.
@@ -226,9 +265,6 @@
   [
     ['.audience-grid', '.audience-grid > *', { y: 40 }],
     ['.capability-row', '.capability-row article', { x: 60 }],
-    ['.pricing-grid', '.pricing-grid article', { y: 30 }],
-    ['.about-facts', '.about-facts li', { y: 24 }],
-    ['.faq-list', '.faq-list details', { y: 24 }],
     ['.case-tags', '.case-tags li', { y: 16 }],
     ['.contact-bottom', '.contact-bottom > *', { y: 24 }],
   ].forEach(([trigger, targets, from]) => {
@@ -244,10 +280,46 @@
     gsap.from('.deliver-num', { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal('.deliver-grid', 'top 84%') });
   }
 
-  // Način rada: koraci iskaču jedan za drugim, brojevi se zarotiraju na mesto.
+  // Cene: kartice se okreću ka posetiocu jedna za drugom, iznosi „odbrojavaju“ do prave cene.
+  if (has('.pricing-grid')) {
+    gsap.from('.pricing-grid article', { rotateX: -55, y: 90, opacity: 0, transformOrigin: '50% 100%', duration: 1.1, stagger: .13, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.pricing-grid', 'top 84%') });
+    const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE'); // 2.000 na srpskom, 2,000 na engleskom
+    document.querySelectorAll('.pricing-grid .price').forEach((price, i) => {
+      const node = [...price.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
+      if (!node) return;
+      const original = node.textContent;
+      const match = original.match(/\d[\d.,]*/);
+      const target = Number(match[0].replace(/[.,]/g, ''));
+      const counter = { value: 0 };
+      gsap.to(counter, {
+        value: target, duration: 1.6, delay: .25 + i * .13, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 84%'),
+        onUpdate: () => { node.textContent = original.replace(match[0], fmt(Math.round(counter.value))); },
+        onComplete: () => { node.textContent = original; },
+      });
+    });
+    gsap.from('.pricing-grid li', { x: -16, opacity: 0, duration: .5, stagger: .04, delay: .5, ease: 'power2.out', clearProps: clean, scrollTrigger: reveal('.pricing-grid', 'top 84%') });
+  }
+
+  // Način rada: koraci uleću i iskaču, brojevi se zarotiraju na mesto, linija se puni dok se skroluje.
   if (has('.method ol')) {
-    gsap.from('.method li', { x: 90, opacity: 0, scale: .92, filter: 'blur(8px)', duration: .95, stagger: .16, ease: 'back.out(1.5)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
-    gsap.from('.method li > span', { scale: 0, rotate: -120, duration: .8, stagger: .16, delay: .25, ease: 'back.out(2.6)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
+    gsap.from('.method li', { x: 120, opacity: 0, scale: .88, filter: 'blur(10px)', duration: 1.05, stagger: .18, ease: 'back.out(1.7)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
+    gsap.from('.method li > span', { scale: 0, rotate: -180, duration: .9, stagger: .18, delay: .3, ease: 'back.out(3)', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
+    gsap.from('.method li b', { y: 24, opacity: 0, duration: .7, stagger: .18, delay: .4, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal('.method ol', 'top 82%') });
+    gsap.fromTo('.method ol', { '--progress': 0 }, { '--progress': 1, ease: 'none', scrollTrigger: { trigger: '.method ol', start: 'top 75%', end: 'bottom 55%', scrub: .6 } });
+  }
+
+  // O meni: slika se otvara zavesom, okvir „klizne“ na mesto, činjenice uleću sa desne strane.
+  if (has('.about-copy')) {
+    gsap.from('.about-photo img', { clipPath: 'inset(100% 0 0 0 round .5rem)', scale: 1.25, duration: 1.5, ease: 'expo.out', clearProps: 'clipPath,transform', scrollTrigger: reveal('.about', 'top 75%') });
+    gsap.from('.about-copy > p:not(.eyebrow)', { y: 30, opacity: 0, filter: 'blur(6px)', duration: .9, stagger: .14, delay: .35, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal('.about-copy', 'top 80%') });
+    gsap.from('.about-facts li', { x: 80, opacity: 0, duration: .8, stagger: .12, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.about-facts', 'top 88%') });
+    gsap.from('.about-links a', { scale: .6, opacity: 0, duration: .7, stagger: .1, ease: 'back.out(2.2)', clearProps: clean, scrollTrigger: reveal('.about-links', 'top 92%') });
+  }
+
+  // Pitanja: svako pitanje se „preklopi“ na mesto, jedno za drugim.
+  if (has('.faq-list')) {
+    gsap.from('.faq-list details', { rotateX: -80, y: 40, opacity: 0, transformOrigin: '50% 0%', transformPerspective: 900, duration: .9, stagger: .09, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal('.faq-list', 'top 84%') });
+    gsap.from('.faq-head .btn-ghost', { scale: .6, opacity: 0, duration: .7, delay: .5, ease: 'back.out(2.2)', clearProps: clean, scrollTrigger: reveal('.faq-head', 'top 85%') });
   }
 
   addEventListener('pagehide', () => {
