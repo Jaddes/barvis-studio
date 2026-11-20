@@ -2,7 +2,7 @@
 
 Sajt nezavisnog studija za digitalne proizvode iz Novog Sada: **Digital systems, made human.**
 
-**Uživo:** https://jaddes.github.io/barvis-studio/
+**Uživo:** https://barvis-studio.dev/
 
 ## Struktura
 

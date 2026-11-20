@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jaddes.github.io/barvis-studio/sitemap.xml
+Sitemap: https://barvis-studio.dev/sitemap.xml
