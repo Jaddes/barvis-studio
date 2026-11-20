@@ -66,7 +66,7 @@
       <span>BARVIS<small>studio</small></span>
     </a>
     <nav aria-label="Glavna navigacija">
-      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a>
+      <a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#procena">Procena</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a>
     </nav>
     <div class="header-end">
       <details class="lang-menu">
@@ -85,8 +85,13 @@
         </div>
       </details>
       <a class="header-cta" href="#contact">Besplatan razgovor <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Meni"><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
     </div>
   </header>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Meni"><a href="#za-koga">Za koga</a><a href="#work">Radovi</a><a href="#cene">Cene</a><a href="#procena">Procena</a><a href="#o-meni">O meni</a><a href="#faq">Pitanja</a></nav>
+    <a class="btn-primary" href="#contact">Zakažite besplatan razgovor <span aria-hidden="true">↗</span></a>
+  </div>
 
   <main id="main" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
@@ -349,9 +354,72 @@
       </div>
     </section>
 
+    <section class="estimate section-pad" id="procena" aria-labelledby="estimate-title">
+      <div class="estimate-head">
+        <p class="eyebrow">05 / Procena projekta</p>
+        <h2 id="estimate-title">Za dva minuta<br><em>znate odakle krećemo.</em></h2>
+        <p>Označite šta vam treba. Dobijate okvirni paket po cenovniku iznad i gotovu poruku koju možete odmah poslati.</p>
+      </div>
+      <form class="estimate-grid" data-estimate novalidate>
+        <div class="estimate-steps">
+          <fieldset>
+            <legend><span>1</span>Šta vam treba?</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="kind" value="site"><span><b>Sajt</b><small>Predstavljanje firme ili usluge</small></span></label>
+              <label class="choice"><input type="radio" name="kind" value="system" checked><span><b>Sistem po meri</b><small>Aplikacija za svakodnevni rad</small></span></label>
+              <label class="choice"><input type="radio" name="kind" value="unsure"><span><b>Nisam siguran</b><small>Hajde da zajedno vidimo</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>2</span>Šta sistem treba da radi?</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="checkbox" name="feature" value="booking" checked><span>Zakazivanje termina</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="clients" checked><span>Evidencija klijenata</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="billing"><span>Naplata i dugovanja</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="reports"><span>Izveštaji i analitika</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="reminders"><span>Podsetnici na telefonu</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="roles"><span>Više zaposlenih i uloge</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="online"><span>Online zakazivanje za klijente</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="import"><span>Prenos podataka iz Excela</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>3</span>Koliko ljudi će ga koristiti?</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="radio" name="team" value="1"><span>Samo ja</span></label>
+              <label class="chip"><input type="radio" name="team" value="2-5" checked><span>2–5</span></label>
+              <label class="chip"><input type="radio" name="team" value="6-15"><span>6–15</span></label>
+              <label class="chip"><input type="radio" name="team" value="15+"><span>Više od 15</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>4</span>Posle puštanja u rad</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="checkbox" name="care" value="maintenance" checked><span>Želim održavanje i podršku</span></label>
+              <label class="chip"><input type="checkbox" name="care" value="training"><span>Obuka za ceo tim</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <aside class="estimate-result" aria-live="polite">
+          <p class="estimate-label">Preporuka</p>
+          <p class="estimate-package" data-out="package">Sistem po meri</p>
+          <p class="estimate-price" data-out="price"><small>od</small> 2.000 €</p>
+          <p class="estimate-extra" data-out="extra">+ održavanje od 50 € mesečno</p>
+          <ul class="estimate-list" data-out="list"><li>Zakazivanje termina</li><li>Evidencija klijenata</li></ul>
+          <p class="estimate-note">Okvirno, prema cenovniku. Tačan iznos i rok dobijate u pisanoj ponudi posle besplatnog razgovora, bez obaveze.</p>
+          <div class="estimate-actions">
+            <a class="btn-primary" data-send="mail" href="#contact">Pošaljite ovaj upit <span aria-hidden="true">↗</span></a>
+            <a class="btn-ghost" data-send="whatsapp" href="#contact" rel="noopener">WhatsApp</a>
+          </div>
+          <button class="estimate-copy" type="button" data-send="copy">Kopiraj opis</button>
+          <p class="estimate-status" role="status"></p>
+        </aside>
+      </form>
+    </section>
+
     <section class="method section-pad" id="method" aria-labelledby="method-title">
       <div class="method-grid">
-        <div class="method-intro"><p class="eyebrow">05 / Način rada</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao, pa tek onda pišemo kod.</p></div>
+        <div class="method-intro"><p class="eyebrow">06 / Način rada</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>Najpre razumemo posao, pa tek onda pišemo kod.</p></div>
         <ol>
           <li><span aria-hidden="true">01</span><div><b>Razgovor</b><p>Besplatan, 30 minuta: kako radite danas i gde gubite vreme.</p></div></li>
           <li><span aria-hidden="true">02</span><div><b>Ponuda i plan</b><p>Šta se pravi, kojim redom i u kom roku, pre nego što počnemo.</p></div></li>
@@ -370,7 +438,7 @@
           </picture>
         </figure>
         <div class="about-copy">
-          <p class="eyebrow">06 / O meni</p>
+          <p class="eyebrow">07 / O meni</p>
           <h2 id="about-title">Boris Lahos.<br><em>Developer i dizajner.</em></h2>
           <p>Student sam završne godine <span class="kw">Računarstva i automatike</span> na <span class="kw">Fakultetu tehničkih nauka</span> u Novom Sadu. Pravim softver koji bih i sam voleo da koristim: <span class="kw">jasan</span>, <span class="kw">brz</span> i napravljen oko <span class="kw">stvarnog posla</span>.</p>
           <p>Sa svakim klijentom radim <span class="kw">direktno</span>, od prvog razgovora do puštanja u rad i podrške posle. <span class="kw">Nema posrednika</span>, nema izgubljenih informacija.</p>
@@ -390,7 +458,7 @@
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
       <div class="faq-grid">
       <div class="faq-head">
-        <p class="eyebrow">07 / Pitanja</p>
+        <p class="eyebrow">08 / Pitanja</p>
         <h2 id="faq-title">Česta<br><em>pitanja.</em></h2>
         <a class="btn-ghost" href="#contact">Pitajte me direktno <span aria-hidden="true">↗</span></a>
       </div>
@@ -424,7 +492,7 @@
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow">08 / Sledeći projekat</p>
+      <p class="eyebrow">09 / Sledeći projekat</p>
       <h2 id="contact-title">Imate proces koji<br><em>zaslužuje bolji sistem?</em></h2>
       <div class="contact-bottom">
         <div class="contact-steps">
@@ -472,6 +540,7 @@
   <script src="./assets/vendor/lenis.min.js" defer></script>
   <script src="./assets/vendor/gsap.min.js" defer></script>
   <script src="./assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="./estimate.js" defer></script>
   <script src="./app.js" defer></script>
 </body>
 </html>

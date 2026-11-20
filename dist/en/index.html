@@ -66,7 +66,7 @@
       <span>BARVIS<small>studio</small></span>
     </a>
     <nav aria-label="Main navigation">
-      <a href="#who">Who it's for</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#faq">FAQ</a>
+      <a href="#who">Who it's for</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#estimate">Estimate</a><a href="#about">About</a><a href="#faq">FAQ</a>
     </nav>
     <div class="header-end">
       <details class="lang-menu">
@@ -85,8 +85,13 @@
         </div>
       </details>
       <a class="header-cta" href="#contact">Free call <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu"><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
     </div>
   </header>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Menu"><a href="#who">Who it's for</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#estimate">Estimate</a><a href="#about">About</a><a href="#faq">FAQ</a></nav>
+    <a class="btn-primary" href="#contact">Book a free call <span aria-hidden="true">↗</span></a>
+  </div>
 
   <main id="main" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
@@ -349,9 +354,72 @@
       </div>
     </section>
 
+    <section class="estimate section-pad" id="estimate" aria-labelledby="estimate-title">
+      <div class="estimate-head">
+        <p class="eyebrow">05 / Project estimate</p>
+        <h2 id="estimate-title">Two minutes to know<br><em>where we start.</em></h2>
+        <p>Tick what you need. You get an indicative package based on the pricing above and a ready-made message you can send right away.</p>
+      </div>
+      <form class="estimate-grid" data-estimate novalidate>
+        <div class="estimate-steps">
+          <fieldset>
+            <legend><span>1</span>What do you need?</legend>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="kind" value="site"><span><b>Website</b><small>Present a business or service</small></span></label>
+              <label class="choice"><input type="radio" name="kind" value="system" checked><span><b>Custom system</b><small>An app for everyday work</small></span></label>
+              <label class="choice"><input type="radio" name="kind" value="unsure"><span><b>Not sure yet</b><small>Let's figure it out together</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>2</span>What should it do?</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="checkbox" name="feature" value="booking" checked><span>Appointment booking</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="clients" checked><span>Client records</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="billing"><span>Payments and balances</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="reports"><span>Reports and analytics</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="reminders"><span>Phone reminders</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="roles"><span>Several staff and roles</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="online"><span>Online booking for clients</span></label>
+              <label class="chip"><input type="checkbox" name="feature" value="import"><span>Import from Excel</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>3</span>How many people will use it?</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="radio" name="team" value="1"><span>Just me</span></label>
+              <label class="chip"><input type="radio" name="team" value="2-5" checked><span>2–5</span></label>
+              <label class="chip"><input type="radio" name="team" value="6-15"><span>6–15</span></label>
+              <label class="chip"><input type="radio" name="team" value="15+"><span>More than 15</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>4</span>After launch</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="checkbox" name="care" value="maintenance" checked><span>I want maintenance and support</span></label>
+              <label class="chip"><input type="checkbox" name="care" value="training"><span>Training for the whole team</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <aside class="estimate-result" aria-live="polite">
+          <p class="estimate-label">Recommendation</p>
+          <p class="estimate-package" data-out="package">Custom system</p>
+          <p class="estimate-price" data-out="price"><small>from</small> €2,000</p>
+          <p class="estimate-extra" data-out="extra">+ maintenance from €50 a month</p>
+          <ul class="estimate-list" data-out="list"><li>Appointment booking</li><li>Client records</li></ul>
+          <p class="estimate-note">Indicative, based on the pricing. You get the exact amount and timeline in a written proposal after a free call, with no obligation.</p>
+          <div class="estimate-actions">
+            <a class="btn-primary" data-send="mail" href="#contact">Send this enquiry <span aria-hidden="true">↗</span></a>
+            <a class="btn-ghost" data-send="whatsapp" href="#contact" rel="noopener">WhatsApp</a>
+          </div>
+          <button class="estimate-copy" type="button" data-send="copy">Copy summary</button>
+          <p class="estimate-status" role="status"></p>
+        </aside>
+      </form>
+    </section>
+
     <section class="method section-pad" id="method" aria-labelledby="method-title">
       <div class="method-grid">
-        <div class="method-intro"><p class="eyebrow">05 / How I work</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>First we understand the business, then we write code.</p></div>
+        <div class="method-intro"><p class="eyebrow">06 / How I work</p><h2 id="method-title">Clarity<br><em>before code.</em></h2><p>First we understand the business, then we write code.</p></div>
         <ol>
           <li><span aria-hidden="true">01</span><div><b>Conversation</b><p>Free, 30 minutes: how you work today and where you lose time.</p></div></li>
           <li><span aria-hidden="true">02</span><div><b>Quote and plan</b><p>What gets built, in what order and by when, before we start.</p></div></li>
@@ -370,7 +438,7 @@
           </picture>
         </figure>
         <div class="about-copy">
-          <p class="eyebrow">06 / About</p>
+          <p class="eyebrow">07 / About</p>
           <h2 id="about-title">Boris Lahos.<br><em>Developer and designer.</em></h2>
           <p>I'm a final-year <span class="kw">Computing and Control Engineering</span> student at the <span class="kw">Faculty of Technical Sciences</span> in Novi Sad. I build software I'd want to use myself: <span class="kw">clear</span>, <span class="kw">fast</span> and shaped around <span class="kw">real work</span>.</p>
           <p>I work <span class="kw">directly</span> with every client, from the first conversation through launch and ongoing support. <span class="kw">No middlemen</span>, nothing lost in translation.</p>
@@ -390,7 +458,7 @@
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
       <div class="faq-grid">
       <div class="faq-head">
-        <p class="eyebrow">07 / FAQ</p>
+        <p class="eyebrow">08 / FAQ</p>
         <h2 id="faq-title">Common<br><em>questions.</em></h2>
         <a class="btn-ghost" href="#contact">Ask me directly <span aria-hidden="true">↗</span></a>
       </div>
@@ -428,7 +496,7 @@
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow">08 / Next project</p>
+      <p class="eyebrow">09 / Next project</p>
       <h2 id="contact-title">Got a process that<br><em>deserves a better system?</em></h2>
       <div class="contact-bottom">
         <div class="contact-steps">
@@ -476,6 +544,7 @@
   <script src="../assets/vendor/lenis.min.js" defer></script>
   <script src="../assets/vendor/gsap.min.js" defer></script>
   <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../estimate.js" defer></script>
   <script src="../app.js" defer></script>
 </body>
 </html>
