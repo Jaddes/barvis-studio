@@ -851,10 +851,9 @@ html.is-translated body { top: 0 !important; position: static !important; }
   .estimate-result { position: static; }
 }
 
-/* Dugme za video ne prekriva naziv projekta na posteru */
-.case-media .play-btn { place-items: center end; justify-items: end; padding-right: 8%; }
+/* Dugme za video: tačno na sredini postera */
+.case-media .play-btn { place-items: center; justify-items: center; align-content: center; padding: 0; }
 @media (max-width: 760px) {
-  .case-media .play-btn { align-content: end; padding: 0 8% 8% 0; }
   .case-media .play-icon { width: 3.8rem; }
   .case-media .play-label { display: none; }
 }
