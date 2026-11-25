@@ -2,10 +2,9 @@
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
-  const en = document.documentElement.lang.startsWith('en');
-  const L = en
-    ? { prev: 'Previous image', next: 'Next image', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
-    : { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
+  const I18N = (() => { try { return JSON.parse(document.getElementById('i18n')?.textContent || 'null'); } catch (_) { return null; } })() || {};
+  const LOCALE = I18N.locale || 'sr-Latn';
+  const L = I18N.app || { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
   const pad = n => String(n).padStart(2, '0');
   const arrow = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d > 0 ? 'M5 12h14M13 6l6 6-6 6' : 'M19 12H5M11 6l-6 6 6 6'}"/></svg>`;
 
@@ -14,43 +13,6 @@
   const setHeader = () => header?.classList.toggle('is-scrolled', scrollY > 24);
   addEventListener('scroll', setHeader, { passive: true });
   setHeader();
-
-  // Automatski prevod na licu mesta (bez Google-ove trake): izbor jezika upisuje kolačić „googtrans“,
-  // a Google-ov prevodilac se učitava samo kada je neki strani jezik izabran. Original je uvek engleska stranica.
-  const gtCookie = () => (document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([a-zA-Z-]+)/) || [])[1];
-  const clearGt = () => {
-    const past = 'expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-    [location.hostname, `.${location.hostname}`, location.hostname.split('.').slice(-2).join('.')].forEach(domain => {
-      document.cookie = `googtrans=; ${past}; domain=${domain}`;
-    });
-    document.cookie = `googtrans=; ${past}`;
-  };
-  const englishUrl = document.querySelector('.lang-list a[lang="en"]')?.href;
-  document.querySelectorAll('.lang-list [data-gt]').forEach(link => link.addEventListener('click', event => {
-    event.preventDefault();
-    clearGt();
-    document.cookie = `googtrans=/en/${link.dataset.gt}; path=/`;
-    if (en) location.reload(); else location.href = englishUrl;
-  }));
-  document.querySelectorAll('.lang-list a[lang="en"], .lang-list a[lang="sr-Latn"]').forEach(link => link.addEventListener('click', () => clearGt()));
-  const gtLang = gtCookie();
-  const translating = en && gtLang && gtLang !== 'en';
-  if (!en && gtLang) clearGt();
-  if (translating) {
-    document.documentElement.classList.add('is-translated');
-    const label = document.querySelector('.lang-menu summary span');
-    if (label) label.textContent = gtLang.toUpperCase();
-    document.querySelectorAll('.lang-list a').forEach(a => a.toggleAttribute('aria-current', a.dataset.gt === gtLang));
-    const holder = document.createElement('div');
-    holder.id = 'gt-holder';
-    holder.hidden = true;
-    document.body.append(holder);
-    window.gtInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'gt-holder');
-    const script = document.createElement('script');
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit';
-    script.async = true;
-    document.head.append(script);
-  }
 
   // Meni za jezik se zatvara klikom van njega ili tasterom Escape.
   const langMenu = document.querySelector('.lang-menu');
@@ -223,45 +185,42 @@
      3) radovi: snimak projekta se otvara zavesom
      4) kako radimo: linija procesa se iscrta kroz korake
      Bez zamućenja, bez „iskakanja“, bez odbrojavanja i bez animacije na svakoj kartici. */
+  // Sveske, tabele i poruke: kad tabla uđe u ekran, beleške se same slože u kalendar (jednom, bez vezivanja za skrol).
   const board = document.querySelector('[data-chaos]');
-  if (board && !reduced) {
-    // Bez JavaScripta (ili sa smanjenim pokretom) tabla je već sređena (--p: 1).
+  if (board && !reduced && 'IntersectionObserver' in window) {
     board.style.setProperty('--p', '0');
-    const update = () => {
-      const r = board.getBoundingClientRect();
-      // 0 kad tabla tek uđe odozdo, 1 kad stigne do gornje trećine ekrana.
-      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .62 + r.height * .35)));
-      board.style.setProperty('--p', p.toFixed(3));
-      board.classList.toggle('is-sorted', p > .97);
-    };
-    addEventListener('scroll', update, { passive: true }); addEventListener('resize', update); update();
-  }
-
-  // Cene se „učitaju“: iznos odbroji do prave vrednosti kad red uđe u ekran (jednom, brojevi iste širine).
-  if (!reduced && 'IntersectionObserver' in window) {
-    const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE');
-    const counters = [...document.querySelectorAll('.ledger strong, .price')].map(el => {
-      const node = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
-      if (!node) return null;
-      const original = node.textContent, match = original.match(/\d[\d.,]*/);
-      return { el, node, original, match: match[0], target: Number(match[0].replace(/[.,]/g, '')) };
-    }).filter(Boolean);
-    const run = c => {
-      const start = performance.now(), dur = 1100;
+    const play = () => {
+      const start = performance.now(), dur = 2200;
+      const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       const tick = now => {
-        const t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
-        c.node.textContent = c.original.replace(c.match, fmt(Math.round(c.target * eased)));
-        if (t < 1) requestAnimationFrame(tick); else c.node.textContent = c.original;
+        const t = Math.min(1, (now - start - 350) / dur);
+        board.style.setProperty('--p', Math.max(0, ease(Math.max(0, t))).toFixed(3));
+        if (t < 1) requestAnimationFrame(tick); else board.classList.add('is-sorted');
       };
       requestAnimationFrame(tick);
     };
-    const io = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      io.unobserve(entry.target);
-      const c = counters.find(x => x.el === entry.target);
-      if (c) setTimeout(() => run(c), counters.indexOf(c) % 5 * 90);
-    }), { threshold: .6 });
-    counters.forEach(c => { c.node.textContent = c.original.replace(c.match, fmt(0)); io.observe(c.el); });
+    const io = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { io.disconnect(); play(); } }), { threshold: .45 });
+    io.observe(board);
+  }
+
+  // Za koga: gotova poruka po delatnosti, posetilac je menja i šalje jednim klikom (WhatsApp ili mejl).
+  document.querySelectorAll('[data-draft]').forEach(box => {
+    const area = box.querySelector('textarea'), wa = box.querySelector('[data-draft-wa]'), mail = box.querySelector('[data-draft-mail]');
+    const subject = (I18N.C && I18N.C.subject) || 'barvis-studio.dev';
+    const sync = () => {
+      wa.href = `https://wa.me/38169625066?text=${encodeURIComponent(area.value)}`;
+      mail.href = `mailto:hello@barvis-studio.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(area.value)}`;
+    };
+    area.addEventListener('input', sync); sync();
+  });
+
+  // Živi sat u uvodu (lokalno vreme Novog Sada), kao potpis studija.
+  const clock = document.querySelector('[data-clock]');
+  if (clock) {
+    const place = clock.textContent.split('·')[0].trim();
+    const fmt = new Intl.DateTimeFormat(LOCALE, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Europe/Belgrade' });
+    const tick = () => { clock.textContent = `${place} · ${fmt.format(new Date())}`; };
+    tick(); setInterval(tick, 1000);
   }
 
   if (reduced || !window.gsap || !window.ScrollTrigger) return;
@@ -284,9 +243,13 @@
     gsap.from(el, { clipPath: 'inset(10% 6% 10% 6% round .9rem)', duration: 1.1, ease: 'expo.out', clearProps: 'clipPath', scrollTrigger: once(el, 'top 85%') });
   });
 
+  // Kako radimo: linija ide kroz korake, a broj se „protrese“ i upali tačno kada linija stigne do njega.
   if (has('.steps')) {
-    const steps = document.querySelectorAll('.steps li').length;
-    gsap.fromTo('.steps', { '--progress': 0 }, { '--progress': 1, duration: .22 * steps + .5, ease: 'power2.inOut', scrollTrigger: once('.steps', 'top 80%') });
+    const list = document.querySelector('.steps'), items = [...list.querySelectorAll('li')], n = items.length, dur = .5 * n + .3;
+    list.classList.add('is-armed');
+    const tl = gsap.timeline({ scrollTrigger: once(list, 'top 75%') });
+    tl.fromTo(list, { '--progress': 0 }, { '--progress': 1, duration: dur, ease: 'none' }, 0);
+    items.forEach((li, i) => tl.call(() => li.classList.add('is-hit'), null, n > 1 ? dur * i / (n - 1) : 0));
   }
 
   addEventListener('pagehide', () => {

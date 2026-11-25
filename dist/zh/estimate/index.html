@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>项目估价 | BARVIS Studio</title>
+  <meta name="description" content="勾选需求，添加自己的条目、预算和时间，获取应用、网站或自动化的大致估价。">
+  <meta name="theme-color" content="#0a0d0b">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://barvis-studio.dev/zh/estimate/">
+  <link rel="alternate" hreflang="sr-Latn" href="https://barvis-studio.dev/procena/">
+  <link rel="alternate" hreflang="en" href="https://barvis-studio.dev/en/estimate/">
+  <link rel="alternate" hreflang="de" href="https://barvis-studio.dev/de/estimate/">
+  <link rel="alternate" hreflang="fr" href="https://barvis-studio.dev/fr/estimate/">
+  <link rel="alternate" hreflang="es" href="https://barvis-studio.dev/es/estimate/">
+  <link rel="alternate" hreflang="it" href="https://barvis-studio.dev/it/estimate/">
+  <link rel="alternate" hreflang="ru" href="https://barvis-studio.dev/ru/estimate/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://barvis-studio.dev/zh/estimate/">
+  <link rel="alternate" hreflang="ja" href="https://barvis-studio.dev/ja/estimate/">
+  <link rel="alternate" hreflang="ko" href="https://barvis-studio.dev/ko/estimate/">
+  <link rel="alternate" hreflang="hu" href="https://barvis-studio.dev/hu/estimate/">
+  <link rel="alternate" hreflang="x-default" href="https://barvis-studio.dev/en/estimate/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="BARVIS Studio">
+  <meta property="og:title" content="项目估价 | BARVIS Studio">
+  <meta property="og:description" content="勾选需求，添加自己的条目、预算和时间，获取应用、网站或自动化的大致估价。">
+  <meta property="og:url" content="https://barvis-studio.dev/zh/estimate/">
+  <meta property="og:image" content="https://barvis-studio.dev/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../styles.css">
+  <script type="application/json" id="i18n">{"locale": "zh-CN", "app": {"prev": "上一张", "next": "下一张", "image": "图片", "gallery": "截图", "play": "播放视频", "watch": "观看"}, "T": {"greeting": "Boris 你好：", "about": "关于我们（做什么、现在如何工作）：", "thanks": "谢谢！", "subject": "咨询：", "copied": "描述已复制，可粘贴到邮件或消息中。", "copyFail": "复制失败，请使用咨询表单。", "moved": "描述已填入下方的咨询表单。补充几句关于你的业务后发送即可。"}, "E": {"suffix": true, "kinds": {"system": "应用或系统", "site": "网站", "automation": "自动化", "maintenance": "维护", "unsure": "还不确定"}, "prices": {"system": ["起价", 2000], "site": ["起价", 500], "automation": ["按范围定价"], "maintenance": ["起价", 50, "/ 月"]}, "scope": ["小型项目", "中型项目", "大型项目"], "talk": "范围由我们一起确定", "fit": {"low": "预算低于起步价。我会建议先做一个只包含最重要功能的小版本，之后再逐步扩展。", "ok": "预算符合起步价。书面报价会写明确切的范围和工期。", "unknown": "还没有预算也没关系。报价会列出每部分的费用，由你来选择。"}, "team": {"1": "只有我", "2-5": "2–5 人", "6-15": "6–15 人", "15+": "15 人以上"}, "when": {"asap": "越快越好", "1-3": "1–3 个月内", "flex": "不着急"}, "budget": {"500": "500 € 以内", "2000": "500–2,000 €", "5000": "2,000–5,000 €", "more": "5,000 € 以上", "unknown": "未确定"}, "remove": "移除", "intro": "我在你网站上做的估价：", "need": "需要", "does": "功能", "teamL": "团队", "whenL": "时间", "budgetL": "预算", "range": "大致价格", "time": "大致工期", "weeks": "周", "monthly": "+ 维护每月 50 € 起", "small": "小型项目"}, "C": {"required": "请填写此项。", "name": "请输入姓名。", "contact": "请输入邮箱或电话号码。", "message": "请用一两句话说明你的需求。", "sending": "发送中…", "subject": "来自 barvis-studio.dev 的咨询", "nameL": "姓名", "contactL": "联系方式", "serviceL": "服务", "ok": "<b>谢谢，咨询已发送。<\/b>我会亲自回复，并给出具体的下一步。", "opened": "<p><b>你的邮件程序应已打开并准备好消息。<\/b>直接发送即可。<\/p><p>没有打开？换一种方式发送同样的内容：<\/p>", "failed": "<p><b>这次发送没有成功。<\/b>你的消息没有丢失，请换一种方式发送：<\/p>", "copy": "复制消息", "copied": "已复制。请粘贴到发往 hello@barvis-studio.dev 的邮件中。", "email": "打开邮件"}, "P": {"site": [["landing", 400, 900, [1, 2]], ["company", 900, 2500, [2, 4]], ["pro", 2500, 5000, [4, 8]]], "system": [["tool", 1500, 4000, [2, 5]], ["business", 4000, 12000, [6, 14]], ["platform", 12000, null, [12, 24]]], "automation": [["single", 300, 1200, [1, 2]], ["flow", 1200, 4000, [2, 6]]], "maintenance": [["basic", 50, null, null], ["standard", 150, null, null], ["growth", 400, null, null]]}}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../../zh/#top" aria-label="BARVIS Studio"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+    <nav aria-label="菜单"><a href="../../zh/#top">首页</a><a href="../../zh/#services">服务</a><a href="../../zh/#work">作品</a><a href="../../zh/pricing/">价格</a><a href="./" aria-current="page">估价</a><a href="../../zh/how-i-work/">合作方式</a><a href="../../zh/#faq">常见问题</a></nav>
+    <div class="header-end">
+      <details class="lang-menu">
+        <summary aria-label="语言"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg><span>ZH</span></summary>
+        <div class="lang-list" translate="no"><a href="../../procena/" hreflang="sr-Latn" lang="sr-Latn">Srpski</a><a href="../../en/estimate/" hreflang="en" lang="en">English</a><a href="../../de/estimate/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/estimate/" hreflang="fr" lang="fr">Français</a><a href="../../es/estimate/" hreflang="es" lang="es">Español</a><a href="../../it/estimate/" hreflang="it" lang="it">Italiano</a><a href="../../ru/estimate/" hreflang="ru" lang="ru">Русский</a><a href="../../zh/estimate/" hreflang="zh-Hans" lang="zh-Hans" aria-current="page">中文</a><a href="../../ja/estimate/" hreflang="ja" lang="ja">日本語</a><a href="../../ko/estimate/" hreflang="ko" lang="ko">한국어</a><a href="../../hu/estimate/" hreflang="hu" lang="hu">Magyar</a></div>
+      </details>
+      <a class="header-cta" href="../../zh/#contact"><span class="ico ico-call" aria-hidden="true"></span> 免费咨询</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-open="菜单" data-close="关闭"><span class="menu-label">菜单</span></button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="菜单"><a href="../../zh/#top">首页</a><a href="../../zh/#services">服务</a><a href="../../zh/#work">作品</a><a href="../../zh/pricing/">价格</a><a href="./" aria-current="page">估价</a><a href="../../zh/how-i-work/">合作方式</a><a href="../../zh/#faq">常见问题</a></nav>
+    <div class="mobile-menu-foot"><a class="btn-primary" href="../../zh/#contact"><span class="ico ico-call" aria-hidden="true"></span> 预约免费咨询</a>
+      <div class="mobile-lang" translate="no"><span>语言</span><div><a href="../../procena/" hreflang="sr-Latn" lang="sr-Latn">Srpski</a><a href="../../en/estimate/" hreflang="en" lang="en">English</a><a href="../../de/estimate/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/estimate/" hreflang="fr" lang="fr">Français</a><a href="../../es/estimate/" hreflang="es" lang="es">Español</a><a href="../../it/estimate/" hreflang="it" lang="it">Italiano</a><a href="../../ru/estimate/" hreflang="ru" lang="ru">Русский</a><a href="../../zh/estimate/" hreflang="zh-Hans" lang="zh-Hans" aria-current="page">中文</a><a href="../../ja/estimate/" hreflang="ja" lang="ja">日本語</a><a href="../../ko/estimate/" hreflang="ko" lang="ko">한국어</a><a href="../../hu/estimate/" hreflang="hu" lang="hu">Magyar</a></div></div></div>
+  </div>
+
+  <main id="main" tabindex="-1" class="subpage">
+    <section class="page-head" id="top">
+      <a class="back-link" href="../../zh/"><span class="ico ico-left" aria-hidden="true"></span> 首页</a>
+      <p class="eyebrow">项目估价</p><h1>为你<em>量身估价。</em></h1><p class="page-lead">勾选你需要的内容，添加自己的条目和预算。你会得到大致的估算，以及可直接用于咨询的描述。</p>
+    </section>
+    <section class="estimate section-pad" id="estimate-tool" aria-label="项目估价">
+      <form class="estimate-grid" data-estimate novalidate>
+        <div class="estimate-steps">
+          <fieldset class="q"><legend><span class="q-n">01</span>你需要什么？ <small>可多选</small></legend><div class="q-body"><div class="opts"><label class="opt"><input type="checkbox" name="kind" value="system" checked><span>应用或系统</span></label><label class="opt"><input type="checkbox" name="kind" value="site"><span>网站</span></label><label class="opt"><input type="checkbox" name="kind" value="automation"><span>自动化</span></label><label class="opt"><input type="checkbox" name="kind" value="maintenance"><span>维护</span></label><label class="opt"><input type="checkbox" name="kind" value="unsure"><span>还不确定</span></label></div></div></fieldset>
+          <fieldset class="q" data-features><legend><span class="q-n">02</span>它需要做什么？ <small>可多选</small></legend><div class="q-body"><div class="opts" data-feature-row><label class="opt"><input type="checkbox" name="feature" value="booking" checked><span>预约管理</span></label><label class="opt"><input type="checkbox" name="feature" value="clients" checked><span>客户档案</span></label><label class="opt"><input type="checkbox" name="feature" value="billing"><span>收款与欠款</span></label><label class="opt"><input type="checkbox" name="feature" value="reports"><span>报表</span></label><label class="opt"><input type="checkbox" name="feature" value="reminders"><span>手机提醒</span></label><label class="opt"><input type="checkbox" name="feature" value="roles"><span>多名员工与角色</span></label><label class="opt"><input type="checkbox" name="feature" value="online"><span>在线预约</span></label><label class="opt"><input type="checkbox" name="feature" value="import"><span>从 Excel 导入</span></label></div><div class="custom-add"><input type="text" maxlength="60" placeholder="添加你自己的条目…" aria-label="添加你自己的条目…" data-custom><button type="button" class="chip-add" data-custom-add><span class="ico ico-plus" aria-hidden="true"></span>添加</button></div></div></fieldset>
+          <fieldset class="q"><legend><span class="q-n">03</span>有多少人会使用？</legend><div class="q-body"><div class="opts"><label class="opt"><input type="radio" name="team" value="1"><span>只有我</span></label><label class="opt"><input type="radio" name="team" value="2-5" checked><span>2–5</span></label><label class="opt"><input type="radio" name="team" value="6-15"><span>6–15</span></label><label class="opt"><input type="radio" name="team" value="15+"><span>15+</span></label></div></div></fieldset>
+          <fieldset class="q"><legend><span class="q-n">04</span>什么时候需要？</legend><div class="q-body"><div class="opts"><label class="opt"><input type="radio" name="when" value="asap"><span>越快越好</span></label><label class="opt"><input type="radio" name="when" value="1-3"><span>1–3 个月内</span></label><label class="opt"><input type="radio" name="when" value="flex" checked><span>不着急</span></label></div></div></fieldset>
+          <fieldset class="q"><legend><span class="q-n">05</span>大致预算</legend><div class="q-body"><div class="opts"><label class="opt"><input type="radio" name="budget" value="500"><span>500 € 以内</span></label><label class="opt"><input type="radio" name="budget" value="2000"><span>500–2,000 €</span></label><label class="opt"><input type="radio" name="budget" value="5000"><span>2,000–5,000 €</span></label><label class="opt"><input type="radio" name="budget" value="more"><span>更多</span></label><label class="opt"><input type="radio" name="budget" value="unknown" checked><span>还不确定</span></label></div></div></fieldset>
+        </div>
+        <aside class="estimate-result" aria-live="polite">
+          <p class="estimate-label">你的估价</p>
+          <p class="estimate-package" data-out="package"></p>
+          <dl class="estimate-figures"><div><dt>大致价格</dt><dd data-out="range"></dd></div><div><dt>大致工期</dt><dd data-out="time"></dd></div></dl>
+          <p class="estimate-monthly" data-out="monthly" hidden></p>
+          <p class="estimate-fit" data-out="fit"></p>
+          <ul class="estimate-list" data-out="list"></ul>
+          <div class="estimate-actions"><a class="btn-primary" data-send="form" href="#contact">填入咨询表单 <span class="ico ico-down" aria-hidden="true"></span></a><a class="btn-ghost" data-send="whatsapp" href="#contact" rel="noopener">WhatsApp</a></div>
+          <button class="estimate-copy" type="button" data-send="copy">复制描述</button>
+          <p class="estimate-status" role="status"></p>
+        </aside>
+      </form>
+    </section>
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">你的流程<br><em>值得更好的系统吗？</em></h2>
+      <div class="contact-bottom">
+        <div class="contact-steps">
+          <p>写几句话给我。最有帮助的是：</p><ol><li>你从事什么行业，有多少人一起工作，</li><li>你现在如何管理预约、客户或任务，</li><li>什么最耗费你的时间。</li></ol>
+          <p class="contact-promise">我会亲自回复，并给出具体的下一步。第一次通话免费，不附带任何义务。</p>
+          <div class="contact-direct"><p>或直接联系我：</p>
+            <a class="contact-mail" href="mailto:hello@barvis-studio.dev">hello@barvis-studio.dev</a>
+            <div class="contact-quick"><a href="https://wa.me/38169625066?text=Hi%20Boris%2C%20%E6%88%91%E5%AF%B9%E5%AE%9A%E5%88%B6%E8%BD%AF%E4%BB%B6%E6%84%9F%E5%85%B4%E8%B6%A3%E3%80%82" rel="noopener">WhatsApp</a><a href="viber://chat?number=%2B38169625066">Viber</a><a href="tel:+38169625066">+381 69 625 066</a></div>
+            <button class="copy-mail" type="button" data-copy="hello@barvis-studio.dev" data-copied="地址已复制。" data-copy-failed="复制失败。地址：" hidden>复制邮箱地址</button>
+            <p class="copy-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <form class="contact-form" id="upit" data-contact-form data-endpoint="" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="cf-name">姓名</label><input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-err"><p class="field-error" id="cf-name-err" hidden></p></div>
+            <div class="field"><label for="cf-contact">邮箱或电话</label><input id="cf-contact" name="contact" type="text" autocomplete="email" required aria-describedby="cf-contact-err"><p class="field-error" id="cf-contact-err" hidden></p></div>
+          </div>
+          <div class="field"><label for="cf-service">你需要什么？</label><select id="cf-service" name="service"><option value="app">定制业务应用</option><option value="site">网站</option><option value="automation">流程自动化</option><option value="maintenance">维护与支持</option><option value="unsure" selected>还不确定，先聊聊</option></select></div>
+          <div class="field"><label for="cf-message">简单介绍你的业务和问题</label><textarea id="cf-message" name="message" rows="6" required aria-describedby="cf-message-err" placeholder="例如：一家有 3 位治疗师的诊所。预约记在本子上，收款在 Excel 里，最耗时的是……"></textarea><p class="field-error" id="cf-message-err" hidden></p></div>
+          <div class="hp" aria-hidden="true"><label for="cf-botcheck">x</label><input id="cf-botcheck" name="botcheck" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="form-foot"><button class="btn-dark" type="submit">发送咨询 <span class="ico ico-out" aria-hidden="true"></span></button><p class="form-note">你的信息仅用于回复你。</p></div>
+          <div class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="brand" href="../../zh/#top" aria-label="BARVIS Studio"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+      <p class="footer-motto">Digital systems, <em>made human.</em></p>
+      <p>© 2026 Boris Lahos · Novi Sad</p>
+    </div>
+    <nav class="footer-col" aria-label="适合谁"><p>适合谁</p><a href="../../zh/how-i-work/#clinics">诊所与医疗机构</a><a href="../../zh/how-i-work/#salons">美容院与工作室</a><a href="../../zh/how-i-work/#workshops">维修店与工坊</a><a href="../../zh/how-i-work/#schools">学校、课程与教练</a><a href="../../zh/how-i-work/#offices">办公室与代理机构</a><a href="../../zh/how-i-work/#clubs">协会与俱乐部</a></nav>
+    <nav class="footer-col" aria-label="Studio"><p>Studio</p><a href="../../zh/#work">作品</a><a href="../../zh/pricing/">价格</a><a href="./">估价</a><a href="../../zh/how-i-work/">合作方式</a><a href="../../zh/#faq">常见问题</a></nav>
+    <nav class="footer-col" aria-label="联系"><p>联系</p><a href="../../zh/#contact">发送咨询</a><a href="mailto:hello@barvis-studio.dev">hello@barvis-studio.dev</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a><a href="https://demo.barvis-studio.dev/" rel="noopener">Fizio Alfa 演示</a></nav>
+  </footer>
+  <script src="../../assets/vendor/gsap.min.js" defer></script>
+  <script src="../../assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../../estimate.js" defer></script>
+  <script src="../../app.js" defer></script>
+</body>
+</html>
