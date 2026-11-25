@@ -1474,3 +1474,100 @@ em { color: var(--green); }
 .note-chat { background: color-mix(in srgb, #2b4a2f calc((1 - var(--p)) * 100%), var(--panel)); }
 .note-sheet { background: color-mix(in srgb, #f6f7f2 calc((1 - var(--p)) * 100%), var(--panel)); }
 @media (max-width: 760px) { .hero-proof { flex-direction: column; gap: .45rem; } .hero-proof li { display: block; } .hero-proof li + li::before { content: none !important; } }
+
+/* =========================================================================
+   v5: usklađene podloge, vidljiv kalendar, kontakt forma kao istaknuta kartica,
+   ikonice za razgovor, nežni plavi akcenti, bogatiji redovi „Za koga“.
+   ========================================================================= */
+:root { --blue: #8fc3e6; --blue-deep: #2f6f99; }
+
+/* Sve tamne sekcije na istoj, novoj podlozi (bez starih sivo-crnih prelaza) */
+.studio, .audience, .services, .work, .about, .faq, .chaos, .estimate-teaser, .subpage .section-pad:not(.process):not(.contact) { background: var(--ink); }
+.audience, .faq { background: linear-gradient(180deg, var(--ink), #0d2218); }
+.work { background: #0d2218; }
+
+/* Ikonice: slušalica za razgovor, oblačić za poruku */
+.ico-call { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z'/%3E%3C/svg%3E"); width: .95em; height: .95em; }
+.ico-chat { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-12.2 7.5L3 21l2-5.8A8.4 8.4 0 1 1 21 11.5z'/%3E%3C/svg%3E"); width: .95em; height: .95em; }
+:is(.btn-primary, .header-cta) .ico-call, .btn-primary .ico-chat { margin: 0 .1rem 0 0; }
+
+/* Sveske, tabele i poruke: tabla je svetlija od podloge, dani i linije se vide */
+.chaos-board { background: linear-gradient(180deg, #143423, #10291b); border-color: rgba(143, 195, 230, .28); box-shadow: 0 2rem 4rem -2rem rgba(0, 0, 0, .6); }
+.chaos-days { padding-bottom: .8rem; margin-bottom: .6rem; border-bottom: 1px solid rgba(143, 195, 230, .25); color: var(--blue); opacity: 1; }
+.chaos-grid { background-image: repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), rgba(241, 239, 230, .08) calc(20% - 1px) 20%), repeating-linear-gradient(180deg, transparent 0 calc(25% - 1px), rgba(241, 239, 230, .06) calc(25% - 1px) 25%); }
+.note-paper { background: color-mix(in srgb, #efe6c8 calc((1 - var(--p)) * 100%), #1d4a31); }
+.note-chat { background: color-mix(in srgb, #2b4a2f calc((1 - var(--p)) * 100%), #1d4a31); }
+.note-sheet { background: color-mix(in srgb, #f6f7f2 calc((1 - var(--p)) * 100%), #1d4a31); }
+.note:nth-child(3n+1)::before { background: var(--blue); }
+
+/* Plavi akcenti (smireno): rokovi, „Danas“, oznake projekta */
+.tier-time, .who-row .row-cols p:first-child span, .work-meta span:last-child, .row-n, .step-time { color: var(--blue); }
+.process .step-time { color: var(--blue-deep); }
+.who-chips a:hover { background: var(--blue); border-color: var(--blue); color: var(--ink); }
+.preset:hover { border-color: var(--blue); background: rgba(143, 195, 230, .06); }
+.preset:hover .ico { color: var(--blue); }
+
+/* Kontakt na limeta podlozi: tamni naslov, forma kao istaknuta tamna kartica */
+.contact h2 em { color: var(--forest-2); }
+.contact .contact-steps, .contact .contact-direct p, .contact .contact-promise { color: var(--forest); }
+.contact-form { background: var(--forest); color: var(--paper); box-shadow: 0 2.5rem 5rem -2rem rgba(7, 20, 13, .55); border-radius: .8rem; padding: 2.2rem; }
+.contact-form label { color: var(--soft); }
+.contact-form :is(input, select, textarea) { border: 1px solid rgba(241, 239, 230, .2) !important; background: rgba(241, 239, 230, .06) !important; color: var(--paper) !important; }
+.contact-form :is(input, select, textarea)::placeholder { color: rgba(241, 239, 230, .45); }
+.contact-form :is(input, select, textarea):focus { border-color: var(--green) !important; box-shadow: 0 0 0 3px rgba(184, 245, 44, .2) !important; outline: 0; }
+.contact-form select option { background: var(--forest); color: var(--paper); }
+.contact-form .btn-dark { background: var(--green); color: var(--ink); }
+.contact-form .btn-dark:hover { background: var(--paper); }
+.contact-form .form-note, .contact-form .field-error { color: var(--muted); }
+.contact-form .field-error { color: #ffb3a1; }
+.contact-form .form-status { color: var(--paper); }
+
+/* Za koga: otvoren red sa tri kolone i porukom za slanje */
+.row-body { display: grid; grid-template-columns: 1fr; gap: 1.4rem; padding: .2rem .4rem 2rem calc(3.5rem + 1.6rem); }
+.row-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 2.5rem; }
+.row-cols p, .row-cols > div { margin: 0; display: grid; align-content: start; gap: .4rem; color: var(--soft); line-height: 1.55; }
+.row-cols span { font-family: var(--mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.row-cols p:nth-child(2) { color: var(--paper); }
+.row-cols p:nth-child(2) span { color: var(--green); }
+.row-cols ul { margin: 0; padding: 0; list-style: none; counter-reset: g; display: grid; gap: .35rem; }
+.row-cols li { counter-increment: g; display: grid; grid-template-columns: 1.8rem 1fr; color: var(--paper); }
+.row-cols li::before { content: counter(g, decimal-leading-zero); color: var(--green); font-family: var(--mono); font-size: .78rem; padding-top: .15em; }
+.row-draft { display: grid; gap: .6rem; padding: 1.2rem; border-radius: .6rem; background: rgba(143, 195, 230, .07); border: 1px solid rgba(143, 195, 230, .22); }
+.row-draft label { color: var(--blue); font-family: var(--mono); font-size: .74rem; letter-spacing: .04em; text-transform: uppercase; }
+.row-draft textarea { width: 100%; min-height: 9rem; padding: .9rem 1rem; border: 1px solid rgba(241, 239, 230, .18); border-radius: .4rem; background: rgba(7, 20, 13, .45); color: var(--paper); font: 1rem/1.55 var(--sans); resize: vertical; }
+.row-draft textarea:focus { outline: 0; border-color: var(--green); }
+.row-send { display: flex; flex-wrap: wrap; gap: .6rem; }
+.row-send a { min-height: 2.8rem; }
+@media (max-width: 1100px) {
+  .row-body { padding-left: .4rem; }
+  .row-cols { grid-template-columns: 1fr; }
+}
+
+/* Kalendar kao svetao papirni planer: jasno odvojen od tamne podloge */
+.chaos-board { background: var(--cream); border: 0; box-shadow: 0 2.5rem 5rem -2rem rgba(0, 0, 0, .65); }
+.chaos-days { color: var(--forest); border-bottom-color: rgba(15, 42, 27, .18); }
+.chaos-grid { background-image: repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), rgba(15, 42, 27, .1) calc(20% - 1px) 20%), repeating-linear-gradient(180deg, transparent 0 calc(25% - 1px), rgba(15, 42, 27, .07) calc(25% - 1px) 25%); }
+.note-paper { background: color-mix(in srgb, #f7e9a8 calc((1 - var(--p)) * 100%), var(--forest)); box-shadow: 0 calc((1 - var(--p)) * 8px) 16px rgba(15, 42, 27, calc((1 - var(--p)) * .3)); }
+.note-chat { background: color-mix(in srgb, #2b6a3a calc((1 - var(--p)) * 100%), var(--forest)); }
+.note-sheet { background: color-mix(in srgb, #ffffff calc((1 - var(--p)) * 100%), var(--forest)); outline-color: rgba(31, 107, 51, calc((1 - var(--p)) * .5)); }
+.note .tidy { color: var(--cream); }
+.note::before { background: var(--green); }
+.note:nth-child(3n+1)::before { background: var(--blue); }
+/* Pločice usluga malo svetlije od podloge */
+.tiles { background: rgba(241, 239, 230, .12); }
+.tiles li { background: var(--panel); }
+
+/* Broj koraka je uvek pun krug (linija ne prolazi kroz njega); pre „paljenja“ su utišani samo boja i ivica */
+.steps.is-armed li:not(.is-hit) .step-n { opacity: 1; background: var(--ink); border-color: var(--line); color: rgba(241, 239, 230, .4); }
+.process .steps.is-armed li:not(.is-hit) .step-n { background: var(--cream); border-color: rgba(15, 42, 27, .22); color: rgba(15, 42, 27, .38); }
+.steps li { isolation: isolate; }
+@media (min-width: 1101px) { .steps:not(.steps-index) .step-n { position: relative; z-index: 2; } }
+.steps:not(.steps-index) .step-n { z-index: 2; }
+
+/* Japanski: sistemski fontovi, bez kurziva, naslov ne lomi reči */
+:lang(ja) body, :lang(ja) .site-header { font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", "Noto Sans JP", var(--sans); }
+:lang(ja) em, :lang(ja) .hero-title .serif { font-family: inherit; font-style: normal; font-weight: 800; }
+:lang(ja) .hero-title { font-size: clamp(2.4rem, 5vw, 5.2rem); line-height: 1.12; }
+:lang(ja) :is(.sec-head h2, .who-intro h2, .chaos-copy h2, .page-head h1, .case-page h1) { line-height: 1.15; }
+:lang(ja) :is(h1, h2, h3, p, li, b, a, summary) { line-break: strict; word-break: normal; overflow-wrap: anywhere; }
+:lang(ja) .hero-title { font-size: clamp(2rem, 3.9vw, 4.2rem); }

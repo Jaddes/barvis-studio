@@ -203,6 +203,17 @@
     io.observe(board);
   }
 
+  // Za koga: gotova poruka po delatnosti, posetilac je menja i šalje jednim klikom (WhatsApp ili mejl).
+  document.querySelectorAll('[data-draft]').forEach(box => {
+    const area = box.querySelector('textarea'), wa = box.querySelector('[data-draft-wa]'), mail = box.querySelector('[data-draft-mail]');
+    const subject = (I18N.C && I18N.C.subject) || 'barvis-studio.dev';
+    const sync = () => {
+      wa.href = `https://wa.me/38169625066?text=${encodeURIComponent(area.value)}`;
+      mail.href = `mailto:hello@barvis-studio.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(area.value)}`;
+    };
+    area.addEventListener('input', sync); sync();
+  });
+
   // Živi sat u uvodu (lokalno vreme Novog Sada), kao potpis studija.
   const clock = document.querySelector('[data-clock]');
   if (clock) {

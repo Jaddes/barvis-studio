@@ -16,10 +16,10 @@ ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / 'dist'
 SITE = 'https://barvis-studio.dev'
 DEMO = 'https://demo.barvis-studio.dev/'
-LANGS = ['sr', 'en', 'de', 'fr', 'es', 'it', 'ru', 'zh', 'ko', 'hu']
+LANGS = ['sr', 'en', 'de', 'fr', 'es', 'it', 'ru', 'zh', 'ja', 'ko', 'hu']
 HTML_LANG = {'sr': 'sr-Latn', 'zh': 'zh-Hans'}
-OG_LOCALE = {'sr': 'sr_RS', 'en': 'en_GB', 'de': 'de_DE', 'fr': 'fr_FR', 'es': 'es_ES', 'it': 'it_IT', 'ru': 'ru_RU', 'zh': 'zh_CN', 'ko': 'ko_KR', 'hu': 'hu_HU'}
-NATIVE = {'sr': 'Srpski', 'en': 'English', 'de': 'Deutsch', 'fr': 'Français', 'es': 'Español', 'it': 'Italiano', 'ru': 'Русский', 'zh': '中文', 'ko': '한국어', 'hu': 'Magyar'}
+OG_LOCALE = {'sr': 'sr_RS', 'en': 'en_GB', 'de': 'de_DE', 'fr': 'fr_FR', 'es': 'es_ES', 'it': 'it_IT', 'ru': 'ru_RU', 'zh': 'zh_CN', 'ja': 'ja_JP', 'ko': 'ko_KR', 'hu': 'hu_HU'}
+NATIVE = {'sr': 'Srpski', 'en': 'English', 'de': 'Deutsch', 'fr': 'Français', 'es': 'Español', 'it': 'Italiano', 'ru': 'Русский', 'zh': '中文', 'ja': '日本語', 'ko': '한국어', 'hu': 'Magyar'}
 # Putanje stranica: srpski ima srpske adrese, ostali jezici engleske.
 SLUGS = {
     'sr': dict(home='', pricing='cenovnik/', estimate='procena/', who='za-koga/', fizio='radovi/fizio-alfa/', focus='radovi/barvis-focus/'),
@@ -36,12 +36,15 @@ def _module(name):
 
 
 TIERS = _module('tiers')
+WHO = _module('who_more')
 
 
 def load(lang):
     C = _module(lang).C
     t = TIERS.T[lang]
     C['tiers'] = t
+    C['more'] = WHO.W[lang]
+    C['nav'] = [('top', WHO.W[lang]['home'])] + [x for x in C['nav'] if x[0] != 'top']
     C['faq']['items'][0] = t['faq1']
     C['faq']['items'][-1] = t['faq8']
     C['pricing']['meta_desc'] = t['meta']
@@ -50,8 +53,8 @@ def load(lang):
     return C
 
 
-SEP = {'sr': '.', 'de': '.', 'it': '.', 'en': ',', 'zh': ',', 'ko': ',', 'fr': '\u202f', 'ru': '\u202f', 'hu': '\u202f', 'es': '.'}
-PREFIX = {'en', 'zh', 'ko'}
+SEP = {'sr': '.', 'de': '.', 'it': '.', 'en': ',', 'zh': ',', 'ja': ',', 'ko': ',', 'fr': '\u202f', 'ru': '\u202f', 'hu': '\u202f', 'es': '.'}
+PREFIX = {'en', 'zh', 'ja', 'ko'}
 
 
 def num(lang, n):
@@ -66,7 +69,7 @@ def eur_range(lang, lo, hi, t):
         amount = f'€{num(lang, lo)}' if lang in PREFIX else f'{num(lang, lo)} €'
         if lang == 'hu':
             return f'{amount}<small>{t["from_"]}</small>'
-        if lang in ('zh', 'ko'):
+        if lang in ('zh', 'ja', 'ko'):
             return f'{amount} <small>{t["from_"]}</small>'
         return f'<small>{t["from_"]}</small> {amount}'
     if lang in PREFIX:
@@ -171,13 +174,13 @@ class Page:
         <summary aria-label="{u['lang_label']}"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg><span>{self.lang.upper()}</span></summary>
         <div class="lang-list" translate="no">{self.lang_links()}</div>
       </details>
-      <a class="header-cta" href="{self.home('#contact')}">{u['cta_short']} {ico('out')}</a>
+      <a class="header-cta" href="{self.home('#contact')}">{ico('call')} {u['cta_short']}</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-open="{u['menu']}" data-close="{u['close']}"><span class="menu-label">{u['menu']}</span></button>
     </div>
   </header>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav aria-label="{u['menu']}">{nav}</nav>
-    <div class="mobile-menu-foot"><a class="btn-primary" href="{self.home('#contact')}">{u['cta_long']} {ico('out')}</a>
+    <div class="mobile-menu-foot"><a class="btn-primary" href="{self.home('#contact')}">{ico('call')} {u['cta_long']}</a>
       <div class="mobile-lang" translate="no"><span>{u['lang_label']}</span><div>{self.lang_links()}</div></div></div>
   </div>
 '''
@@ -222,7 +225,7 @@ class Page:
         </h1>
         <p class="hero-lead">{h['lead']}</p>
         <div class="hero-actions">
-          <a class="btn-primary" href="#contact">{h['cta']} {ico('out')}</a>
+          <a class="btn-primary" href="#contact">{ico('call')} {h['cta']}</a>
           <a class="btn-ghost" href="#work">{h['work']}</a>
         </div>
         <ul class="hero-proof">{proof}</ul>
@@ -444,7 +447,15 @@ class Page:
         return self.subpage(e['meta_title'], e['meta_desc'], inner)
     def page_who(self):
         w = self.C['who']
-        rows = ''.join(f'''<details class="who-row" id="{c['id']}"><summary><span class="row-n">{i + 1:02d}</span><b>{c['name']}</b><span class="row-problem">{c['problem']}</span><span class="row-toggle" aria-hidden="true"></span></summary><div class="row-body"><p><span>{w['problem']}</span>{c['problem']}</p><p><span>{w['solution']}</span>{c['solution']}</p></div></details>''' for i, c in enumerate(w['cats']))
+        m = self.C['more']
+        rows = ''
+        for i, c in enumerate(w['cats']):
+            gets = ''.join(f'<li>{g}</li>' for g in m['gets'][i])
+            draft = m['draft'].format(name=c['name'], problem=c['problem'], solution=c['solution'][0].lower() + c['solution'][1:])
+            rows += f'''<details class="who-row" id="{c['id']}"><summary><span class="row-n">{i + 1:02d}</span><b>{c['name']}</b><span class="row-problem">{c['problem']}</span><span class="row-toggle" aria-hidden="true"></span></summary>
+          <div class="row-body"><div class="row-cols"><p><span>{w['problem']}</span>{c['problem']}</p><p><span>{w['solution']}</span>{c['solution']}</p><div><span>{m['gets_label']}</span><ul>{gets}</ul></div></div>
+            <div class="row-draft" data-draft><label for="draft-{c['id']}">{m['draft_label']}</label><textarea id="draft-{c['id']}" rows="6">{esc(draft)}</textarea>
+              <div class="row-send"><a class="btn-primary" data-draft-wa href="https://wa.me/38169625066" rel="noopener">{ico('chat')} {m['send_wa']}</a><a class="btn-ghost" data-draft-mail href="mailto:hello@barvis-studio.dev">{m['send_mail']}</a></div></div></div></details>'''
         exp = ''.join(f'<a class="exp-card" href="{self.to(x["page"])}"><img src="{self.r("assets/work/" + ("fizio-calendar" if x["page"] == "fizio" else "focus-timer") + "-960.webp")}" alt="" width="1440" height="900" loading="lazy" decoding="async"><span class="exp-copy"><b>{x["name"]}</b><span>{x["text"]}</span><span class="exp-more">{w["exp_more"]} {ico("right")}</span></span></a>' for x in w['exp'])
         inner = (self.page_head(w['kicker'], w['page_title'], w['page_lead'])
                  + f'    <section class="who-index section-pad" aria-label="{esc(w["kicker"])}"><div class="who-rows">{rows}</div><p class="who-note">{w["note"]}</p></section>\n'
