@@ -5,21 +5,12 @@
    data-endpoint="https://api.barvis-studio.dev/v1/inquiries"), upit se šalje direktno, bez programa za poštu.
    Bez njega (ili ako slanje ne uspe) forma otvara pripremljen mejl, a nudi i WhatsApp i kopiranje poruke. */
 (() => {
-  const en = document.documentElement.lang.startsWith('en');
+  // Tekstovi dolaze sa stranice (<script id="i18n">, generiše tools/site/build.py); bez njih važi srpski.
+  const I18N = (() => { try { return JSON.parse(document.getElementById('i18n')?.textContent || 'null'); } catch (_) { return null; } })() || {};
+  const LOCALE = I18N.locale || 'sr-Latn';
   const MAIL = 'hello@barvis-studio.dev';
   const PHONE = '38169625066';
-  const T = en ? {
-    from: 'from', site: 'Website', system: 'Custom system', talk: 'Free call first',
-    sitePrice: '€500', systemPrice: '€2,000', talkPrice: 'No cost',
-    maintenance: '+ maintenance from €50 a month', siteToSystem: 'The features you ticked need a custom system, not just a website.',
-    team: { '1': 'Just me', '2-5': '2–5 people', '6-15': '6–15 people', '15+': 'More than 15 people' },
-    training: 'Team training', noFeatures: 'Scope to be defined together',
-    subject: 'Enquiry: ', greeting: 'Hi Boris,', intro: 'I used the estimate on your site:',
-    pkg: 'Package', needs: 'Needs', teamLabel: 'Team', after: 'After launch', about: 'About us (what we do, how we work today):', thanks: 'Thanks!',
-    copied: 'Summary copied. Paste it into an email or message.', copyFail: 'Copying failed. Use the enquiry form instead.',
-    unsureNote: 'In a 30-minute call we work out what makes sense, before any cost.',
-    moved: 'The summary is in the enquiry form below. Add a few words about your business and send it.',
-  } : {
+  const T = I18N.T || {
     from: 'od', site: 'Sajt', system: 'Sistem po meri', talk: 'Prvo besplatan razgovor',
     sitePrice: '500 €', systemPrice: '2.000 €', talkPrice: 'Bez troška',
     maintenance: '+ održavanje od 50 € mesečno', siteToSystem: 'Funkcije koje ste označili traže sistem po meri, ne samo sajt.',
@@ -42,22 +33,9 @@
 
   // Procena: više vrsta posla odjednom, sopstvene stavke, budžet i rok. Bez izmišljenih iznosa:
   // prikazuju se samo polazne cene iz cenovnika, a budžet se poredi sa njima.
-  const E = en ? {
-    kinds: { system: 'App or system', site: 'Website', automation: 'Automation', maintenance: 'Maintenance', unsure: 'Not sure yet' },
-    prices: { system: ['from', 2000], site: ['from', 500], automation: ['by scope'], maintenance: ['from', 50, '/ mo'] },
-    fmt: n => `€${n.toLocaleString('en-GB')}`,
-    scope: ['Smaller project', 'Medium project', 'Larger project'], talk: 'We work out the scope together',
-    fit: { low: 'Your budget is below the starting price. I will suggest a smaller first version with what matters most, which can grow later.',
-      ok: 'Your budget fits the starting price. The written quote gives the exact scope and timeline.',
-      unknown: 'No budget yet is fine. The quote shows what each part costs, so you can choose.' },
-    team: { '1': 'Just me', '2-5': '2–5 people', '6-15': '6–15 people', '15+': '15+ people' },
-    when: { asap: 'As soon as possible', '1-3': 'In 1–3 months', flex: 'No rush' },
-    budget: { '500': 'up to €500', '2000': '€500–2,000', '5000': '€2,000–5,000', more: 'more than €5,000', unknown: 'not decided' },
-    remove: 'Remove', intro: 'My estimate from your site:', need: 'Need', does: 'Should do', teamL: 'Team', whenL: 'When', budgetL: 'Budget',
-  } : {
+  const E = I18N.E || {
     kinds: { system: 'Aplikacija ili sistem', site: 'Sajt', automation: 'Automatizacija', maintenance: 'Održavanje', unsure: 'Još ne znam' },
     prices: { system: ['od', 2000], site: ['od', 500], automation: ['prema obimu'], maintenance: ['od', 50, '/ mes.'] },
-    fmt: n => `${n.toLocaleString('de-DE')} €`,
     scope: ['Manji projekat', 'Srednji projekat', 'Veći projekat'], talk: 'Obim određujemo zajedno',
     fit: { low: 'Budžet je ispod polazne cene. Predložiću manju prvu verziju sa onim što je najvažnije, koja kasnije može da raste.',
       ok: 'Budžet odgovara polaznoj ceni. U pisanoj ponudi dobijate tačan obim i rok.',
@@ -67,6 +45,7 @@
     budget: { '500': 'do 500 €', '2000': '500–2.000 €', '5000': '2.000–5.000 €', more: 'više od 5.000 €', unknown: 'nije određen' },
     remove: 'Ukloni', intro: 'Moja procena sa vašeg sajta:', need: 'Potrebno', does: 'Treba da radi', teamL: 'Tim', whenL: 'Rok', budgetL: 'Budžet',
   };
+  E.fmt = n => new Intl.NumberFormat(LOCALE, { style: 'currency', currency: 'EUR', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0 }).format(n);
   const form = document.querySelector('[data-estimate]');
   if (form) {
     const out = name => form.querySelector(`[data-out="${name}"]`);
@@ -89,7 +68,8 @@
       out('package').textContent = !kinds.length || (kinds.length === 1 && kinds[0] === 'unsure') ? E.talk : E.scope[weight <= 3 ? 0 : weight <= 7 ? 1 : 2];
       out('prices').innerHTML = priced.map(k => {
         const [word, n, unit] = E.prices[k];
-        return `<p><span>${E.kinds[k]}</span><b>${n ? `<small>${word}</small> ${E.fmt(n)}${unit ? ` <small>${unit}</small>` : ''}` : word}</b></p>`;
+        const amount = E.fmt(n), u = unit ? ` <small>${unit}</small>` : '';
+        return `<p><span>${E.kinds[k]}</span><b>${n ? (E.suffix ? `${amount}<small>${word.startsWith('-') ? '' : ' '}${word}</small>${u}` : `<small>${word}</small> ${amount}${u}`) : word}</b></p>`;
       }).join('');
       const floor = priced.filter(k => k !== 'maintenance').map(k => E.prices[k][1] || 0).reduce((a, b) => a + b, 0);
       const cap = { '500': 500, '2000': 2000, '5000': 5000, more: Infinity }[budget];
@@ -122,6 +102,11 @@
     form.querySelector('[data-custom-add]')?.addEventListener('click', addCustom);
     customInput?.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); addCustom(); } });
 
+    const params = new URLSearchParams(location.search);
+    const PRESETS = { site: { kind: ['site'], feature: [] }, booking: { kind: ['system'], feature: ['booking', 'clients', 'reminders'] },
+      internal: { kind: ['system', 'automation'], feature: ['reports', 'roles', 'import'] }, other: { kind: ['unsure'], feature: [] } };
+    const preset = PRESETS[params.get('p')] || (params.get('k') && { kind: [params.get('k')], feature: params.get('k') === 'system' ? ['booking', 'clients'] : [] });
+    if (preset) ['kind', 'feature'].forEach(n => form.querySelectorAll(`[name="${n}"]`).forEach(i => { i.checked = preset[n].includes(i.value); }));
     form.addEventListener('change', compute);
     form.addEventListener('submit', event => event.preventDefault());
     form.querySelector('[data-send="copy"]')?.addEventListener('click', async () => {
@@ -152,15 +137,7 @@
   }));
 
   if (contactForm) {
-    const C = en ? {
-      required: 'Please fill this in.', name: 'Please enter your name.', contact: 'Enter an email address or phone number.',
-      message: 'A sentence or two about what you need, please.', sending: 'Sending…',
-      subject: 'Enquiry from barvis-studio.dev', nameL: 'Name', contactL: 'Contact', serviceL: 'Service',
-      ok: '<b>Thank you, your enquiry has been sent.</b> I will reply personally with a concrete next step.',
-      opened: '<p><b>Your email app should now be open with the message ready.</b> Just press send.</p><p>Didn\'t open? Send the same message another way:</p>',
-      failed: '<p><b>Sending did not work this time.</b> Your message is safe; send it another way:</p>',
-      copy: 'Copy message', copied: 'Copied. Paste it into an email to ' + MAIL + '.', email: 'Open email',
-    } : {
+    const C = I18N.C || {
       required: 'Popunite ovo polje.', name: 'Upišite ime.', contact: 'Upišite mejl adresu ili broj telefona.',
       message: 'Napišite bar rečenicu-dve o tome šta vam treba.', sending: 'Šaljem…',
       subject: 'Upit sa sajta barvis-studio.dev', nameL: 'Ime', contactL: 'Kontakt', serviceL: 'Usluga',
@@ -235,7 +212,7 @@
             signal: abort.signal,
             body: JSON.stringify({
               name: data.name, contact: data.contact, service: data.serviceKey, service_label: data.service,
-              message: data.message, page: location.pathname, lang: en ? 'en' : 'sr', botcheck: '',
+              message: data.message, page: location.pathname, lang: document.documentElement.lang, botcheck: '',
             }),
           });
           const result = await response.json().catch(() => ({}));
@@ -266,8 +243,7 @@
     const set = open => {
       toggle.setAttribute('aria-expanded', String(open));
       const label = toggle.querySelector('.menu-label');
-      if (label) label.textContent = open ? (en ? 'Close' : 'Zatvori') : (en ? 'Menu' : 'Meni');
-      else toggle.setAttribute('aria-label', open ? (en ? 'Close menu' : 'Zatvori meni') : (en ? 'Menu' : 'Meni'));
+      if (label) label.textContent = open ? (toggle.dataset.close || 'Zatvori') : (toggle.dataset.open || 'Meni');
       menu.hidden = !open;
       document.documentElement.classList.toggle('menu-open', open);
       if (open) menu.querySelector('a')?.focus();

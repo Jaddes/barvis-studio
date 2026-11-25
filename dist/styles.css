@@ -1123,3 +1123,151 @@ main > section[id] { scroll-margin-top: 5.5rem; }
 .work-actions .work-more { margin-top: 0; }
 .work-demo { position: relative; z-index: 3; display: inline-flex; align-items: center; gap: .45rem; min-height: 2.6rem; padding: 0 1.1rem; border-radius: 99px; color: var(--ink); background: var(--green); font-weight: 700; text-decoration: none; transition: background .25s; }
 .work-demo:hover { background: var(--paper); }
+
+/* =========================================================================
+   v3 (2026-11-25 popodne): početna kao uvod, posebne stranice (cenovnik, procena,
+   za koga), pravi prevodi, manji razmaci, „Kako radimo“ sa brojevima koji se protresu.
+   ========================================================================= */
+.section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+.sec-head { margin-bottom: 2rem; }
+.sec-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+.hero { min-height: min(100svh, 52rem); }
+
+/* Usluge na početnoj: 4 pločice bez cena */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: 1rem; background: var(--line); overflow: hidden; }
+.tiles li { display: grid; align-content: start; gap: .6rem; padding: 1.5rem 1.4rem 1.7rem; background: var(--ink); }
+.tile-n { color: var(--green); font-size: .8rem; font-weight: 700; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+.tiles b { font-size: 1.25rem; letter-spacing: -.01em; }
+.tiles p { margin: 0; color: var(--muted); line-height: 1.5; }
+
+/* Za koga na početnoj: kratak uvod + oznake */
+.who-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 2rem 5vw; }
+.who-intro h2 { margin: 0 0 1rem; font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1; letter-spacing: -.025em; }
+.who-intro h2 em { color: var(--red); }
+.who-intro p { max-width: 32rem; margin: 0 0 1.4rem; color: var(--soft); line-height: 1.6; }
+.who-chips { display: flex; flex-wrap: wrap; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+.who-chips a { display: inline-flex; align-items: center; min-height: 2.8rem; padding: .5rem 1.1rem; border: 1px solid var(--line); border-radius: 99px; color: var(--paper); text-decoration: none; font-weight: 600; transition: border-color .2s, background .2s, color .2s; }
+.who-chips a:hover { border-color: var(--green); background: var(--green); color: var(--ink); }
+
+/* Procena na početnoj: gotovi izbori */
+.presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+.preset { position: relative; display: grid; gap: .4rem; padding: 1.3rem 3rem 1.4rem 1.3rem; border: 1px solid var(--line); border-radius: .9rem; color: inherit; text-decoration: none; background: rgba(243, 244, 237, .02); transition: border-color .2s, background .2s; }
+.preset b { font-size: 1.1rem; }
+.preset span:not(.ico) { color: var(--muted); font-size: .92rem; }
+.preset .ico { position: absolute; right: 1.2rem; top: 1.45rem; color: var(--muted); transition: transform .2s var(--ease), color .2s; }
+.preset:hover { border-color: var(--green); background: rgba(184, 245, 44, .06); }
+.preset:hover .ico { color: var(--green); transform: translateX(.25rem); }
+
+/* Kako radimo: veliki brojevi, linija kroz njihove centre, „protresanje“ kada linija stigne */
+.steps { --progress: 1; gap: 1.5rem; }
+.steps::before, .steps::after { top: 2rem; left: 2rem; right: calc((100% - 6rem) / 5 - 2rem); }
+.steps::after { background: linear-gradient(90deg, var(--green), var(--red)); }
+.step-n { width: 4rem; height: 4rem; margin-bottom: 1rem; border: 1.5px solid var(--green); color: var(--green); font-size: 1.35rem; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; transition: background .3s, color .3s, border-color .3s, opacity .3s; }
+.steps b { font-size: 1.2rem; }
+.steps.is-armed li > * { transition: opacity .4s; }
+.steps.is-armed li:not(.is-hit) .step-n { border-color: var(--line); color: var(--muted); opacity: .5; }
+.steps.is-armed li:not(.is-hit) b, .steps.is-armed li:not(.is-hit) p { opacity: .3; }
+.steps li.is-hit .step-n { background: var(--green); color: var(--ink); animation: step-shake .7s var(--ease); }
+@keyframes step-shake {
+  0% { transform: scale(.85); }
+  25% { transform: scale(1.22) rotate(-9deg); }
+  45% { transform: scale(1.12) rotate(7deg); }
+  65% { transform: scale(1.06) rotate(-4deg); }
+  85% { transform: scale(1.02) rotate(2deg); }
+  100% { transform: none; }
+}
+
+/* Podstranice */
+.subpage { padding-top: 5.5rem; }
+.page-head { padding: 3rem 4vw 1rem; }
+.back-link { display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.6rem; color: var(--muted); font-weight: 600; text-decoration: none; }
+.back-link:hover { color: var(--green); }
+.page-head h1 { margin: .8rem 0 1rem; font-size: clamp(2.6rem, 6vw, 5.6rem); line-height: .95; letter-spacing: -.03em; }
+.page-head h1 em { color: var(--red); }
+.page-lead { max-width: 44rem; margin: 0; color: var(--soft); font-size: clamp(1rem, 1.3vw, 1.18rem); line-height: 1.6; }
+.subpage .section-pad:first-of-type { border-top: 0; }
+
+/* Cenovnik */
+.price-rows { display: grid; gap: .8rem; }
+.price-row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 13rem; gap: 1.2rem 2.5rem; align-items: center; padding: 1.6rem 1.7rem; border: 1px solid var(--line); border-radius: 1rem; background: rgba(243, 244, 237, .02); scroll-margin-top: 6rem; }
+.price-main h2 { margin: 0 0 .5rem; font-size: clamp(1.3rem, 2vw, 1.75rem); letter-spacing: -.015em; }
+.price-main p { margin: 0; color: var(--muted); line-height: 1.5; }
+.price-inc { display: grid; gap: .4rem; margin: 0; padding: 0; list-style: none; color: var(--soft); font-size: .95rem; }
+.price-inc li { padding-left: 1.4rem; position: relative; }
+.price-inc li::before { content: ""; position: absolute; left: 0; top: .35em; width: .8em; height: .8em; background: var(--green);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.price-side { display: grid; justify-items: end; gap: .9rem; }
+.price-side strong { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.price-side strong small { margin-right: .3rem; color: var(--muted); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.price-side strong.price-word { font-size: 1.15rem; font-weight: 650; color: var(--soft); }
+.pricing-note { max-width: 50rem; margin: 1.6rem 0 0; color: var(--muted); line-height: 1.6; }
+
+/* Za koga (stranica) */
+.who-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.who-cat { padding: 1.5rem 1.6rem; border: 1px solid var(--line); border-radius: 1rem; scroll-margin-top: 6rem; }
+.who-cat h2 { margin: 0 0 1rem; font-size: 1.35rem; }
+.who-cat dl { display: grid; gap: .8rem; margin: 0; }
+.who-cat dt { color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.who-cat dd { margin: .25rem 0 0; color: var(--soft); line-height: 1.5; }
+.who-cat dl > div:last-child dt { color: var(--green); }
+.who-cat dl > div:last-child dd { color: var(--paper); }
+.who-note { margin: 1.6rem 0 0; color: var(--muted); }
+.exp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.exp-card { display: grid; gap: .7rem; padding: 1.6rem; border: 1px solid var(--line); border-radius: 1rem; }
+.exp-card h3 { margin: 0; font-size: 1.4rem; }
+.exp-card p { margin: 0; color: var(--soft); line-height: 1.55; }
+.exp-card a { display: inline-flex; align-items: center; gap: .45rem; color: var(--green); font-weight: 700; text-decoration: none; }
+.cta-band h2 { margin: 0; font-size: clamp(2.2rem, 4.4vw, 4.2rem); line-height: 1; letter-spacing: -.025em; }
+.cta-band h2 em { color: var(--red); }
+.case-page h1 { margin: 0; font-size: clamp(2.6rem, 5vw, 5rem); line-height: .98; letter-spacing: -.025em; }
+.case-page h1 em { color: var(--red); }
+
+/* Jezici u meniju na telefonu: svi jezici kao dugmad */
+.mobile-lang { display: grid !important; gap: .6rem; }
+.mobile-lang > div { display: flex; flex-wrap: wrap; gap: .4rem; }
+.mobile-lang span { margin: 0 !important; }
+.lang-list { max-height: 70vh; overflow: auto; }
+
+/* Kineski i korejski: sistemski fontovi i bez kurziva (serifni kurziv ne postoji za ova pisma) */
+:lang(zh) body, :lang(zh) .site-header { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", var(--sans); }
+:lang(ko) body, :lang(ko) .site-header { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", var(--sans); }
+:is(:lang(zh), :lang(ko)) em { font-family: inherit; font-style: normal; font-weight: 800; }
+:is(:lang(zh), :lang(ko)) .hero-title .serif { font-family: inherit; font-style: normal; font-weight: 800; }
+:lang(ru) em, :lang(ru) .hero-title .serif { font-family: Georgia, "Times New Roman", serif; }
+
+@media (max-width: 1100px) {
+  .tiles, .presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .price-row { grid-template-columns: 1fr; }
+  .price-side { justify-items: start; grid-auto-flow: column; align-items: center; justify-content: space-between; }
+  .steps::before, .steps::after { top: 2rem; bottom: 2.5rem; left: 2rem; right: auto; }
+  .steps { padding-left: 5rem; }
+  .step-n { left: -5rem; }
+}
+@media (max-width: 900px) {
+  .who-intro, .who-grid, .exp-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .section-pad { padding-top: 3.2rem; padding-bottom: 3.2rem; }
+  .sec-head { margin-bottom: 1.4rem; }
+  .tiles { grid-template-columns: 1fr; }
+  .tiles li { padding: 1.1rem 1.1rem 1.2rem; gap: .35rem; }
+  .presets { grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .preset { padding: 1rem 2.2rem 1rem 1rem; }
+  .preset .ico { right: .9rem; top: 1.1rem; }
+  .preset b { font-size: 1rem; }
+  .preset span:not(.ico) { font-size: .84rem; }
+  .step-n { width: 3.2rem; height: 3.2rem; font-size: 1.1rem; }
+  .steps { padding-left: 4.2rem; }
+  .step-n { left: -4.2rem; }
+  .steps::before, .steps::after { top: 1.6rem; left: 1.6rem; }
+  .page-head { padding: 2rem 1.25rem .5rem; }
+  .price-row { padding: 1.2rem; gap: .9rem; }
+  .price-side strong { font-size: 1.5rem; }
+  .who-chips a { min-height: 2.5rem; padding: .4rem .9rem; font-size: .92rem; }
+}
+
+/* Kineski i korejski: puni znakovi su širi, pa je naslov manji i ne lomi se usred reči */
+:is(:lang(zh), :lang(ko)) .hero-title { font-size: clamp(2.6rem, 5.4vw, 5.6rem); line-height: 1.12; }
+:lang(ko) :is(h1, h2, h3, p, li, a, b) { word-break: keep-all; }
+:is(:lang(zh), :lang(ko)) :is(.sec-head h2, .who-intro h2, .chaos-copy h2, .page-head h1, .case-page h1) { line-height: 1.15; }

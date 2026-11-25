@@ -35,3 +35,15 @@ Zatim otvoriti `http://127.0.0.1:8790/`.
 - **Kontakt forma:** `<form data-contact-form data-endpoint="">`. Prazno = forma otvara pripremljen mejl i nudi WhatsApp/kopiranje kao rezervu. Sa `data-endpoint="https://api.barvis-studio.dev/v1/inquiries"` upit ide na sopstveni API (`api/`, vidi `api/README.md`), koji ga čuva i šalje mejl obaveštenje. Ako API ne odgovori za 15 s ili vrati grešku, korisnik dobija iste rezervne puteve, pa se upit ne gubi.
 
 Licence biblioteka i fontova su u `dist/assets/vendor/` i `dist/assets/fonts/`.
+
+## Izmene sajta (od 25. 11. 2026)
+
+Stranice na svih 10 jezika (sr, en, de, fr, es, it, ru, zh, ko, hu) generiše `tools/site/build.py`.
+Tekstovi su u `tools/site/content/<jezik>.py`; šablon i raspored su u `build.py`. Posle izmene:
+
+```sh
+python tools/site/build.py        # piše dist/ (srpski u korenu, ostali u dist/<kod>/) i sitemap.xml
+```
+
+Ručno pisane srpske stranice (`softver-za-fizioterapeute/`, `aplikacija-za-zakazivanje/`, `izrada-sajtova/`, `404.html`) generator ne dira.
+Skripte (`app.js`, `estimate.js`) čitaju tekstove sa stranice iz `<script id="i18n">`; bez njega važi srpski.

@@ -2,10 +2,9 @@
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
-  const en = document.documentElement.lang.startsWith('en');
-  const L = en
-    ? { prev: 'Previous image', next: 'Next image', image: 'Image', gallery: 'Screenshots', play: 'Play video', watch: 'Watch' }
-    : { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
+  const I18N = (() => { try { return JSON.parse(document.getElementById('i18n')?.textContent || 'null'); } catch (_) { return null; } })() || {};
+  const LOCALE = I18N.locale || 'sr-Latn';
+  const L = I18N.app || { prev: 'Prethodna slika', next: 'Sledeća slika', image: 'Slika', gallery: 'Snimci ekrana', play: 'Pusti video', watch: 'Pogledajte' };
   const pad = n => String(n).padStart(2, '0');
   const arrow = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d > 0 ? 'M5 12h14M13 6l6 6-6 6' : 'M19 12H5M11 6l-6 6 6 6'}"/></svg>`;
 
@@ -14,43 +13,6 @@
   const setHeader = () => header?.classList.toggle('is-scrolled', scrollY > 24);
   addEventListener('scroll', setHeader, { passive: true });
   setHeader();
-
-  // Automatski prevod na licu mesta (bez Google-ove trake): izbor jezika upisuje kolačić „googtrans“,
-  // a Google-ov prevodilac se učitava samo kada je neki strani jezik izabran. Original je uvek engleska stranica.
-  const gtCookie = () => (document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([a-zA-Z-]+)/) || [])[1];
-  const clearGt = () => {
-    const past = 'expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-    [location.hostname, `.${location.hostname}`, location.hostname.split('.').slice(-2).join('.')].forEach(domain => {
-      document.cookie = `googtrans=; ${past}; domain=${domain}`;
-    });
-    document.cookie = `googtrans=; ${past}`;
-  };
-  const englishUrl = document.querySelector('.lang-list a[lang="en"]')?.href;
-  document.querySelectorAll('.lang-list [data-gt]').forEach(link => link.addEventListener('click', event => {
-    event.preventDefault();
-    clearGt();
-    document.cookie = `googtrans=/en/${link.dataset.gt}; path=/`;
-    if (en) location.reload(); else location.href = englishUrl;
-  }));
-  document.querySelectorAll('.lang-list a[lang="en"], .lang-list a[lang="sr-Latn"]').forEach(link => link.addEventListener('click', () => clearGt()));
-  const gtLang = gtCookie();
-  const translating = en && gtLang && gtLang !== 'en';
-  if (!en && gtLang) clearGt();
-  if (translating) {
-    document.documentElement.classList.add('is-translated');
-    const label = document.querySelector('.lang-menu summary span');
-    if (label) label.textContent = gtLang.toUpperCase();
-    document.querySelectorAll('.lang-list a').forEach(a => a.toggleAttribute('aria-current', a.dataset.gt === gtLang));
-    const holder = document.createElement('div');
-    holder.id = 'gt-holder';
-    holder.hidden = true;
-    document.body.append(holder);
-    window.gtInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'gt-holder');
-    const script = document.createElement('script');
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit';
-    script.async = true;
-    document.head.append(script);
-  }
 
   // Meni za jezik se zatvara klikom van njega ili tasterom Escape.
   const langMenu = document.querySelector('.lang-menu');
@@ -239,7 +201,7 @@
 
   // Cene se „učitaju“: iznos odbroji do prave vrednosti kad red uđe u ekran (jednom, brojevi iste širine).
   if (!reduced && 'IntersectionObserver' in window) {
-    const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE');
+    const fmt = n => n.toLocaleString(LOCALE);
     const counters = [...document.querySelectorAll('.ledger strong, .price')].map(el => {
       const node = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
       if (!node) return null;
@@ -284,9 +246,13 @@
     gsap.from(el, { clipPath: 'inset(10% 6% 10% 6% round .9rem)', duration: 1.1, ease: 'expo.out', clearProps: 'clipPath', scrollTrigger: once(el, 'top 85%') });
   });
 
+  // Kako radimo: linija ide kroz korake, a broj se „protrese“ i upali tačno kada linija stigne do njega.
   if (has('.steps')) {
-    const steps = document.querySelectorAll('.steps li').length;
-    gsap.fromTo('.steps', { '--progress': 0 }, { '--progress': 1, duration: .22 * steps + .5, ease: 'power2.inOut', scrollTrigger: once('.steps', 'top 80%') });
+    const list = document.querySelector('.steps'), items = [...list.querySelectorAll('li')], n = items.length, dur = .5 * n + .3;
+    list.classList.add('is-armed');
+    const tl = gsap.timeline({ scrollTrigger: once(list, 'top 75%') });
+    tl.fromTo(list, { '--progress': 0 }, { '--progress': 1, duration: dur, ease: 'none' }, 0);
+    items.forEach((li, i) => tl.call(() => li.classList.add('is-hit'), null, n > 1 ? dur * i / (n - 1) : 0));
   }
 
   addEventListener('pagehide', () => {
