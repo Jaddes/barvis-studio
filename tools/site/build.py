@@ -5,6 +5,7 @@ Pokretanje iz korena repozitorijuma:  python tools/site/build.py
 Generiše dist/ (srpski u korenu, ostali jezici u dist/<kod>/). Ručno pisane stranice
 (softver-za-fizioterapeute, aplikacija-za-zakazivanje, izrada-sajtova, 404) ne dira.
 """
+import hashlib
 import html
 import importlib.util
 import json
@@ -26,6 +27,16 @@ SLUGS = {
     'other': dict(home='', pricing='pricing/', estimate='estimate/', who='how-i-work/', fizio='work/fizio-alfa/', focus='work/barvis-focus/'),
 }
 PAGES = ['home', 'pricing', 'estimate', 'who', 'fizio', 'focus']
+# Otisak sadržaja u adresi (styles.css?v=…): posle svake izmene pregledač mora da preuzme novi fajl, nema starog keša.
+ASSETS = ('styles.css', 'app.js', 'estimate.js')
+
+
+def version(name):
+    return hashlib.sha256((DIST / name).read_bytes()).hexdigest()[:10]
+
+
+def busted(name):
+    return f'{name}?v={version(name)}'
 
 
 def _module(name):
@@ -154,7 +165,7 @@ class Page:
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="{self.r('assets/fonts/inter-tight-latin-wght-normal.woff2')}" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="{self.r('styles.css')}">
+  <link rel="stylesheet" href="{self.r(busted('styles.css'))}">
   <script type="application/json" id="i18n">{i18n}</script>{extra}
 </head>
 '''
@@ -204,7 +215,7 @@ class Page:
 
     def scripts(self, estimate=False):
         s = [f'  <script src="{self.r("assets/vendor/gsap.min.js")}" defer></script>', f'  <script src="{self.r("assets/vendor/ScrollTrigger.min.js")}" defer></script>',
-             f'  <script src="{self.r("estimate.js")}" defer></script>', f'  <script src="{self.r("app.js")}" defer></script>']
+             f'  <script src="{self.r(busted("estimate.js"))}" defer></script>', f'  <script src="{self.r(busted("app.js"))}" defer></script>']
         return '\n'.join(s) + '\n</body>\n</html>\n'
 
     # ---------------------------------------------------------- sekcije
@@ -514,7 +525,15 @@ def main():
                     'fizio': lambda: p.page_case('fizio'), 'focus': lambda: p.page_case('focus')}[page]()
             write(lang, page, text)
             urls.append(f'{SITE}/{url_path(lang, page)}')
-    for extra in ('softver-za-fizioterapeute/', 'aplikacija-za-zakazivanje/', 'izrada-sajtova/'):
+    for extra in ('softver-za-fizioterapeute/', 'aplikacija-za-zakazivanje/', 'izrada-sajtova/', ''):
+        page = DIST / extra / ('index.html' if extra else '404.html')
+        if page.exists():
+            text = page.read_text(encoding='utf-8')
+            for name in ASSETS:
+                text = re.sub(r'((?:\.\./|\./|/)?' + re.escape(name) + r')(\?v=[0-9a-f]+)?"', lambda m: m.group(1) + '?v=' + version(name) + '"', text)
+            page.write_text(text, encoding='utf-8')
+        if not extra:
+            continue
         urls.append(f'{SITE}/{extra}')
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n'
     (DIST / 'sitemap.xml').write_text(sitemap, encoding='utf-8')
