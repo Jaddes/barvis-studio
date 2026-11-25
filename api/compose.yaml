@@ -1,0 +1,45 @@
+# BARVIS leads API + Cloudflare Tunnel.
+# Javno dostupno samo preko tunela: https://api.barvis-studio.dev -> http://leads:8000 (podešava se u Cloudflare panelu).
+# Nijedan port nije otvoren prema internetu; na hostu je API dostupan samo na 127.0.0.1:18090 (provera, backup).
+# Kontejneri su u svojoj mreži, odvojeni od Fizio Alfe, Focusa i Nextcloud-a.
+name: barvis-leads
+
+services:
+  leads:
+    build: .
+    image: barvis-leads:latest
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - leads-data:/data
+    ports:
+      - "127.0.0.1:18090:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 128m
+    pids_limit: 64
+    networks: [leads]
+
+  tunnel:
+    image: cloudflare/cloudflared:2025.11.1
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    # Token je u zasebnom fajlu, da tunel ne vidi SMTP lozinku. Pokreće se tek kad token postoji:
+    #   docker compose --profile tunnel up -d
+    profiles: [tunnel]
+    env_file: tunnel.env
+    depends_on: [leads]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 128m
+    networks: [leads]
+
+volumes:
+  leads-data:
+
+networks:
+  leads: {}

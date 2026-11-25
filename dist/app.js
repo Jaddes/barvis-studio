@@ -83,6 +83,16 @@
     : null;
   document.querySelectorAll('.ticker').forEach(el => visibility?.observe(el));
 
+  // Naslovne slike videa (data-poster) se učitavaju tek kad video priđe ekranu, ne pri prvom učitavanju stranice.
+  const posters = [...document.querySelectorAll('video[data-poster]')];
+  const showPoster = video => { video.poster = video.dataset.poster; video.removeAttribute('data-poster'); };
+  if ('IntersectionObserver' in window) {
+    const posterObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { posterObserver.unobserve(entry.target); showPoster(entry.target); }
+    }), { rootMargin: '600px 0px' });
+    posters.forEach(video => posterObserver.observe(video));
+  } else posters.forEach(showPoster);
+
   // Video: veliko dugme preko naslovne slike; kontrole se pojavljuju tek kad video krene.
   document.querySelectorAll('.case-video video').forEach(video => {
     const frame = document.createElement('div');
@@ -132,7 +142,9 @@
     gallery.classList.add('is-slider');
     gallery.setAttribute('role', 'region');
     gallery.setAttribute('aria-roledescription', 'carousel');
-    gallery.setAttribute('aria-label', L.gallery);
+    // Svaka galerija dobija jedinstven naziv (npr. „Snimci ekrana: Fizio Alfa“).
+    const project = gallery.closest('.case')?.querySelector('.project-meta span')?.textContent.split('·').pop().trim();
+    gallery.setAttribute('aria-label', project ? `${L.gallery}: ${project}` : L.gallery);
 
     const count = ui.querySelector('.slider-count b');
     const dotsBox = ui.querySelector('.slider-dots');
@@ -197,23 +209,6 @@
     sync();
   });
 
-  // Ključne reči: kad pasus uđe u ekran, podvlače se jedna za drugom (na prelaz mišem ih „markira“ CSS).
-  if (!reduced && 'IntersectionObserver' in window) {
-    const kwObserver = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      kwObserver.unobserve(entry.target);
-      entry.target.querySelectorAll('.kw').forEach((kw, i) => setTimeout(() => {
-        kw.classList.remove('kw-wait');
-        kw.classList.add('kw-pulse');
-        kw.addEventListener('animationend', () => kw.classList.remove('kw-pulse'), { once: true });
-      }, 500 + i * 220));
-    }), { threshold: .35 });
-    document.querySelectorAll('.studio-copy, .about-copy').forEach(box => {
-      box.querySelectorAll('.kw').forEach(kw => kw.classList.add('kw-wait'));
-      kwObserver.observe(box);
-    });
-  }
-
   // Uvod: slojevi ekrana blago prate miš (CSS promenljive, bez prepisivanja 3D nagiba).
   const heroVisual = document.querySelector('.hero-visual');
   const parallax = event => {
@@ -222,195 +217,79 @@
   };
   if (heroVisual && finePointer && !reduced) addEventListener('pointermove', parallax, { passive: true });
 
+  /* Pokret samo tamo gde nosi poruku, i svaki ključni trenutak drugom tehnikom:
+     1) uvod: redovi naslova izlaze iz maske (jednom, pri otvaranju)
+     2) „haos → red“: razbacane beleške, tabele i poruke se pri skrolu slažu u kalendar (vezano za skrol)
+     3) radovi: snimak projekta se otvara zavesom
+     4) kako radimo: linija procesa se iscrta kroz korake
+     Bez zamućenja, bez „iskakanja“, bez odbrojavanja i bez animacije na svakoj kartici. */
+  const board = document.querySelector('[data-chaos]');
+  if (board && !reduced) {
+    // Bez JavaScripta (ili sa smanjenim pokretom) tabla je već sređena (--p: 1).
+    board.style.setProperty('--p', '0');
+    const update = () => {
+      const r = board.getBoundingClientRect();
+      // 0 kad tabla tek uđe odozdo, 1 kad stigne do gornje trećine ekrana.
+      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .62 + r.height * .35)));
+      board.style.setProperty('--p', p.toFixed(3));
+      board.classList.toggle('is-sorted', p > .97);
+    };
+    addEventListener('scroll', update, { passive: true }); addEventListener('resize', update); update();
+  }
+
+  // Cene se „učitaju“: iznos odbroji do prave vrednosti kad red uđe u ekran (jednom, brojevi iste širine).
+  if (!reduced && 'IntersectionObserver' in window) {
+    const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE');
+    const counters = [...document.querySelectorAll('.ledger strong, .price')].map(el => {
+      const node = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
+      if (!node) return null;
+      const original = node.textContent, match = original.match(/\d[\d.,]*/);
+      return { el, node, original, match: match[0], target: Number(match[0].replace(/[.,]/g, '')) };
+    }).filter(Boolean);
+    const run = c => {
+      const start = performance.now(), dur = 1100;
+      const tick = now => {
+        const t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
+        c.node.textContent = c.original.replace(c.match, fmt(Math.round(c.target * eased)));
+        if (t < 1) requestAnimationFrame(tick); else c.node.textContent = c.original;
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      io.unobserve(entry.target);
+      const c = counters.find(x => x.el === entry.target);
+      if (c) setTimeout(() => run(c), counters.indexOf(c) % 5 * 90);
+    }), { threshold: .6 });
+    counters.forEach(c => { c.node.textContent = c.original.replace(c.match, fmt(0)); io.observe(c.el); });
+  }
+
   if (reduced || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  // Posle osvežavanja stranica kreće od vrha: inače bi se sve animacije iznad vraćenog položaja pokrenule odjednom i preklapale.
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (!location.hash) scrollTo(0, 0);
-
-  let lenis;
-  if (window.Lenis) {
-    lenis = new Lenis({ duration: 1.05, smoothWheel: true });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(time => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
-    // Linkovi na sekcije (#…) idu kroz Lenis, a fokus prati odredište (tastatura, čitač ekrana).
-    document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-      event.preventDefault();
-      lenis.scrollTo(target, { offset: link.getAttribute('href') === '#top' ? 0 : -72 });
-      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
-      history.replaceState(null, '', link.getAttribute('href'));
-    }));
-  }
-
   const has = selector => document.querySelector(selector) !== null;
-  const reveal = (trigger, start = 'top 86%') => ({ trigger, start, once: true });
-  // Posle ulaza brišemo GSAP stil, da CSS efekti na prelaz mišem i dalje rade.
-  const clean = 'transform,opacity,filter,transition';
-  // CSS prelazi (transition) bi „vukli“ svaki GSAP korak i animacija bi trzala, pa ih gasimo dok traje ulaz.
-  const still = els => gsap.set(els, { transition: 'none' });
+  const once = (trigger, start = 'top 82%') => ({ trigger, start, once: true });
 
-  // Veliki naslovi se dele na reči koje izranjaju jedna za drugom.
-  // (Ne na Google prevodu: tamo bi podela na reči pokvarila prevod rečenice.)
-  const splitWords = el => {
-    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
-    const walk = node => [...node.childNodes].forEach(child => {
-      if (child.nodeType === Node.TEXT_NODE) {
-        const frag = document.createDocumentFragment();
-        child.textContent.split(/(\s+)/).forEach(part => {
-          if (!part) return;
-          if (/^\s+$/.test(part)) { frag.append(part); return; }
-          const outer = document.createElement('span');
-          outer.className = 'split-word';
-          outer.setAttribute('aria-hidden', 'true');
-          const inner = document.createElement('span');
-          inner.textContent = part;
-          outer.append(inner);
-          frag.append(outer);
-        });
-        child.replaceWith(frag);
-      } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== 'BR') walk(child);
-    });
-    walk(el);
-    return el.querySelectorAll('.split-word > span');
-  };
-  // Naslov uvoda („Digital systems, made human.“) deli se na reči: izranjaju pri učitavanju i reaguju na miš.
-  // Ne delimo naslove na reči kad se stranica prevodi: prevodilac mora da vidi celu rečenicu.
-  const canSplit = !location.hostname.endsWith('translate.goog') && !translating;
-  const heroTitle = document.querySelector('.hero-title');
-  const heroWords = heroTitle && canSplit ? splitWords(heroTitle) : '.hero-title .line > span';
-
-  // Jedan orkestriran ulaz na vrhu stranice (glavna stranica ima „hero“, stranice po delatnosti imaju „landing-hero“).
   if (has('.hero')) {
     gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .from('.site-header', { y: -40, opacity: 0, duration: .8, clearProps: clean })
-      .from('.hero-kicker', { y: 20, opacity: 0, duration: .55 }, '-=.35')
-      .from(heroWords, { yPercent: 60, rotate: 3, opacity: 0, filter: 'blur(12px)', duration: 1.1, stagger: .09, ease: 'expo.out', clearProps: 'transform,opacity,filter' }, '-=.3')
-      .from('.hero-lead, .hero-actions', { y: 28, opacity: 0, duration: .75, stagger: .1 }, '-=.6')
-      .from('.hero-visual', { y: 90, opacity: 0, scale: .94, duration: 1.4, ease: 'expo.out' }, '-=1.2')
-      .from('.hv', { opacity: 0, duration: .9, stagger: .18 }, '<');
-    gsap.to('.hero-visual', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .8 } });
-  } else if (has('.landing-hero')) {
-    gsap.from('.landing-hero > *', { y: 36, opacity: 0, stagger: .1, duration: .8, ease: 'power3.out' });
+      .from('.hero-title .line > span', { yPercent: 105, duration: .9, stagger: .08, clearProps: 'transform' })
+      .from('.hero-lead, .hero-actions, .hero-proof', { opacity: 0, duration: .6, stagger: .06, clearProps: 'opacity' }, '-=.45')
+      .from('.hero-visual', { opacity: 0, y: 24, duration: 1, clearProps: 'opacity,transform' }, '-=.7');
   }
 
-  // Studio: uređaji ulaze iz dubine, telefon prati skrol sporije od laptopa (paralaksa).
-  if (has('.device-stage')) {
-    gsap.from('.studio-copy > *', { y: 34, opacity: 0, stagger: .1, duration: .75, ease: 'power3.out', scrollTrigger: reveal('.studio-copy', 'top 85%') });
-    gsap.from('.laptop', { y: 80, opacity: 0, rotateY: -22, duration: 1.3, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
-    gsap.from('.phone', { y: 140, opacity: 0, rotate: 12, duration: 1.4, delay: .15, ease: 'power3.out', scrollTrigger: reveal('.device-stage', 'top 82%') });
-    gsap.to('.phone', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.device-stage', start: 'top bottom', end: 'bottom top', scrub: .8 } });
-  }
-  if (has('.about-photo')) {
-    gsap.from('.about-photo', { y: 60, opacity: 0, rotate: -2, duration: 1.2, ease: 'power3.out', scrollTrigger: reveal('.about', 'top 78%') });
-  }
-
-  const headings = '.studio-copy h2, .deliver-title, .method-intro h2, .about-copy h2';
-  if (canSplit) {
-    gsap.utils.toArray(headings).forEach(el => {
-      gsap.from(splitWords(el), { yPercent: 60, rotate: 3, opacity: 0, filter: 'blur(12px)', duration: 1.05, stagger: .07, ease: 'expo.out', clearProps: 'transform,opacity,filter', scrollTrigger: reveal(el, 'top 85%') });
-    });
-  }
-
-  // Ostali naslovi i uvodi sekcija.
-  gsap.utils.toArray(`.manifesto-main, .section-head, .case-intro, .deliver-head .eyebrow, .method-intro > :not(h2), .faq-head > *, .contact h2${canSplit ? '' : `, ${headings}`}`).forEach(el => {
-    gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: reveal(el, 'top 86%') });
+  gsap.utils.toArray('.work-shot').forEach(el => {
+    gsap.from(el, { clipPath: 'inset(0 0 100% 0 round .7rem)', duration: 1.1, ease: 'expo.out', clearProps: 'clipPath', scrollTrigger: once(el, 'top 88%') });
+  });
+  gsap.utils.toArray('.case-video, .case-gallery').forEach(el => {
+    gsap.from(el, { clipPath: 'inset(10% 6% 10% 6% round .9rem)', duration: 1.1, ease: 'expo.out', clearProps: 'clipPath', scrollTrigger: once(el, 'top 85%') });
   });
 
-  // Video i slajder se otvaraju „zavesom“.
-  gsap.utils.toArray('.case-video, .case-gallery, .landing .shot').forEach(el => {
-    gsap.from(el, { clipPath: 'inset(12% 5% 12% 5% round .9rem)', y: 50, opacity: 0, duration: 1.2, ease: 'power3.out', clearProps: 'clipPath,transform,opacity', scrollTrigger: reveal(el) });
-  });
-
-  // „Fijuu“ ulaz, isti stil kao u sekciji 03: pomeraj + nagib + zamućenje, element za elementom.
-  const swoosh = (targets, trigger, { from = 'left', start = 'top 82%', ...extra } = {}) => {
-    const els = gsap.utils.toArray(targets);
-    if (!els.length) return;
-    const d = from === 'right' ? 1 : -1;
-    still(els);
-    gsap.from(els, { x: 140 * d, skewX: 10 * d, opacity: 0, filter: 'blur(14px)', duration: 1.15, stagger: .14, ease: 'expo.out', clearProps: clean, scrollTrigger: reveal(trigger, start), ...extra });
-  };
-  const pop = (targets, trigger, extra = {}) => {
-    if (!gsap.utils.toArray(targets).length) return;
-    still(targets);
-    gsap.from(targets, { scale: .3, opacity: 0, duration: .9, stagger: .14, delay: .35, ease: 'back.out(2.4)', clearProps: clean, scrollTrigger: reveal(trigger, 'top 82%'), ...extra });
-  };
-
-  swoosh('.audience-grid > *', '.audience-grid');
-  swoosh('.capability-row article', '.capability-row', { from: 'right' });
-  // Manje važni delovi (činjenice, oznake, kontakt) se samo tiho pojave, bez „fijuu“.
-  gsap.utils.toArray('.studio-facts, .case-tags, .contact-bottom').forEach(el => gsap.from(el, { y: 24, opacity: 0, duration: .8, ease: 'power2.out', clearProps: clean, scrollTrigger: reveal(el, 'top 90%') }));
-
-  // Miran ulaz za kartice (03 i 04): samo blago podizanje, bez nagiba i zamućenja.
-  const rise = (targets, trigger, start = 'top 82%') => {
-    const els = gsap.utils.toArray(targets);
-    if (!els.length) return;
-    still(els);
-    gsap.from(els, { y: 36, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', clearProps: clean, scrollTrigger: reveal(trigger, start) });
-  };
-
-  // 03 Šta dobijate: kartice se mirno pojave, a brojevi se „napune“ od 00.
-  if (has('.deliver-grid')) {
-    rise('.deliver-grid article', '.deliver-grid', 'top 84%');
-    document.querySelectorAll('.deliver-num').forEach((num, i) => {
-      const target = Number(num.textContent);
-      const counter = { value: 0 };
-      num.textContent = '00';
-      gsap.to(counter, {
-        value: target, duration: .9, delay: .25 + i * .12, ease: 'power2.out', scrollTrigger: reveal('.deliver-grid', 'top 84%'),
-        onUpdate: () => { num.textContent = pad(Math.round(counter.value)); },
-      });
-    });
-  }
-
-  // 04 Cene: kartice se mirno pojave, iznosi odbrojavaju do prave cene.
-  if (has('.pricing-grid')) {
-    rise('.pricing-grid article', '.pricing-grid', 'top 80%');
-    const fmt = n => en ? n.toLocaleString('en-GB') : n.toLocaleString('de-DE'); // 2.000 na srpskom, 2,000 na engleskom
-    document.querySelectorAll('.pricing-grid .price').forEach((price, i) => {
-      const node = [...price.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
-      if (!node) return;
-      const original = node.textContent;
-      const match = original.match(/\d[\d.,]*/);
-      const target = Number(match[0].replace(/[.,]/g, ''));
-      const counter = { value: 0 };
-      gsap.to(counter, {
-        value: target, duration: 1.6, delay: .3 + i * .14, ease: 'power3.out', scrollTrigger: reveal('.pricing-grid', 'top 80%'),
-        onUpdate: () => { node.textContent = original.replace(match[0], fmt(Math.round(counter.value))); },
-        onComplete: () => { node.textContent = original; },
-      });
-    });
-  }
-
-  // 05 Način rada: koraci uleću sa desne strane, brojevi iskaču, a linija se puni do kraja zajedno sa njima
-  // (ne zavisi od skrolovanja, pa nikad ne ostane zaglavljena između koraka).
-  if (has('.method ol')) {
-    const steps = document.querySelectorAll('.method li').length;
-    swoosh('.method li', '.method ol', { from: 'right', stagger: .2 });
-    pop('.method li > span', '.method ol', { rotate: -180, stagger: .2, delay: .25, ease: 'back.out(3)' });
-    gsap.fromTo('.method ol', { '--progress': 0 }, { '--progress': 1, duration: .2 * (steps - 1) + .9, delay: .25, ease: 'power2.inOut', scrollTrigger: reveal('.method ol', 'top 82%') });
-  }
-
-  // 06 O meni: slika se otvara zavesom, tekst i činjenice uleću, dugmad iskaču.
-  if (has('.about-copy')) {
-    gsap.from('.about-photo img', { clipPath: 'inset(100% 0 0 0 round .5rem)', scale: 1.25, duration: 1.5, ease: 'expo.out', clearProps: 'clipPath,transform', scrollTrigger: reveal('.about', 'top 75%') });
-    swoosh('.about-copy > p:not(.eyebrow)', '.about-copy', { from: 'right', delay: .2, start: 'top 80%' });
-    swoosh('.about-facts li', '.about-facts', { from: 'right', stagger: .12, start: 'top 88%' });
-    pop('.about-links a', '.about-links', { delay: .1 });
-  }
-
-  // 07 Pitanja: pitanja uleću jedno za drugim, dugme iskoči.
-  if (has('.faq-list')) {
-    swoosh('.faq-list details', '.faq-list', { from: 'right', stagger: .09 });
-    pop('.faq-head .btn-ghost', '.faq-head', { delay: .5 });
+  if (has('.steps')) {
+    const steps = document.querySelectorAll('.steps li').length;
+    gsap.fromTo('.steps', { '--progress': 0 }, { '--progress': 1, duration: .22 * steps + .5, ease: 'power2.inOut', scrollTrigger: once('.steps', 'top 80%') });
   }
 
   addEventListener('pagehide', () => {
-    lenis?.destroy();
     visibility?.disconnect();
     removeEventListener('pointermove', parallax);
   }, { once: true });
