@@ -412,8 +412,11 @@ class Page:
                 if kind == 'maintenance':
                     price = (f'€{num(lang, lo)}' if lang in PREFIX else f'{num(lang, lo)} €') + f' <small>/ {t["month"]}</small>'
                     when = '—'
+                elif TIERS.SHOW.get(key) == 'quote':
+                    price = f'<span class="tier-quote">{t["quote"]}</span>'
+                    when = f'{weeks[0]}+ {t["weeks"]}'
                 else:
-                    price = eur_range(lang, lo, hi, t)
+                    price = eur_range(lang, lo, None if TIERS.SHOW.get(key) == 'from' else hi, t)
                     when = f'{weeks[0]}–{weeks[1]} {t["weeks"]}'
                 rows += f'''<a class="tier" href="{self.to('estimate')}?k={kind}&amp;t={key}"><span class="tier-name">{tname}</span><span class="tier-desc">{tdesc}</span><span class="tier-time">{when}</span><span class="tier-price">{price}</span>{ico('right')}</a>'''
             groups += f'''<section class="tier-group" id="{kind}" aria-labelledby="g-{kind}"><header><h2 id="g-{kind}">{name}</h2><p>{desc}</p></header>
