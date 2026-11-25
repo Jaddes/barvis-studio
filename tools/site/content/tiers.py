@@ -8,7 +8,7 @@ PRICES = {
     'maintenance': [('basic', 50, None, None), ('standard', 150, None, None), ('growth', 400, None, None)],
 }
 # Javni prikaz: 'from' = samo donja granica, 'quote' = cena po proceni.
-SHOW = {'business': 'from', 'platform': 'quote'}
+SHOW = {'tool': 'from', 'business': 'from', 'platform': 'quote', 'pro': 'from', 'flow': 'from'}
 ORDER = ['system', 'site', 'automation', 'maintenance']
 
 T = {
@@ -16,8 +16,8 @@ T = {
   group={'system': ('Aplikacije i sistemi', 'Softver za vaš svakodnevni rad, napravljen oko vašeg procesa.'), 'site': ('Sajtovi', 'Brz sajt koji jasno kaže šta radite i vodi do upita.'),
          'automation': ('Automatizacija', 'Posao koji se ručno ponavlja prepuštate sistemu.'), 'maintenance': ('Održavanje', 'Da sistem radi bez brige, uz nekoga ko ga zna iznutra.')},
   tier={'tool': ('Mali alat', 'Jedan proces umesto Excel tabele: evidencija, nalozi ili prijave.'), 'business': ('Poslovni sistem', 'Kalendar, klijenti, naplata, izveštaji i uloge. Nivo Fizio Alfe.'),
-        'platform': ('Platforma', 'Više lokacija ili firmi, integracije, online plaćanje.'), 'landing': ('Landing stranica', 'Jedna stranica, forma za upit, telefon i računar.'),
-        'company': ('Sajt firme', 'Do 8 stranica, osnovni SEO, više jezika po potrebi.'), 'pro': ('Sajt sa sistemom', 'Online zakazivanje ili katalog i uređivanje sadržaja.'),
+        'platform': ('Veća platforma', 'Više lokacija ili firmi, integracije, online plaćanje.'), 'landing': ('Landing stranica', 'Jedna stranica, forma za upit, telefon i računar.'),
+        'company': ('Sajt firme', 'Do 8 stranica, osnovni SEO, više jezika po potrebi.'), 'pro': ('Sajt sa zakazivanjem ili CMS-om', 'Online zakazivanje ili katalog i uređivanje sadržaja.'),
         'single': ('Jedna automatizacija', 'Izveštaj, podsetnik ili prenos podataka.'), 'flow': ('Automatizacija procesa', 'Više koraka i alata povezanih u jedan tok.'),
         'basic': ('Osnovno', 'Rezervne kopije, ažuriranja i nadzor.'), 'standard': ('Standard', 'Osnovno + do 3 sata izmena mesečno.'), 'growth': ('Razvoj', 'Osnovno + do 10 sati izmena i nove funkcije.')},
   cols=('Paket', 'Šta dobijate', 'Rok', 'Cena'), weeks='ned.', month='mes.', from_='od', ask='Procena',
