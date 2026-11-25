@@ -1117,3 +1117,9 @@ main > section[id] { scroll-margin-top: 5.5rem; }
 .price, .service-price { font-family: var(--sans); font-style: normal; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.02em; }
 .ledger strong.price-word { font-size: 1.05rem; font-weight: 600; letter-spacing: 0; color: var(--soft); }
 [data-count] { display: inline-block; min-width: var(--w, auto); text-align: right; }
+
+/* Dugme za demo na kartici: iznad linka cele kartice */
+.work-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1.2rem; margin-top: .3rem; }
+.work-actions .work-more { margin-top: 0; }
+.work-demo { position: relative; z-index: 3; display: inline-flex; align-items: center; gap: .45rem; min-height: 2.6rem; padding: 0 1.1rem; border-radius: 99px; color: var(--ink); background: var(--green); font-weight: 700; text-decoration: none; transition: background .25s; }
+.work-demo:hover { background: var(--paper); }
