@@ -28,11 +28,51 @@ SLUGS = {
 PAGES = ['home', 'pricing', 'estimate', 'who', 'fizio', 'focus']
 
 
-def load(lang):
-    spec = importlib.util.spec_from_file_location(f'content_{lang}', Path(__file__).parent / 'content' / f'{lang}.py')
+def _module(name):
+    spec = importlib.util.spec_from_file_location(f'content_{name}', Path(__file__).parent / 'content' / f'{name}.py')
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return mod.C
+    return mod
+
+
+TIERS = _module('tiers')
+
+
+def load(lang):
+    C = _module(lang).C
+    t = TIERS.T[lang]
+    C['tiers'] = t
+    C['faq']['items'][0] = t['faq1']
+    C['faq']['items'][-1] = t['faq8']
+    C['pricing']['meta_desc'] = t['meta']
+    C['js']['E'].update(t['est'])
+    C['js']['P'] = {k: [[x[0], x[1], x[2], x[3]] for x in v] for k, v in TIERS.PRICES.items()}
+    return C
+
+
+SEP = {'sr': '.', 'de': '.', 'it': '.', 'en': ',', 'zh': ',', 'ko': ',', 'fr': '\u202f', 'ru': '\u202f', 'hu': '\u202f', 'es': '.'}
+PREFIX = {'en', 'zh', 'ko'}
+
+
+def num(lang, n):
+    if lang == 'es' and n < 10000:
+        return str(n)
+    return f'{n:,}'.replace(',', SEP[lang])
+
+
+def eur_range(lang, lo, hi, t):
+    """„1.500–4.000 €“, „€1,500–4,000“, „od 12.000 €“…"""
+    if hi is None:
+        amount = f'€{num(lang, lo)}' if lang in PREFIX else f'{num(lang, lo)} €'
+        if lang == 'hu':
+            return f'{amount}<small>{t["from_"]}</small>'
+        if lang in ('zh', 'ko'):
+            return f'{amount} <small>{t["from_"]}</small>'
+        return f'<small>{t["from_"]}</small> {amount}'
+    if lang in PREFIX:
+        return f'€{num(lang, lo)}–{num(lang, hi)}'
+    return f'{num(lang, lo)}–{num(lang, hi)} €'
+
 
 
 def slug(lang, page):
@@ -175,7 +215,7 @@ class Page:
         return f'''    <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true"><i class="glow glow-a"></i><i class="glow glow-b"></i><i class="hero-grid"></i></div>
       <div class="hero-body">
-        <p class="hero-kicker"><i aria-hidden="true"></i>{h['kicker']}</p>
+        <p class="hero-kicker"><span>{h['kicker'].split(' · ')[0]}</span><span class="hero-clock" data-clock aria-hidden="true">{self.C['tiers']['clock']} · --:--:--</span></p>
         <h1 class="hero-title" id="hero-title" aria-label="{esc(h['title1'] + ' ' + h['title2'])}">
           <span class="line" aria-hidden="true"><span>{h['title1']}</span></span>
           <span class="line serif" aria-hidden="true"><span>{h['title2']}</span></span>
@@ -267,10 +307,12 @@ class Page:
     def process(self, detailed=False):
         p = self.C['process']
         steps = p['steps_detail'] if detailed else p['steps']
-        lis = ''.join(f'<li><span class="step-n">{i + 1:02d}</span><b>{a}</b><p>{b}</p></li>' for i, (a, b) in enumerate(steps))
+        dur = self.C['tiers']['dur']
+        lis = ''.join(f'<li><span class="step-n">{i + 1:02d}</span><b>{a}</b><p>{b}</p>{f'<span class="step-time">{dur[i]}</span>' if detailed else ''}</li>' for i, (a, b) in enumerate(steps))
+        cls = 'steps steps-index' if detailed else 'steps'
         return f'''    <section class="process section-pad" id="process" aria-labelledby="process-title">
       {self.sec_head('process-title', p['title'], p.get('text', '') if detailed else '')}
-      <ol class="steps" data-steps>{lis}</ol>
+      <ol class="{cls}" data-steps>{lis}</ol>
     </section>
 '''
 
@@ -346,62 +388,66 @@ class Page:
 '''
 
     def page_pricing(self):
-        p = self.C['pricing']
-        rows = ''
-        for r in p['rows']:
-            inc = ''.join(f'<li>{x}</li>' for x in r['includes'])
-            word = '' if re.search(r'[0-9]', r['price']) else ' class="price-word"'
-            rows += f'''<article class="price-row" id="{r['kind']}">
-          <div class="price-main"><h2>{r['name']}</h2><p>{r['desc']}</p></div>
-          <ul class="price-inc">{inc}</ul>
-          <div class="price-side"><strong{word}>{r['price']}</strong><a class="btn-ghost" href="{self.to('estimate')}?k={r['kind']}">{p['ask']} {ico('right')}</a></div>
-        </article>'''
-        inner = self.page_head(p['kicker'], p['title'], p['lead']) + f'''    <section class="pricing-list section-pad" aria-label="{esc(p['kicker'])}">
-      <div class="price-rows">{rows}</div>
-      <p class="pricing-note">{p['note']}</p>
+        p, t, lang = self.C['pricing'], self.C['tiers'], self.lang
+        groups = ''
+        for kind in TIERS.ORDER:
+            name, desc = t['group'][kind]
+            rows = ''
+            for key, lo, hi, weeks in TIERS.PRICES[kind]:
+                tname, tdesc = t['tier'][key]
+                if kind == 'maintenance':
+                    price = (f'€{num(lang, lo)}' if lang in PREFIX else f'{num(lang, lo)} €') + f' <small>/ {t["month"]}</small>'
+                    when = '—'
+                else:
+                    price = eur_range(lang, lo, hi, t)
+                    when = f'{weeks[0]}–{weeks[1]} {t["weeks"]}'
+                rows += f'''<a class="tier" href="{self.to('estimate')}?k={kind}&amp;t={key}"><span class="tier-name">{tname}</span><span class="tier-desc">{tdesc}</span><span class="tier-time">{when}</span><span class="tier-price">{price}</span>{ico('right')}</a>'''
+            groups += f'''<section class="tier-group" id="{kind}" aria-labelledby="g-{kind}"><header><h2 id="g-{kind}">{name}</h2><p>{desc}</p></header>
+          <div class="tier-head" aria-hidden="true"><span>{t['cols'][0]}</span><span>{t['cols'][1]}</span><span>{t['cols'][2]}</span><span>{t['cols'][3]}</span></div>{rows}</section>'''
+        inner = self.page_head(p['kicker'], p['title'], t['lead']) + f'''    <section class="pricing-table section-pad" aria-label="{esc(p['kicker'])}">
+      {groups}
+      <p class="pricing-note">{t['note']}</p>
       <div class="sec-actions"><a class="btn-primary" href="{self.to('estimate')}">{p['cta']} {ico('right')}</a></div>
     </section>
 ''' + self.faq()
         return self.subpage(p['meta_title'], p['meta_desc'], inner)
 
     def page_estimate(self):
-        e = self.C['estimate']
+        e, t = self.C['estimate'], self.C['tiers']
         q = e['q']
-        chip = lambda name, typ, items, checked: ''.join(f'<label class="chip"><input type="{typ}" name="{name}" value="{v}"{" checked" if v in checked else ""}><span>{n}</span></label>' for v, n in items)
+        opt = lambda name, typ, items, checked: ''.join(f'<label class="opt"><input type="{typ}" name="{name}" value="{v}"{" checked" if v in checked else ""}><span>{n}</span></label>' for v, n in items)
+        row = lambda i, title, body, extra='': f'<fieldset class="q"{extra}><legend><span class="q-n">{i:02d}</span>{title}</legend><div class="q-body">{body}</div></fieldset>'
         form = f'''    <section class="estimate section-pad" id="estimate-tool" aria-label="{esc(e['kicker'])}">
       <form class="estimate-grid" data-estimate novalidate>
         <div class="estimate-steps">
-          <fieldset><legend>{q[0]} <small>{e['any']}</small></legend><div class="chip-row">{chip('kind', 'checkbox', e['kinds'], ('system',))}</div></fieldset>
-          <fieldset data-features><legend>{q[1]} <small>{e['any']}</small></legend><div class="chip-row" data-feature-row>{chip('feature', 'checkbox', e['features'], ('booking', 'clients'))}</div>
-            <div class="custom-add"><input type="text" maxlength="60" placeholder="{esc(e['custom'])}" aria-label="{esc(e['custom'])}" data-custom><button type="button" class="chip-add" data-custom-add>{ico('plus')}{e['add']}</button></div></fieldset>
-          <div class="estimate-pair">
-            <fieldset><legend>{q[2]}</legend><div class="chip-row">{chip('team', 'radio', e['team'], ('2-5',))}</div></fieldset>
-            <fieldset><legend>{q[4]}</legend><div class="chip-row">{chip('when', 'radio', e['when'], ('flex',))}</div></fieldset>
-          </div>
-          <fieldset><legend>{q[3]}</legend><div class="chip-row">{chip('budget', 'radio', e['budget'], ('unknown',))}</div></fieldset>
+          {row(1, q[0] + f' <small>{e["any"]}</small>', f'<div class="opts">{opt("kind", "checkbox", e["kinds"], ("system",))}</div>')}
+          {row(2, q[1] + f' <small>{e["any"]}</small>', f'<div class="opts" data-feature-row>{opt("feature", "checkbox", e["features"], ("booking", "clients"))}</div><div class="custom-add"><input type="text" maxlength="60" placeholder="{esc(e["custom"])}" aria-label="{esc(e["custom"])}" data-custom><button type="button" class="chip-add" data-custom-add>{ico("plus")}{e["add"]}</button></div>', ' data-features')}
+          {row(3, q[2], f'<div class="opts">{opt("team", "radio", e["team"], ("2-5",))}</div>')}
+          {row(4, q[4], f'<div class="opts">{opt("when", "radio", e["when"], ("flex",))}</div>')}
+          {row(5, q[3], f'<div class="opts">{opt("budget", "radio", e["budget"], ("unknown",))}</div>')}
         </div>
-        <div class="estimate-result" aria-live="polite">
+        <aside class="estimate-result" aria-live="polite">
           <p class="estimate-label">{e['result']}</p>
           <p class="estimate-package" data-out="package"></p>
-          <div class="estimate-prices" data-out="prices"></div>
+          <dl class="estimate-figures"><div><dt>{t['est']['range']}</dt><dd data-out="range"></dd></div><div><dt>{t['est']['time']}</dt><dd data-out="time"></dd></div></dl>
+          <p class="estimate-monthly" data-out="monthly" hidden></p>
           <p class="estimate-fit" data-out="fit"></p>
           <ul class="estimate-list" data-out="list"></ul>
           <div class="estimate-actions"><a class="btn-primary" data-send="form" href="#contact">{e['send']} {ico('down')}</a><a class="btn-ghost" data-send="whatsapp" href="#contact" rel="noopener">WhatsApp</a></div>
           <button class="estimate-copy" type="button" data-send="copy">{e['copy']}</button>
           <p class="estimate-status" role="status"></p>
-        </div>
+        </aside>
       </form>
     </section>
 '''
         inner = self.page_head(e['kicker'], e['title'], e['lead']) + form + self.contact()
         return self.subpage(e['meta_title'], e['meta_desc'], inner)
-
     def page_who(self):
         w = self.C['who']
-        cats = ''.join(f'''<article class="who-cat" id="{c['id']}"><h2>{c['name']}</h2><dl><div><dt>{w['problem']}</dt><dd>{c['problem']}</dd></div><div><dt>{w['solution']}</dt><dd>{c['solution']}</dd></div></dl></article>''' for c in w['cats'])
-        exp = ''.join(f'<article class="exp-card"><h3>{x["name"]}</h3><p>{x["text"]}</p><a href="{self.to(x["page"])}">{w["exp_more"]} {ico("right")}</a></article>' for x in w['exp'])
+        rows = ''.join(f'''<details class="who-row" id="{c['id']}"><summary><span class="row-n">{i + 1:02d}</span><b>{c['name']}</b><span class="row-problem">{c['problem']}</span><span class="row-toggle" aria-hidden="true"></span></summary><div class="row-body"><p><span>{w['problem']}</span>{c['problem']}</p><p><span>{w['solution']}</span>{c['solution']}</p></div></details>''' for i, c in enumerate(w['cats']))
+        exp = ''.join(f'<a class="exp-card" href="{self.to(x["page"])}"><img src="{self.r("assets/work/" + ("fizio-calendar" if x["page"] == "fizio" else "focus-timer") + "-960.webp")}" alt="" width="1440" height="900" loading="lazy" decoding="async"><span class="exp-copy"><b>{x["name"]}</b><span>{x["text"]}</span><span class="exp-more">{w["exp_more"]} {ico("right")}</span></span></a>' for x in w['exp'])
         inner = (self.page_head(w['kicker'], w['page_title'], w['page_lead'])
-                 + f'    <section class="who-cats section-pad" aria-label="{esc(w["kicker"])}"><div class="who-grid">{cats}</div><p class="who-note">{w["note"]}</p></section>\n'
+                 + f'    <section class="who-index section-pad" aria-label="{esc(w["kicker"])}"><div class="who-rows">{rows}</div><p class="who-note">{w["note"]}</p></section>\n'
                  + self.process(detailed=True)
                  + f'    <section class="experience section-pad" aria-labelledby="exp-title">{self.sec_head("exp-title", w["exp_title"], w["exp_text"])}<div class="exp-grid">{exp}</div></section>\n'
                  + f'    <section class="cta-band section-pad"><h2>{w["cta_title"]}</h2><div class="sec-actions"><a class="btn-primary" href="{self.home("#contact")}">{self.C["ui"]["cta_long"]} {ico("out")}</a><a class="btn-ghost" href="{self.to("estimate")}">{w["cta_estimate"]}</a></div></section>\n')

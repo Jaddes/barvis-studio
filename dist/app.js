@@ -185,45 +185,31 @@
      3) radovi: snimak projekta se otvara zavesom
      4) kako radimo: linija procesa se iscrta kroz korake
      Bez zamućenja, bez „iskakanja“, bez odbrojavanja i bez animacije na svakoj kartici. */
+  // Sveske, tabele i poruke: kad tabla uđe u ekran, beleške se same slože u kalendar (jednom, bez vezivanja za skrol).
   const board = document.querySelector('[data-chaos]');
-  if (board && !reduced) {
-    // Bez JavaScripta (ili sa smanjenim pokretom) tabla je već sređena (--p: 1).
+  if (board && !reduced && 'IntersectionObserver' in window) {
     board.style.setProperty('--p', '0');
-    const update = () => {
-      const r = board.getBoundingClientRect();
-      // 0 kad tabla tek uđe odozdo, 1 kad stigne do gornje trećine ekrana.
-      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .62 + r.height * .35)));
-      board.style.setProperty('--p', p.toFixed(3));
-      board.classList.toggle('is-sorted', p > .97);
-    };
-    addEventListener('scroll', update, { passive: true }); addEventListener('resize', update); update();
-  }
-
-  // Cene se „učitaju“: iznos odbroji do prave vrednosti kad red uđe u ekran (jednom, brojevi iste širine).
-  if (!reduced && 'IntersectionObserver' in window) {
-    const fmt = n => n.toLocaleString(LOCALE);
-    const counters = [...document.querySelectorAll('.ledger strong, .price')].map(el => {
-      const node = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && /\d/.test(n.textContent));
-      if (!node) return null;
-      const original = node.textContent, match = original.match(/\d[\d.,]*/);
-      return { el, node, original, match: match[0], target: Number(match[0].replace(/[.,]/g, '')) };
-    }).filter(Boolean);
-    const run = c => {
-      const start = performance.now(), dur = 1100;
+    const play = () => {
+      const start = performance.now(), dur = 2200;
+      const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       const tick = now => {
-        const t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
-        c.node.textContent = c.original.replace(c.match, fmt(Math.round(c.target * eased)));
-        if (t < 1) requestAnimationFrame(tick); else c.node.textContent = c.original;
+        const t = Math.min(1, (now - start - 350) / dur);
+        board.style.setProperty('--p', Math.max(0, ease(Math.max(0, t))).toFixed(3));
+        if (t < 1) requestAnimationFrame(tick); else board.classList.add('is-sorted');
       };
       requestAnimationFrame(tick);
     };
-    const io = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      io.unobserve(entry.target);
-      const c = counters.find(x => x.el === entry.target);
-      if (c) setTimeout(() => run(c), counters.indexOf(c) % 5 * 90);
-    }), { threshold: .6 });
-    counters.forEach(c => { c.node.textContent = c.original.replace(c.match, fmt(0)); io.observe(c.el); });
+    const io = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { io.disconnect(); play(); } }), { threshold: .45 });
+    io.observe(board);
+  }
+
+  // Živi sat u uvodu (lokalno vreme Novog Sada), kao potpis studija.
+  const clock = document.querySelector('[data-clock]');
+  if (clock) {
+    const place = clock.textContent.split('·')[0].trim();
+    const fmt = new Intl.DateTimeFormat(LOCALE, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Europe/Belgrade' });
+    const tick = () => { clock.textContent = `${place} · ${fmt.format(new Date())}`; };
+    tick(); setInterval(tick, 1000);
   }
 
   if (reduced || !window.gsap || !window.ScrollTrigger) return;

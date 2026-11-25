@@ -54,34 +54,48 @@
     const esc = v => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     let summary = '', details = '', service = 'unsure';
 
+    // Okvirna cena: osnova po vrsti posla + svaka funkcija, pa veličina tima i hitnost.
+    // Isti rasponi kao u cenovniku (I18N.P); rezultat je raspon, nikad jedan „tačan“ broj.
+    const P = I18N.P || { site: [['landing', 400, 900, [1, 2]]], system: [['tool', 1500, 4000, [2, 5]]], automation: [['single', 300, 1200, [1, 2]]], maintenance: [['basic', 50, null, null]] };
+    const FEAT = { booking: [400, 900], clients: [300, 700], billing: [300, 700], reports: [300, 800], reminders: [300, 700], roles: [300, 700], online: [400, 900], import: [200, 500], custom: [250, 700] };
+    const TEAM = { '1': .9, '2-5': 1, '6-15': 1.25, '15+': 1.5 };
+    const money = n => E.fmt(n);
     const compute = () => {
       const kinds = [...form.querySelectorAll('[name="kind"]:checked')].map(i => i.value);
-      const features = [...form.querySelectorAll('[name="feature"]:checked')].map(labelOf);
+      const featInputs = [...form.querySelectorAll('[name="feature"]:checked')];
+      const features = featInputs.map(labelOf);
       const team = form.querySelector('[name="team"]:checked')?.value || '2-5';
       const when = form.querySelector('[name="when"]:checked')?.value || 'flex';
       const budget = form.querySelector('[name="budget"]:checked')?.value || 'unknown';
-      const priced = kinds.filter(k => E.prices[k]);
-      // Bez sistema, automatizacije ili „ne znam“ funkcije sistema nemaju smisla: deo se utiša.
-      form.querySelector('[data-features]').classList.toggle('is-quiet', !kinds.some(k => k === 'system' || k === 'automation' || k === 'unsure'));
+      const builds = kinds.some(k => k === 'system' || k === 'automation' || k === 'unsure' || k === 'site');
+      form.querySelector('[data-features]')?.classList.toggle('is-quiet', !kinds.some(k => k === 'system' || k === 'automation' || k === 'unsure'));
 
-      const weight = features.length + (team === '6-15' ? 2 : team === '15+' ? 3 : 0) + (kinds.includes('system') ? 2 : 0) + (kinds.includes('automation') ? 1 : 0);
-      out('package').textContent = !kinds.length || (kinds.length === 1 && kinds[0] === 'unsure') ? E.talk : E.scope[weight <= 3 ? 0 : weight <= 7 ? 1 : 2];
-      out('prices').innerHTML = priced.map(k => {
-        const [word, n, unit] = E.prices[k];
-        const amount = E.fmt(n), u = unit ? ` <small>${unit}</small>` : '';
-        return `<p><span>${E.kinds[k]}</span><b>${n ? (E.suffix ? `${amount}<small>${word.startsWith('-') ? '' : ' '}${word}</small>${u}` : `<small>${word}</small> ${amount}${u}`) : word}</b></p>`;
-      }).join('');
-      const floor = priced.filter(k => k !== 'maintenance').map(k => E.prices[k][1] || 0).reduce((a, b) => a + b, 0);
+      let lo = 0, hi = 0;
+      if (kinds.includes('site')) { lo += P.site[0][1]; hi += P.site[0][2]; }
+      if (kinds.includes('system')) { lo += 800; hi += 2000; }
+      if (kinds.includes('automation')) { lo += P.automation[0][1]; hi += P.automation[0][2]; }
+      if (kinds.some(k => k === 'system' || k === 'automation' || k === 'unsure')) featInputs.forEach(i => { const [a, b] = FEAT[i.value] || FEAT.custom; lo += a; hi += b; });
+      const mult = (TEAM[team] || 1) * (when === 'asap' ? 1.15 : 1);
+      lo = Math.floor(lo * mult / 100) * 100; hi = Math.ceil(hi * mult / 100) * 100;
+
+      const priced = hi > 0;
+      out('package').textContent = !priced ? E.talk : hi <= 3000 ? E.small || E.scope[0] : hi <= 9000 ? E.scope[1] : E.scope[2];
+      out('range').textContent = priced ? `${money(lo)} – ${money(hi)}` : '—';
+      const w1 = Math.max(1, Math.round(lo / 1000)), w2 = Math.max(w1 + 1, Math.ceil(hi / 700));
+      out('time').textContent = priced ? `${w1}–${w2} ${E.weeks || ''}`.trim() : '—';
+      const monthly = kinds.includes('maintenance');
+      out('monthly').hidden = !monthly; out('monthly').textContent = monthly ? (E.monthly || '') : '';
       const cap = { '500': 500, '2000': 2000, '5000': 5000, more: Infinity }[budget];
-      const low = budget !== 'unknown' && floor > 0 && cap < floor;
-      out('fit').textContent = budget === 'unknown' || !floor ? E.fit.unknown : (low ? E.fit.low : E.fit.ok);
+      const low = budget !== 'unknown' && priced && cap < lo;
+      out('fit').textContent = budget === 'unknown' || !priced ? E.fit.unknown : (low ? E.fit.low : E.fit.ok);
       out('fit').classList.toggle('is-low', low);
       out('list').innerHTML = [`${E.teamL}: ${E.team[team]}`, `${E.whenL}: ${E.when[when]}`, `${E.budgetL}: ${E.budget[budget]}`].map(x => `<li>${esc(x)}</li>`).join('');
 
       service = kinds.includes('system') ? 'app' : kinds[0] === 'site' ? 'site' : kinds[0] === 'automation' ? 'automation' : kinds[0] === 'maintenance' ? 'maintenance' : 'unsure';
       details = [E.intro,
         `• ${E.need}: ${kinds.map(k => E.kinds[k]).join(', ') || E.talk}`,
-        ...(features.length ? [`• ${E.does}: ${features.join(', ')}`] : []),
+        ...(features.length && builds ? [`• ${E.does}: ${features.join(', ')}`] : []),
+        ...(priced ? [`• ${E.range || ''}: ${money(lo)} – ${money(hi)}`, `• ${E.time || ''}: ${w1}–${w2} ${E.weeks || ''}`] : []),
         `• ${E.teamL}: ${E.team[team]}`, `• ${E.whenL}: ${E.when[when]}`, `• ${E.budgetL}: ${E.budget[budget]}`].join('\n');
       summary = [T.greeting, '', details, '', T.about, '', T.thanks].join('\n');
       form.querySelector('[data-send="whatsapp"]').href = `https://wa.me/${PHONE}?text=${encodeURIComponent(summary)}`;
@@ -93,7 +107,7 @@
     const addCustom = () => {
       const text = customInput.value.trim().slice(0, 60);
       if (!text) { customInput.focus(); return; }
-      const label = document.createElement('label'); label.className = 'chip is-custom';
+      const label = document.createElement('label'); label.className = 'opt is-custom';
       label.innerHTML = `<input type="checkbox" name="feature" value="custom" checked><span>${esc(text)}</span><button type="button" class="chip-x" aria-label="${E.remove}: ${esc(text)}"></button>`;
       label.querySelector('.chip-x').addEventListener('click', event => { event.preventDefault(); label.remove(); compute(); });
       form.querySelector('[data-feature-row]').append(label);
@@ -105,7 +119,8 @@
     const params = new URLSearchParams(location.search);
     const PRESETS = { site: { kind: ['site'], feature: [] }, booking: { kind: ['system'], feature: ['booking', 'clients', 'reminders'] },
       internal: { kind: ['system', 'automation'], feature: ['reports', 'roles', 'import'] }, other: { kind: ['unsure'], feature: [] } };
-    const preset = PRESETS[params.get('p')] || (params.get('k') && { kind: [params.get('k')], feature: params.get('k') === 'system' ? ['booking', 'clients'] : [] });
+    const TIER = { tool: ['clients'], business: ['booking', 'clients', 'billing', 'reports', 'roles'], platform: ['booking', 'clients', 'billing', 'reports', 'roles', 'online', 'reminders'], flow: ['import', 'reports'] };
+    const preset = PRESETS[params.get('p')] || (params.get('k') && { kind: [params.get('k')], feature: TIER[params.get('t')] || (params.get('k') === 'system' ? ['booking', 'clients'] : []) });
     if (preset) ['kind', 'feature'].forEach(n => form.querySelectorAll(`[name="${n}"]`).forEach(i => { i.checked = preset[n].includes(i.value); }));
     form.addEventListener('change', compute);
     form.addEventListener('submit', event => event.preventDefault());
