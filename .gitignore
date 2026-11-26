@@ -4,3 +4,4 @@ api/tunnel.env
 
 # Reference screenshots for the redesign (not published)
 refs/
+__pycache__/
