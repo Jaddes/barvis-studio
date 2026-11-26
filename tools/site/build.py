@@ -23,8 +23,8 @@ SITE = 'https://barvis-studio.dev'
 DEMO = 'https://demo.barvis-studio.dev/'
 MAIL = 'hello@barvis-studio.dev'
 PHONE = '38169625066'
-# Prazno dok kontrolisani test upita sa prijemom mejla ne prođe (tada: 'https://api.barvis-studio.dev/v1/inquiries').
-ENDPOINT = ''
+# Leads API (api/). Kontrolisani test sa prijemom mejla prošao 2026-11-26 (upit #1). Prazno = forma otvara pripremljen mejl.
+ENDPOINT = 'https://api.barvis-studio.dev/v1/inquiries'
 LANGS = ['sr', 'en', 'de', 'fr', 'es', 'it', 'ru', 'zh', 'ja', 'ko', 'hu']
 HTML_LANG = {'sr': 'sr-Latn', 'zh': 'zh-Hans'}
 OG_LOCALE = {'sr': 'sr_RS', 'en': 'en_GB', 'de': 'de_DE', 'fr': 'fr_FR', 'es': 'es_ES', 'it': 'it_IT', 'ru': 'ru_RU', 'zh': 'zh_CN', 'ja': 'ja_JP', 'ko': 'ko_KR', 'hu': 'hu_HU'}

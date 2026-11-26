@@ -100,7 +100,7 @@
           <section class="panel" id="panel-upit" data-panel="upit razgovor" aria-labelledby="upit-title" hidden>
             <h2 class="panel-title" id="upit-title" data-form-title data-t-upit="かんたん問い合わせ" data-t-razgovor="無料相談">かんたん問い合わせ</h2>
             <p class="panel-sub" data-form-sub data-t-upit="必須は4項目だけ。ほかは任意です。" data-t-razgovor="連絡先と数行の内容を残してください。ビデオ通話か電話で、約30分の相談の日時をご提案します。">必須は4項目だけ。ほかは任意です。</p>
-            <form class="form" id="upit" data-inquiry data-endpoint="" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
+            <form class="form" id="upit" data-inquiry data-endpoint="https://api.barvis-studio.dev/v1/inquiries" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
               <div class="attached" data-attached hidden><header><span>見積もりが添付されています</span><button type="button" data-edit-estimate>見積もりを変更</button></header><pre data-attached-text></pre></div>
               <div class="form-row">
                 <div class="field"><label for="f-name">お名前</label><input class="input" id="f-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="f-name-err"><p class="field-error" id="f-name-err" data-err="name" hidden></p></div>

@@ -101,7 +101,7 @@
           <section class="panel" id="panel-upit" data-panel="upit razgovor" aria-labelledby="upit-title" hidden>
             <h2 class="panel-title" id="upit-title" data-form-title data-t-upit="Быстрая заявка" data-t-razgovor="Бесплатный созвон">Быстрая заявка</h2>
             <p class="panel-sub" data-form-sub data-t-upit="Четыре обязательных поля. Остальное — по желанию." data-t-razgovor="Оставьте контакт и пару предложений, и я предложу время для созвона около 30 минут, по видео или телефону.">Четыре обязательных поля. Остальное — по желанию.</p>
-            <form class="form" id="upit" data-inquiry data-endpoint="" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
+            <form class="form" id="upit" data-inquiry data-endpoint="https://api.barvis-studio.dev/v1/inquiries" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
               <div class="attached" data-attached hidden><header><span>К заявке приложена ваша оценка</span><button type="button" data-edit-estimate>Изменить оценку</button></header><pre data-attached-text></pre></div>
               <div class="form-row">
                 <div class="field"><label for="f-name">Имя</label><input class="input" id="f-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="f-name-err"><p class="field-error" id="f-name-err" data-err="name" hidden></p></div>

@@ -101,7 +101,7 @@
           <section class="panel" id="panel-upit" data-panel="upit razgovor" aria-labelledby="upit-title">
             <h2 class="panel-title" id="upit-title" data-form-title data-t-upit="Consulta rápida" data-t-razgovor="Llamada gratis">Consulta rápida</h2>
             <p class="panel-sub" data-form-sub data-t-upit="Cuatro datos obligatorios. El resto es opcional." data-t-razgovor="Deja un contacto y unas frases, y te propongo una hora para una llamada de unos 30 minutos, por vídeo o teléfono.">Cuatro datos obligatorios. El resto es opcional.</p>
-            <form class="form" id="upit" data-inquiry data-endpoint="" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
+            <form class="form" id="upit" data-inquiry data-endpoint="https://api.barvis-studio.dev/v1/inquiries" action="mailto:hello@barvis-studio.dev" method="post" enctype="text/plain" novalidate>
               <div class="attached" data-attached hidden><header><span>Tu estimación va adjunta</span><button type="button" data-edit-estimate>Cambiar la estimación</button></header><pre data-attached-text></pre></div>
               <div class="form-row">
                 <div class="field"><label for="f-name">Nombre</label><input class="input" id="f-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="f-name-err"><p class="field-error" id="f-name-err" data-err="name" hidden></p></div>

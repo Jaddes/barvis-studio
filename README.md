@@ -30,6 +30,6 @@ python -m http.server 8790 --directory dist   # pregled na http://127.0.0.1:8790
 
 ## Forma za upit
 
-`ENDPOINT` u `build.py` je prazan dok kontrolisani test upita sa prijemom mejla ne prođe: forma tada otvara pripremljen mejl i nudi WhatsApp, kopiranje i telefon.
+`ENDPOINT` u `build.py` (uključen 2026-11-26, posle kontrolisanog testa). Ako se isprazni, forma otvara pripremljen mejl i nudi WhatsApp, kopiranje i telefon.
 Sa `ENDPOINT = 'https://api.barvis-studio.dev/v1/inquiries'` upit ide na sopstveni API (vidi `api/README.md`). Ako API ne odgovori za 12 s ili vrati grešku, unos ostaje sačuvan i nude se isti rezervni putevi.
 Za proveru stanja bez servera: `?demo=ok` ili `?demo=fail` određuje ishod slanja validno popunjene forme; `?demo=offline` simulira prekid veze.
