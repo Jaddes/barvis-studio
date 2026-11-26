@@ -1,3 +1,6 @@
 api/.env
 api/__pycache__/
 api/tunnel.env
+
+# Reference screenshots for the redesign (not published)
+refs/

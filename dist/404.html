@@ -1,25 +1,72 @@
 <!doctype html>
-<html lang="sr-Latn">
+<html lang="sr-Latn" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0a0d0b">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Stranica nije pronađena | BARVIS Studio</title>
-  <!-- GitHub Pages prikazuje ovu stranicu za svaku nepostojeću adresu, pa putanje moraju biti apsolutne. -->
+  <meta name="description" content="Adresa je možda pogrešno ukucana ili je stranica premeštena. Svi radovi i kontakt su na početnoj strani.">
+  <meta name="theme-color" content="#0c100f">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://barvis-studio.dev/404.html">
+  <meta name="robots" content="noindex">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=612ee6d778">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:site_name" content="BARVIS Studio">
+  <meta property="og:title" content="Stranica nije pronađena | BARVIS Studio">
+  <meta property="og:description" content="Adresa je možda pogrešno ukucana ili je stranica premeštena. Svi radovi i kontakt su na početnoj strani.">
+  <meta property="og:url" content="https://barvis-studio.dev/404.html">
+  <meta property="og:image" content="https://barvis-studio.dev/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stranica nije pronađena | BARVIS Studio">
+  <meta name="twitter:description" content="Adresa je možda pogrešno ukucana ili je stranica premeštena. Svi radovi i kontakt su na početnoj strani.">
+  <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=f15ae96e07">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
-<body>
-  <div class="noise" aria-hidden="true"></div>
-  <header class="site-header is-scrolled">
-    <a class="brand" href="/" aria-label="BARVIS Studio, početna"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
+<body data-page="home">
+  <a class="skip-link" href="#main">Preskoči na sadržaj</a>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="/#main" aria-label="BARVIS Studio, početna"><svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="2.5" y="3" width="9" height="9" rx="1.5" fill="none" stroke="#878a82" transform="rotate(-12 7 7.5)"/><rect x="10" y="2" width="8" height="8" rx="1.5" fill="none" stroke="#878a82" transform="rotate(9 14 6)"/><rect x="5" y="11" width="11" height="9" rx="1.5" fill="#c8f250"/></svg>BARVIS <small>studio</small></a>
+    <nav class="main-nav" aria-label="Glavni meni"><ul><li><a href="/#usluge">Usluge</a></li><li><a href="/#radovi">Radovi</a></li><li><a href="/cenovnik/">Cenovnik</a></li><li><a href="/procena/">Procena</a></li><li><a href="/za-koga/">Kako radim</a></li><li><a href="/#o-studiju">O studiju</a></li></ul></nav>
+    <div class="header-end">
+      <details class="lang">
+        <summary aria-label="Jezik: Srpski"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#i-globus"/></svg>SR</summary>
+        <div class="lang-list" translate="no"><a href="/" lang="sr-Latn">Srpski</a><a href="/en/" lang="en">English</a><a href="/de/" lang="de">Deutsch</a><a href="/fr/" lang="fr">Français</a><a href="/es/" lang="es">Español</a><a href="/it/" lang="it">Italiano</a><a href="/ru/" lang="ru">Русский</a><a href="/zh/" lang="zh-Hans">中文</a><a href="/ja/" lang="ja">日本語</a><a href="/ko/" lang="ko">한국어</a><a href="/hu/" lang="hu">Magyar</a></div>
+      </details>
+      <a class="btn btn-primary header-cta" href="/pokrenite-projekat/">Pokrenite projekat</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#i-hamburger-menu"/></svg>Meni</button>
+    </div>
   </header>
-  <main class="not-found" id="main">
-    <p class="eyebrow">Greška 404</p>
-    <h1>Ova stranica<br><em>ne postoji.</em></h1>
-    <p>Adresa je možda pogrešno ukucana ili je stranica premeštena. Svi radovi i kontakt su na početnoj strani.</p>
-    <a class="circle-link" href="/"><span>Početna</span><b class="ico ico-left" aria-hidden="true"></b></a>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Meni" hidden>
+    <button class="menu-btn menu-close" type="button"><svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#i-close-circle"/></svg>Zatvori</button>
+    <nav aria-label="Glavni meni"><ul><li><a href="/#usluge"><span>01</span>Usluge</a></li><li><a href="/#radovi"><span>02</span>Radovi</a></li><li><a href="/cenovnik/"><span>03</span>Cenovnik</a></li><li><a href="/procena/"><span>04</span>Procena</a></li><li><a href="/za-koga/"><span>05</span>Kako radim</a></li><li><a href="/#o-studiju"><span>06</span>O studiju</a></li></ul></nav>
+    <div class="mobile-menu-foot">
+      <a class="btn btn-primary" href="/pokrenite-projekat/">Pokrenite projekat <svg class="ico" aria-hidden="true"><use href="/assets/icons.svg#i-arrow-right"/></svg></a>
+      <details><summary>Jezik: Srpski</summary><div class="langs" translate="no"><a href="/en/" lang="en">English</a><a href="/de/" lang="de">Deutsch</a><a href="/fr/" lang="fr">Français</a><a href="/es/" lang="es">Español</a><a href="/it/" lang="it">Italiano</a><a href="/ru/" lang="ru">Русский</a><a href="/zh/" lang="zh-Hans">中文</a><a href="/ja/" lang="ja">日本語</a><a href="/ko/" lang="ko">한국어</a><a href="/hu/" lang="hu">Magyar</a></div></details>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <section class="page-head" style="min-height:70vh"><div class="wrap"><p class="label"><span class="dot"></span>Greška 404</p><h1>Ova stranica <span class="ed">ne postoji.</span></h1><p class="lead">Adresa je možda pogrešno ukucana ili je stranica premeštena. Svi radovi i kontakt su na početnoj strani.</p>
+      <p class="hint" lang="en">Page not found. The address may be mistyped or the page has moved.</p>
+      <div class="hero-actions" style="margin-top:28px"><a class="btn btn-primary" href="/">Početna <svg class="ico ico-move" aria-hidden="true"><use href="/assets/icons.svg#i-arrow-right"/></svg></a><a class="btn" href="/pokrenite-projekat/">Pokrenite projekat</a><a class="btn btn-quiet" href="/en/" lang="en">English home</a></div></div></section>
   </main>
+
+  <footer class="site-footer" id="o-studiju-footer">
+    <div class="wrap grid">
+      <div class="foot-brand"><a class="brand" href="/#main" aria-label="BARVIS Studio, početna"><svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="2.5" y="3" width="9" height="9" rx="1.5" fill="none" stroke="#878a82" transform="rotate(-12 7 7.5)"/><rect x="10" y="2" width="8" height="8" rx="1.5" fill="none" stroke="#878a82" transform="rotate(9 14 6)"/><rect x="5" y="11" width="11" height="9" rx="1.5" fill="#c8f250"/></svg>BARVIS <small>studio</small></a><p>Poslovni softver, sajtovi i automatizacija. Boris Lahos, Novi Sad — radim online sa klijentima iz cele Srbije.</p></div>
+      <nav class="foot-col" aria-labelledby="ft-studio"><h2 id="ft-studio">Studio</h2><ul><li><a href="/#radovi">Radovi</a></li><li><a href="/cenovnik/">Cenovnik</a></li><li><a href="/za-koga/">Kako radim</a></li><li><a href="https://demo.barvis-studio.dev/" rel="noopener">Fizio Alfa demo</a></li></ul></nav>
+      <nav class="foot-col" aria-labelledby="ft-start"><h2 id="ft-start">Započnite</h2><ul><li><a href="/pokrenite-projekat/?put=upit">Brzi upit</a></li><li><a href="/procena/">Procena projekta</a></li><li><a href="/pokrenite-projekat/?put=razgovor">Besplatan razgovor</a></li></ul></nav>
+      <nav class="foot-col" aria-labelledby="ft-contact"><h2 id="ft-contact">Kontakt</h2><ul><li><a href="mailto:hello@barvis-studio.dev">hello@barvis-studio.dev</a></li><li><a href="tel:+38169625066">+381 69 625 066</a></li><li><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a></li></ul></nav>
+      <div class="foot-legal"><span>© 2026 Boris Lahos · Novi Sad</span><a href="/privatnost/">Politika privatnosti</a><span>Ikone: Solar, 480 Design, CC BY 4.0</span></div>
+    </div>
+  </footer>
+  <script src="/site.js?v=342eb00cee" defer></script>
 </body>
 </html>

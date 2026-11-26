@@ -32,7 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 log = logging.getLogger("leads")
 
 SERVICES = {"app", "site", "automation", "maintenance", "unsure"}
-LANGS = {"sr", "en"}
+LANGS = {"sr", "en", "de", "fr", "es", "it", "ru", "zh", "ja", "ko", "hu"}
 MAX_BODY = 20_000
 EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]{2,}$")
 PHONE_RE = re.compile(r"^[+()\d\s/.-]{6,}$")

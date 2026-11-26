@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BARVIS Focus：タイマー、タスク、統計｜BARVIS Studio</title>
   <meta name="description" content="プロジェクトとタスクにひもづくポモドーロタイマー、1日の計画、統計が端末間で同期。">
-  <meta name="theme-color" content="#0a0d0b">
+  <meta name="theme-color" content="#0c100f">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://barvis-studio.dev/ja/work/barvis-focus/">
   <link rel="alternate" hreflang="sr-Latn" href="https://barvis-studio.dev/radovi/barvis-focus/">
@@ -32,60 +32,73 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="../../../assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../../styles.css?v=612ee6d778">
-  <script type="application/json" id="i18n">{"locale": "ja-JP", "app": {"prev": "前の画像", "next": "次の画像", "image": "画像", "gallery": "スクリーンショット", "play": "動画を再生", "watch": "見る"}, "T": {"greeting": "Boris さん、こんにちは。", "about": "私たちについて（業種、いまの働き方）：", "thanks": "よろしくお願いします。", "subject": "お問い合わせ：", "copied": "説明をコピーしました。メールやメッセージに貼り付けてください。", "copyFail": "コピーできませんでした。問い合わせフォームをご利用ください。", "moved": "説明を下の問い合わせフォームに入れました。お仕事について一言添えて送信してください。"}, "E": {"suffix": true, "kinds": {"system": "アプリ・システム", "site": "ウェブサイト", "automation": "自動化", "maintenance": "保守", "unsure": "まだ分からない"}, "prices": {"system": ["から", 2000], "site": ["から", 500], "automation": ["範囲による"], "maintenance": ["から", 50, "/ 月"]}, "scope": ["小規模プロジェクト", "中規模プロジェクト", "大規模プロジェクト"], "talk": "範囲は一緒に決めます", "fit": {"low": "予算が開始価格を下回っています。いちばん大事な機能だけの小さな最初のバージョンを提案し、あとから広げられます。", "ok": "予算は開始価格に合っています。書面の提案で正確な範囲と期間をお伝えします。", "unknown": "予算が未定でも大丈夫です。提案で部分ごとの費用が分かるので、そこから選べます。"}, "team": {"1": "自分だけ", "2-5": "2–5人", "6-15": "6–15人", "15+": "15人以上"}, "when": {"asap": "できるだけ早く", "1-3": "1–3か月以内", "flex": "急がない"}, "budget": {"500": "500 € まで", "2000": "500–2,000 €", "5000": "2,000–5,000 €", "more": "5,000 € 以上", "unknown": "未定"}, "remove": "削除", "intro": "サイトで作った見積もり：", "need": "必要なもの", "does": "機能", "teamL": "人数", "whenL": "時期", "budgetL": "予算", "range": "おおよその価格", "time": "おおよその期間", "weeks": "週", "monthly": "+ 保守 月50 €から", "small": "小規模プロジェクト"}, "C": {"required": "入力してください。", "name": "お名前を入力してください。", "contact": "メールアドレスか電話番号を入力してください。", "message": "必要なことを一、二行で書いてください。", "sending": "送信中…", "subject": "barvis-studio.dev からのお問い合わせ", "nameL": "お名前", "contactL": "連絡先", "serviceL": "サービス", "ok": "<b>ありがとうございます。お問い合わせを送信しました。<\/b>具体的な次のステップとともに直接お返事します。", "opened": "<p><b>メールアプリが本文入りで開いているはずです。<\/b>そのまま送信してください。<\/p><p>開きませんか？別の方法で同じ内容を送れます：<\/p>", "failed": "<p><b>今回は送信できませんでした。<\/b>メッセージは消えていません。別の方法で送ってください：<\/p>", "copy": "メッセージをコピー", "copied": "コピーしました。hello@barvis-studio.dev 宛のメールに貼り付けてください。", "email": "メールを開く"}, "P": {"site": [["landing", 400, 900, [1, 2]], ["company", 900, 2500, [2, 4]], ["pro", 2500, 5000, [4, 8]]], "system": [["tool", 1500, 4000, [2, 5]], ["business", 4000, 12000, [6, 14]], ["platform", 12000, null, [12, 24]]], "automation": [["single", 300, 1200, [1, 2]], ["flow", 1200, 4000, [2, 6]]], "maintenance": [["basic", 50, null, null], ["standard", 150, null, null], ["growth", 400, null, null]]}}</script>
+  <meta name="twitter:title" content="BARVIS Focus：タイマー、タスク、統計｜BARVIS Studio">
+  <meta name="twitter:description" content="プロジェクトとタスクにひもづくポモドーロタイマー、1日の計画、統計が端末間で同期。">
+  <link rel="preload" href="../../../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../site.css?v=f15ae96e07">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
-<body>
+<body data-page="focus">
   <a class="skip-link" href="#main">本文へ移動</a>
-  <div class="noise" aria-hidden="true"></div>
-
+  <div class="grain" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="../../../ja/#top" aria-label="BARVIS Studio"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
-    <nav aria-label="メニュー"><a href="../../../ja/#top">ホーム</a><a href="../../../ja/#services">サービス</a><a href="../../../ja/#work">実績</a><a href="../../../ja/pricing/">料金</a><a href="../../../ja/estimate/">見積もり</a><a href="../../../ja/how-i-work/">進め方</a><a href="../../../ja/#faq">よくある質問</a></nav>
+    <a class="brand" href="../../../ja/#main" aria-label="BARVIS Studio ホーム"><svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="2.5" y="3" width="9" height="9" rx="1.5" fill="none" stroke="#878a82" transform="rotate(-12 7 7.5)"/><rect x="10" y="2" width="8" height="8" rx="1.5" fill="none" stroke="#878a82" transform="rotate(9 14 6)"/><rect x="5" y="11" width="11" height="9" rx="1.5" fill="#c8f250"/></svg>BARVIS <small>studio</small></a>
+    <nav class="main-nav" aria-label="メインメニュー"><ul><li><a href="../../../ja/#usluge">サービス</a></li><li><a href="../../../ja/#radovi" aria-current="page">実績</a></li><li><a href="../../../ja/pricing/">料金</a></li><li><a href="../../../ja/estimate/">見積もり</a></li><li><a href="../../../ja/how-i-work/">進め方</a></li><li><a href="../../../ja/#o-studiju">スタジオについて</a></li></ul></nav>
     <div class="header-end">
-      <details class="lang-menu">
-        <summary aria-label="言語"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg><span>JA</span></summary>
+      <details class="lang">
+        <summary aria-label="言語: 日本語"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-globus"/></svg>JA</summary>
         <div class="lang-list" translate="no"><a href="../../../radovi/barvis-focus/" hreflang="sr-Latn" lang="sr-Latn">Srpski</a><a href="../../../en/work/barvis-focus/" hreflang="en" lang="en">English</a><a href="../../../de/work/barvis-focus/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/work/barvis-focus/" hreflang="fr" lang="fr">Français</a><a href="../../../es/work/barvis-focus/" hreflang="es" lang="es">Español</a><a href="../../../it/work/barvis-focus/" hreflang="it" lang="it">Italiano</a><a href="../../../ru/work/barvis-focus/" hreflang="ru" lang="ru">Русский</a><a href="../../../zh/work/barvis-focus/" hreflang="zh-Hans" lang="zh-Hans">中文</a><a href="../../../ja/work/barvis-focus/" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../../ko/work/barvis-focus/" hreflang="ko" lang="ko">한국어</a><a href="../../../hu/work/barvis-focus/" hreflang="hu" lang="hu">Magyar</a></div>
       </details>
-      <a class="header-cta" href="../../../ja/#contact"><span class="ico ico-call" aria-hidden="true"></span> 無料相談</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-open="メニュー" data-close="閉じる"><span class="menu-label">メニュー</span></button>
+      <a class="btn btn-primary header-cta" href="../../../ja/start-a-project/">プロジェクトを始める</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-hamburger-menu"/></svg>メニュー</button>
     </div>
   </header>
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav aria-label="メニュー"><a href="../../../ja/#top">ホーム</a><a href="../../../ja/#services">サービス</a><a href="../../../ja/#work">実績</a><a href="../../../ja/pricing/">料金</a><a href="../../../ja/estimate/">見積もり</a><a href="../../../ja/how-i-work/">進め方</a><a href="../../../ja/#faq">よくある質問</a></nav>
-    <div class="mobile-menu-foot"><a class="btn-primary" href="../../../ja/#contact"><span class="ico ico-call" aria-hidden="true"></span> 無料相談を予約</a>
-      <div class="mobile-lang" translate="no"><span>言語</span><div><a href="../../../radovi/barvis-focus/" hreflang="sr-Latn" lang="sr-Latn">Srpski</a><a href="../../../en/work/barvis-focus/" hreflang="en" lang="en">English</a><a href="../../../de/work/barvis-focus/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/work/barvis-focus/" hreflang="fr" lang="fr">Français</a><a href="../../../es/work/barvis-focus/" hreflang="es" lang="es">Español</a><a href="../../../it/work/barvis-focus/" hreflang="it" lang="it">Italiano</a><a href="../../../ru/work/barvis-focus/" hreflang="ru" lang="ru">Русский</a><a href="../../../zh/work/barvis-focus/" hreflang="zh-Hans" lang="zh-Hans">中文</a><a href="../../../ja/work/barvis-focus/" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../../ko/work/barvis-focus/" hreflang="ko" lang="ko">한국어</a><a href="../../../hu/work/barvis-focus/" hreflang="hu" lang="hu">Magyar</a></div></div></div>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="メニュー" hidden>
+    <button class="menu-btn menu-close" type="button"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-close-circle"/></svg>閉じる</button>
+    <nav aria-label="メインメニュー"><ul><li><a href="../../../ja/#usluge"><span>01</span>サービス</a></li><li><a href="../../../ja/#radovi" aria-current="page"><span>02</span>実績</a></li><li><a href="../../../ja/pricing/"><span>03</span>料金</a></li><li><a href="../../../ja/estimate/"><span>04</span>見積もり</a></li><li><a href="../../../ja/how-i-work/"><span>05</span>進め方</a></li><li><a href="../../../ja/#o-studiju"><span>06</span>スタジオについて</a></li></ul></nav>
+    <div class="mobile-menu-foot">
+      <a class="btn btn-primary" href="../../../ja/start-a-project/">プロジェクトを始める <svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-right"/></svg></a>
+      <details><summary>言語: 日本語</summary><div class="langs" translate="no"><a href="../../../radovi/barvis-focus/" lang="sr-Latn">Srpski</a><a href="../../../en/work/barvis-focus/" lang="en">English</a><a href="../../../de/work/barvis-focus/" lang="de">Deutsch</a><a href="../../../fr/work/barvis-focus/" lang="fr">Français</a><a href="../../../es/work/barvis-focus/" lang="es">Español</a><a href="../../../it/work/barvis-focus/" lang="it">Italiano</a><a href="../../../ru/work/barvis-focus/" lang="ru">Русский</a><a href="../../../zh/work/barvis-focus/" lang="zh-Hans">中文</a><a href="../../../ko/work/barvis-focus/" lang="ko">한국어</a><a href="../../../hu/work/barvis-focus/" lang="hu">Magyar</a></div></details>
+    </div>
   </div>
 
-  <main id="main" tabindex="-1" class="case-page">
-    <article class="case case-focus" id="case-focus" aria-labelledby="case-title">
-      <nav class="case-nav" aria-label="実績。"><a href="../../../ja/#work"><span class="ico ico-left" aria-hidden="true"></span> すべての実績</a><a href="../../../ja/work/fizio-alfa/">次のプロジェクト: Fizio Alfa <span class="ico ico-right" aria-hidden="true"></span></a></nav>
-      <div class="project-meta"><span>自社プロダクト · BARVIS Focus</span></div>
-      <div class="case-intro"><h1 id="case-title">目標から<br><em>ぶれない集中。</em></h1><dl class="case-facts"><div><dt>課題</dt><dd>タイマーはあるアプリに、タスクは別のアプリに、メモはさらに別のアプリに。時間の使い道が見えませんでした。</dd></div><div><dt>解決策</dt><dd>プロジェクトとタスクにひもづくタイマー、1日の計画、日・週・月の統計、費やした時間で上がるスキルレベル。</dd></div><div><dt>技術面</dt><dd>PCとスマホで同じタイマー、他のアプリの上に出る小さなウィンドウ、コマンドパレット、キーボードだけでの操作。</dd></div><div><dt>技術</dt><dd>Django、PostgreSQL、Docker。専用サーバー。</dd></div></dl></div>
-      <div class="case-media">
-        <figure class="case-video"><video controls playsinline preload="none" data-poster="../../../assets/work/focus-walkthrough-en-poster.webp" width="1280" height="800" aria-describedby="video-desc"><source src="../../../assets/work/focus-walkthrough-en.mp4" type="video/mp4"></video><figcaption id="video-desc"><b>41秒で見るシステム：</b>タイマー、タスク、1日の計画、統計、成長、スマホ。架空のデータです。</figcaption></figure>
-        <div class="case-gallery"><figure class="shot"><picture><source type="image/webp" srcset="../../../assets/work/focus-phones-960.webp 960w, ../../../assets/work/focus-phones-1440.webp 1440w, ../../../assets/work/focus-phones-2400.webp 2400w, ../../../assets/work/focus-phones-3840.webp 3840w" sizes="(max-width: 760px) 92vw, 60vw"><img src="../../../assets/work/focus-phones-960.webp" alt="スマホのBARVIS Focus：タイマーと統計" width="3840" height="2400" loading="lazy" decoding="async"></picture><figcaption><b>スマホで。</b>PCで止めたところから同じタイマーが続きます。</figcaption></figure><figure class="shot shot-wide"><picture><source type="image/webp" srcset="../../../assets/work/focus-analytics-960.webp 960w, ../../../assets/work/focus-analytics-1440.webp 1440w, ../../../assets/work/focus-analytics-2400.webp 2400w, ../../../assets/work/focus-analytics-3840.webp 3840w" sizes="(max-width: 760px) 92vw, 60vw"><img src="../../../assets/work/focus-analytics-960.webp" alt="統計：日別・プロジェクト別の集中時間" width="1440" height="900" loading="lazy" decoding="async"></picture><figcaption><b>統計。</b>日別・プロジェクト別の時間を前の期間と比較。</figcaption></figure><figure class="shot"><picture><source type="image/webp" srcset="../../../assets/work/focus-tasks-960.webp 960w, ../../../assets/work/focus-tasks-1440.webp 1440w, ../../../assets/work/focus-tasks-2400.webp 2400w, ../../../assets/work/focus-tasks-3840.webp 3840w" sizes="(max-width: 760px) 92vw, 60vw"><img src="../../../assets/work/focus-tasks-960.webp" alt="ポモドーロ単位で進捗が見えるタスク" width="1440" height="900" loading="lazy" decoding="async"></picture><figcaption><b>進捗の見えるタスク。</b>終わったポモドーロがタスクに記録されます。</figcaption></figure><figure class="shot"><picture><source type="image/webp" srcset="../../../assets/work/focus-development-960.webp 960w, ../../../assets/work/focus-development-1440.webp 1440w, ../../../assets/work/focus-development-2400.webp 2400w, ../../../assets/work/focus-development-3840.webp 3840w" sizes="(max-width: 760px) 92vw, 60vw"><img src="../../../assets/work/focus-development-960.webp" alt="成長：レベルとスキル" width="1440" height="900" loading="lazy" decoding="async"></picture><figcaption><b>成長。</b>費やした時間がスキルレベルになります。</figcaption></figure></div>
+  <main id="main" tabindex="-1">
+    <article aria-labelledby="case-title">
+      <header class="case-top"><div class="wrap">
+        <nav class="crumbs" aria-label="実績"><a href="../../../ja/#radovi"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-left"/></svg>すべての実績</a><a href="../../../ja/work/fizio-alfa/">次のプロジェクト: Fizio Alfa <svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-right"/></svg></a></nav>
+        <div class="grid"><div class="case-title"><p class="label"><span class="dot"></span>ケーススタディ · 自社プロダクト</p><h1 id="case-title" style="margin-top:18px">BARVIS Focus <span class="sub">目標から <span class="ed">ぶれない集中。</span></span></h1></div>
+          <dl class="case-facts"><div><dt>課題</dt><dd>タイマーはあるアプリに、タスクは別のアプリに、メモはさらに別のアプリに。時間の使い道が見えませんでした。</dd></div><div><dt>解決策</dt><dd>プロジェクトとタスクにひもづくタイマー、1日の計画、日・週・月の統計、費やした時間で上がるスキルレベル。</dd></div><div><dt>技術</dt><dd>Django、PostgreSQL、Docker。専用サーバー。</dd></div></dl></div></div></header>
+
+      <div class="wrap"><p class="lead" style="max-width:62ch;margin-top:40px">BARVIS Focus はクライアント案件ではなく、私自身のプロダクトです。複数デバイス間の同期、キーボードだけでの操作、分析機能など、複雑なシステムを最初から最後までどうつくるかを示しています。</p></div>
+      <div class="case-film">
+        <figure class="film" data-film data-fallback="動画はいま再生できません。下のスクリーンショットを見るか、デモをお試しください。">
+          <img src="../../../assets/work/focus-walkthrough-en-poster.webp" alt="" width="2560" height="1600" loading="lazy" decoding="async">
+          <video playsinline preload="none" width="1280" height="800" aria-describedby="film-cap"><source src="../../../assets/work/focus-walkthrough-en.mp4" type="video/mp4"></video>
+          <button class="film-play" type="button" aria-label="動画を再生：BARVIS Focus"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-play"/></svg></button>
+        </figure>
+        <p class="film-cap wrap" id="film-cap"><span><b>41秒で見るシステム：</b>タイマー、タスク、1日の計画、統計、成長、スマホ。架空のデータです。</span></p>
       </div>
-      <ul class="case-tags"><li>すべての端末でタイマー</li><li>キーボードショートカット</li><li>統計とCSV出力</li><li>アクセシビリティ</li><li>専用サーバー</li></ul>
-      <div class="case-cta"><p>働き方に合わせたツールが必要ですか？</p><a class="btn-primary" href="../../../ja/#contact" data-service="app">連絡する <span class="ico ico-out" aria-hidden="true"></span></a></div>
-      <nav class="case-nav" aria-label="実績。"><a href="../../../ja/#work"><span class="ico ico-left" aria-hidden="true"></span> すべての実績</a><a href="../../../ja/work/fizio-alfa/">次のプロジェクト: Fizio Alfa <span class="ico ico-right" aria-hidden="true"></span></a></nav>
+
+      <section class="chapter" aria-labelledby="focus-features"><h2 class="vh" id="focus-features">目標からぶれない集中。</h2><ol class="features"><li class="feature is-phones"><div class="wrap grid"><div class="feature-copy"><h3>スマホで。</h3><p>PCで止めたところから同じタイマーが続きます。</p></div><figure class="feature-shot"><img src="../../../assets/work/focus-phones-960.webp" srcset="../../../assets/work/focus-phones-960.webp 960w, ../../../assets/work/focus-phones-1440.webp 1440w, ../../../assets/work/focus-phones-2400.webp 2400w" sizes="(min-width: 1100px) 60vw, 92vw" width="3840" height="2400" alt="スマホのBARVIS Focus：タイマーと統計" loading="lazy" decoding="async"></figure></div></li><li class="feature"><div class="wrap grid"><div class="feature-copy"><h3>統計。</h3><p>日別・プロジェクト別の時間を前の期間と比較。</p></div><figure class="feature-shot"><div class="screen" data-alt="統計：日別・プロジェクト別の集中時間"><div class="screen-bar" aria-hidden="true"><i></i><i></i><i></i><span>BARVIS Focus</span></div><img src="../../../assets/work/focus-analytics-960.webp" srcset="../../../assets/work/focus-analytics-960.webp 960w, ../../../assets/work/focus-analytics-1440.webp 1440w, ../../../assets/work/focus-analytics-2400.webp 2400w" sizes="(min-width: 1100px) 60vw, 92vw" width="1440" height="900" alt="統計：日別・プロジェクト別の集中時間" loading="lazy" decoding="async"></div></figure></div></li><li class="feature"><div class="wrap grid"><div class="feature-copy"><h3>進捗の見えるタスク。</h3><p>終わったポモドーロがタスクに記録されます。</p></div><figure class="feature-shot"><div class="screen" data-alt="ポモドーロ単位で進捗が見えるタスク"><div class="screen-bar" aria-hidden="true"><i></i><i></i><i></i><span>BARVIS Focus</span></div><img src="../../../assets/work/focus-tasks-960.webp" srcset="../../../assets/work/focus-tasks-960.webp 960w, ../../../assets/work/focus-tasks-1440.webp 1440w, ../../../assets/work/focus-tasks-2400.webp 2400w" sizes="(min-width: 1100px) 60vw, 92vw" width="1440" height="900" alt="ポモドーロ単位で進捗が見えるタスク" loading="lazy" decoding="async"></div></figure></div></li><li class="feature"><div class="wrap grid"><div class="feature-copy"><h3>成長。</h3><p>費やした時間がスキルレベルになります。</p></div><figure class="feature-shot"><div class="screen" data-alt="成長：レベルとスキル"><div class="screen-bar" aria-hidden="true"><i></i><i></i><i></i><span>BARVIS Focus</span></div><img src="../../../assets/work/focus-development-960.webp" srcset="../../../assets/work/focus-development-960.webp 960w, ../../../assets/work/focus-development-1440.webp 1440w, ../../../assets/work/focus-development-2400.webp 2400w" sizes="(min-width: 1100px) 60vw, 92vw" width="1440" height="900" alt="成長：レベルとスキル" loading="lazy" decoding="async"></div></figure></div></li></ol>
+        <div class="wrap grid"><p class="hint" style="grid-column:1/-1;margin-top:24px">技術面: PCとスマホで同じタイマー、他のアプリの上に出る小さなウィンドウ、コマンドパレット、キーボードだけでの操作。</p><ul class="stack"><li class="chip">すべての端末でタイマー</li><li class="chip">キーボードショートカット</li><li class="chip">統計とCSV出力</li><li class="chip">アクセシビリティ</li><li class="chip">専用サーバー</li></ul></div></section>
     </article>
+    <section class="cta-final" aria-labelledby="cta-title"><div class="wrap"><h2 id="cta-title"><span class="ed">あなたの働き方</span>に合うツールが必要ですか？</h2><p>業務の流れを数行で教えてください。初回の相談は無料で、義務はありません。</p>
+      <div class="actions"><a class="btn btn-primary" href="../../../ja/start-a-project/?put=upit">連絡する <svg class="ico ico-move" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-right"/></svg></a><a class="btn" href="../../../ja/estimate/">プロジェクト見積もり</a></div></div></section>
+    <div class="wrap case-next"><a href="../../../ja/#radovi"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-left"/></svg>すべての実績</a><a href="../../../ja/work/fizio-alfa/" style="text-align:right"><span><small>次のプロジェクト · クライアント案件</small>Fizio Alfa</span><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-arrow-right"/></svg></a></div>
   </main>
 
-  <footer>
-    <div class="footer-brand">
-      <a class="brand" href="../../../ja/#top" aria-label="BARVIS Studio"><span class="brand-mark" aria-hidden="true">B</span><span>BARVIS<small>studio</small></span></a>
-      <p class="footer-motto">Digital systems, <em>made human.</em></p>
-      <p>© 2026 Boris Lahos · Novi Sad</p>
+  <div class="thumb-bar" data-thumb aria-hidden="true"><a class="btn btn-primary" href="../../../ja/start-a-project/" tabindex="-1">プロジェクトを始める</a><a class="btn btn-icon" href="../../../ja/estimate/" tabindex="-1" aria-label="見積もり"><svg class="ico" aria-hidden="true"><use href="../../../assets/icons.svg#i-calculator"/></svg></a></div>
+  <footer class="site-footer" id="o-studiju-footer">
+    <div class="wrap grid">
+      <div class="foot-brand"><a class="brand" href="../../../ja/#main" aria-label="BARVIS Studio ホーム"><svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="2.5" y="3" width="9" height="9" rx="1.5" fill="none" stroke="#878a82" transform="rotate(-12 7 7.5)"/><rect x="10" y="2" width="8" height="8" rx="1.5" fill="none" stroke="#878a82" transform="rotate(9 14 6)"/><rect x="5" y="11" width="11" height="9" rx="1.5" fill="#c8f250"/></svg>BARVIS <small>studio</small></a><p>業務ソフトウェア、ウェブサイト、自動化。Boris Lahos、セルビア・ノヴィ・サド — オンラインでどこのお客様とも。</p></div>
+      <nav class="foot-col" aria-labelledby="ft-studio"><h2 id="ft-studio">スタジオ</h2><ul><li><a href="../../../ja/#radovi">実績</a></li><li><a href="../../../ja/pricing/">料金</a></li><li><a href="../../../ja/how-i-work/">進め方</a></li><li><a href="https://demo.barvis-studio.dev/" rel="noopener">Fizio Alfa デモ</a></li></ul></nav>
+      <nav class="foot-col" aria-labelledby="ft-start"><h2 id="ft-start">始める</h2><ul><li><a href="../../../ja/start-a-project/?put=upit">かんたん問い合わせ</a></li><li><a href="../../../ja/estimate/">プロジェクト見積もり</a></li><li><a href="../../../ja/start-a-project/?put=razgovor">無料相談</a></li></ul></nav>
+      <nav class="foot-col" aria-labelledby="ft-contact"><h2 id="ft-contact">連絡先</h2><ul><li><a href="mailto:hello@barvis-studio.dev">hello@barvis-studio.dev</a></li><li><a href="tel:+38169625066">+381 69 625 066</a></li><li><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a></li></ul></nav>
+      <div class="foot-legal"><span>© 2026 Boris Lahos · Novi Sad</span><a href="../../../ja/privacy/">プライバシーポリシー</a><span>アイコン：Solar、480 Design、CC BY 4.0</span></div>
     </div>
-    <nav class="footer-col" aria-label="対象"><p>対象</p><a href="../../../ja/how-i-work/#clinics">クリニック・医院</a><a href="../../../ja/how-i-work/#salons">サロン・スタジオ</a><a href="../../../ja/how-i-work/#workshops">修理店・工房</a><a href="../../../ja/how-i-work/#schools">教室・講座・コーチ</a><a href="../../../ja/how-i-work/#offices">事務所・代理店</a><a href="../../../ja/how-i-work/#clubs">協会・クラブ</a></nav>
-    <nav class="footer-col" aria-label="Studio"><p>Studio</p><a href="../../../ja/#work">実績</a><a href="../../../ja/pricing/">料金</a><a href="../../../ja/estimate/">見積もり</a><a href="../../../ja/how-i-work/">進め方</a><a href="../../../ja/#faq">よくある質問</a></nav>
-    <nav class="footer-col" aria-label="お問い合わせ"><p>お問い合わせ</p><a href="../../../ja/#contact">問い合わせを送る</a><a href="mailto:hello@barvis-studio.dev">hello@barvis-studio.dev</a><a href="https://www.linkedin.com/in/boris-lahos/" rel="me noopener">LinkedIn</a><a href="https://github.com/Jaddes" rel="me noopener">GitHub</a><a href="https://demo.barvis-studio.dev/" rel="noopener">Fizio Alfa デモ</a></nav>
   </footer>
   <script src="../../../assets/vendor/gsap.min.js" defer></script>
   <script src="../../../assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="../../../estimate.js?v=f947d89239" defer></script>
-  <script src="../../../app.js?v=455319a3c7" defer></script>
+  <script src="../../../site.js?v=342eb00cee" defer></script>
 </body>
 </html>
