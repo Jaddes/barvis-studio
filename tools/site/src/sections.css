@@ -212,3 +212,12 @@
   .chip, .label .dot, .step-n { forced-color-adjust: auto; }
 }
 .section + .cta-final { margin-top: 0; }
+
+/* QA poravnanja pre objave */
+.form-row { align-items: start; }
+.field { align-content: start; }
+.sec-head { align-content: start; }
+@media (min-width: 1100px) { .row-link { grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.1fr) 230px; } .row-link .price { justify-content: flex-end; } }
+.about-copy > p.label { font-size: var(--fs-label); color: var(--paper-3); max-width: none; }
+@media (max-width: 599px) { .row-link .price, .tier .t-price { justify-content: flex-start; gap: 6px; } .row-link .price .go, .tier .t-price .go { margin-left: auto; } }
+.record .chip { justify-self: start; }
