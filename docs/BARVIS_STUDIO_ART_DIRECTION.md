@@ -245,6 +245,8 @@ Posle odobrenja: šabloni prelaze u `tools/site/build.py`, tekstovi u `content/<
 - Novi tekstovi: `tools/site/content/x_<jezik>.py` (11 jezika). Provera strukture i {zamena} prema srpskom: `python tools/site/check_content.py`.
 - Forma: `ENDPOINT = ''` u build.py dok kontrolisani test upita sa prijemom mejla ne prođe; tada upisati `https://api.barvis-studio.dev/v1/inquiries` i ponovo pokrenuti build.
 - API: `lang` prihvata svih 11 jezika (13 testova prolazi).
-- Ručne SR landing stranice i 404 i dalje koriste stari `styles.css`/`app.js`; ispravljena su samo sidrišta ka početnoj (`#usluge`, `#radovi`, `#pitanja`, `#o-studiju`). **Prebacivanje u novi sistem ostaje otvoreno.**
+- SR landing stranice (`softver-za-fizioterapeute/`, `aplikacija-za-zakazivanje/`, `izrada-sajtova/`) i 404 generiše isti build (`content/landing_sr.py`); cene na njima dolaze iz `tiers.py` (ranije su stajali zastareli „od 2.000 €“ i „od 500 €“). Stari `styles.css`, `app.js`, `estimate.js` i fontovi Inter Tight / Instrument Serif su uklonjeni.
 - Provereno: 24/24 testa toka (validacija, uspeh, greška, procena iz cenovnika, tastatura, mobilni meni, bez JS-a), axe bez nalaza na 12 stranica (sr, en, ru, ja, de, sa i bez reduced-motion), lab merenje na usporenom 4G: LCP 1,5–2,4 s, CLS ≤ 0,04. Stvarni 75. percentil (CrUX) se meri tek posle objave.
-- Ostaje pre objave: kontrolisani API test sa prijemom mejla, pregled prevoda od strane izvornih govornika (posebno zh/ja/ko/hu), prebacivanje 3 landing stranice i 404, provera čitačem ekrana i zumom 200%.
+- Automatski provereno i: prelom bez vodoravnog skrola na 640 px (zum 200%) i 320 px (zum 400%) na 16 stranica, forced-colors (fokus i izbor dobijaju sistemske boje), stablo pristupačnosti forme (sva polja imaju ime).
+- Commit: grana `studio-rework`, 06a4b25 (+ cfaf424). Nije spojeno u `main`.
+- Ostaje pre objave: kontrolisani API test sa prijemom mejla; pregled prevoda od izvornih govornika (posebno zh/ja/ko/hu) ili objava samo proverenih jezika; ručna provera pravim čitačem ekrana (NVDA/VoiceOver); merge u `main` i smoke test javnog sajta.
